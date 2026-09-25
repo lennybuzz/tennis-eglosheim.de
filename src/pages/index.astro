@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import inhalte, { kontakt, links, mannschaften, minBeitrag } from '../lib/inhalte';
+import inhalte, { archiv, kontakt, links, mannschaften, minBeitrag } from '../lib/inhalte';
 
 const { anlage, buchung, mitgliedschaftBedingungen, mitglieder, training, spielbetrieb, termine, sommerSpecial, timeline } =
   inhalte;
@@ -260,6 +260,11 @@ const chronik = [...timeline].reverse();
               <p>{spielbetrieb.hinweisOhneTeams}</p>
             )
           }
+          {archiv.length > 0 && (
+            <p class="info__klein">
+              <a href="/tennis/#archiv">{archiv[0].saison} im Archiv</a>
+            </p>
+          )}
         </div>
       </li>
 

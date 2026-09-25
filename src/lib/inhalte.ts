@@ -12,6 +12,14 @@ export interface Mannschaft {
 /** Gemeldete Mannschaften der aktuellen Saison – leer, solange für die Saison noch nichts gemeldet ist. */
 export const mannschaften: Mannschaft[] = inhalte.spielbetrieb.teams as Mannschaft[];
 
+export interface ArchivSaison {
+  saison: string;
+  teams: Mannschaft[];
+  hinweis: string;
+}
+/** Abgeschlossene Saisons, neueste zuerst. */
+export const archiv: ArchivSaison[] = inhalte.spielbetrieb.archiv;
+
 /** Kleinster Jahresbeitrag über alle Tarife, z. B. 115 */
 export function minBeitrag(): number {
   const preise = inhalte.beitraege.gruppen

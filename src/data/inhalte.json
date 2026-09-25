@@ -123,6 +123,24 @@
       "titel": "Vereinsabend im Clubhaus"
     }
   ],
+  "mannschaften": [
+    {
+      "name": "Herren",
+      "runde": "Sommerrunde 2026"
+    },
+    {
+      "name": "Herren 40",
+      "runde": "Sommerrunde 2026"
+    },
+    {
+      "name": "Damen",
+      "runde": "Sommerrunde 2026"
+    },
+    {
+      "name": "Jugend",
+      "runde": "Sommerrunde 2026"
+    }
+  ],
   "sommerSpecial": {
     "aktiv": true,
     "titel": "Sommer-Special",
@@ -307,8 +325,28 @@
   "spielbetrieb": {
     "saison": "Sommersaison 2027",
     "teams": [],
-    "winterHinweis": "",
-    "hinweisOhneTeams": "Die Mannschaften für die Sommersaison 2027 stehen noch nicht fest. Sobald die Meldungen durch sind, findest du sie hier."
+    "hinweisOhneTeams": "Die Mannschaften für die Sommersaison 2027 stehen noch nicht fest. Sobald die Meldungen durch sind, findest du sie hier.",
+    "_archivHinweis": "Abgeschlossene Saisons, neueste zuerst. Zum Archivieren einer Saison: Eintrag mit saison, teams und hinweis hier oben einfügen.",
+    "archiv": [
+      {
+        "saison": "Sommersaison 2026",
+        "teams": [
+          {
+            "name": "Herren 30",
+            "liga": "Verbandsliga, Gruppe 026"
+          },
+          {
+            "name": "Herren 1",
+            "liga": "Bezirksliga, Gruppe 003"
+          },
+          {
+            "name": "Herren 30 (4er) 2",
+            "liga": "Bezirksstaffel 2, Gruppe 048"
+          }
+        ],
+        "hinweis": "In der Wintersaison 2025/2026 war zudem die Herren 30 (4er) Mannschaft vertreten. Aktuelle Tabellen gibt es beim WTB."
+      }
+    ]
   },
   "faq": [
     {

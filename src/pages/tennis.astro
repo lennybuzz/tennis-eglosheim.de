@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
-import inhalte, { links, mannschaften } from '../lib/inhalte';
+import inhalte, { archiv, links, mannschaften } from '../lib/inhalte';
 
 const { anlage, buchung, spielbetrieb, training } = inhalte;
 const preise = buchung.preise.filter((p) => p.platz === 'Tennis');
@@ -52,7 +52,29 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
           </div>
         )
       }
-      {spielbetrieb.winterHinweis && <p class="beleg__hinweis">{spielbetrieb.winterHinweis}</p>}
+      {
+        archiv.length > 0 && (
+          <div id="archiv" class="archiv">
+            <h3 class="archiv__titel">Archiv</h3>
+            {archiv.map((a) => (
+              <div class="beleg__block">
+                <table class="tabelle">
+                  <caption>{a.saison}</caption>
+                  <tbody>
+                    {a.teams.map((t) => (
+                      <tr>
+                        <th scope="row">{t.name}</th>
+                        <td>{t.liga}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {a.hinweis && <p class="beleg__hinweis">{a.hinweis}</p>}
+              </div>
+            ))}
+          </div>
+        )
+      }
     </div>
   </section>
 
@@ -173,6 +195,9 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
   .beleg__hinweis { font-size: var(--text-sm); line-height: 1.5; color: var(--color-ink-3); }
   .beleg__leer { padding-block: var(--space-sm); border-block: var(--rule); color: var(--color-ink-2); line-height: 1.55; }
   .beleg__leer-titel { font-weight: 600; color: var(--color-ink); }
+  .archiv { display: flex; flex-direction: column; gap: var(--space-md); margin-top: var(--space-sm); }
+  .archiv__titel { font-size: var(--text-sm); font-weight: 600; color: var(--color-ink-3); font-family: var(--font-body); }
+  .archiv .tabelle th, .archiv .tabelle td { color: var(--color-ink-2); }
   .links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
   .diptychon:last-of-type { padding-bottom: var(--space-3xl); }
 </style>
