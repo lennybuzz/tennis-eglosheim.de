@@ -93,6 +93,10 @@ das Formular lässt sich nur auf dem Webspace testen.
 ## Externe Dienste
 
 - Platzbuchung: eBuSy (`tennis-eglosheim.ebusy.de`)
-- Termine & Online-Anmeldung: ClubDesk (per iframe auf `/verein/termine/` und `/anmeldung/`)
-- Karte: OpenStreetMap (iframe auf `/kontakt/`)
+- Termine: ClubDesk-Kalender auf `/verein/termine/` – wird erst nach Klick auf „Kalender laden“ geladen
+- Online-Anmeldung: ClubDesk-Formular auf `/anmeldung/` – direkt eingebunden, mit Datenschutzhinweis darüber
+- Karte: OpenStreetMap auf `/kontakt/` – wird erst nach Klick auf „Karte laden“ geladen
+
+Neue fremde Inhalte (iframes) bitte immer über `src/components/Einbettung.astro` einbinden,
+damit vor dem Klick nichts an Dritte geht, und in der Datenschutzerklärung ergänzen (siehe `design.md`).
 - Schriften werden lokal ausgeliefert (kein Google Fonts)
