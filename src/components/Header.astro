@@ -101,7 +101,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
         ))
       }
       <a href={links.platzbuchung} class="nav__link nav__link--extern">Platz buchen <span aria-hidden="true">↗</span></a>
-      <a href="/mitglied-werden/" class="btn btn--accent nav__btn">Mitglied werden</a>
+      <a href="/mitglied-werden/" class="btn btn--primary nav__btn">Mitglied werden</a>
     </nav>
   </div>
 </header>
@@ -137,8 +137,9 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
     position: sticky;
     top: calc(var(--banner-h) * -1);
     z-index: var(--z-header);
-    background: var(--color-ink);
-    color: var(--color-on-dark);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    border-bottom: var(--rule); /* hell, damit das Logo auf seinem vorgesehenen Grund steht */
   }
   .site-header.has-banner { --banner-h: 44px; }
 
@@ -189,8 +190,8 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
     padding: 14px var(--gutter);
   }
 
-  .brand { display: flex; align-items: center; gap: var(--space-xs); color: var(--color-on-dark); }
-  .brand:hover { color: var(--color-on-accent); }
+  .brand { display: flex; align-items: center; gap: var(--space-xs); color: var(--color-ink); }
+  .brand:hover { color: var(--color-accent); }
   .brand__logo { height: 46px; width: auto; display: block; flex: 0 0 auto; }
   .brand__text {
     font-family: var(--font-display);
@@ -201,13 +202,13 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
   }
 
   .nav { display: flex; align-items: center; gap: 22px; font-size: 16px; font-weight: 500; }
-  .nav__link { color: var(--color-on-dark); white-space: nowrap; }
-  .nav__link:hover, .nav__link.is-active { color: var(--color-accent-soft); }
-  .nav__link--extern { color: var(--color-on-dark-2); }
+  .nav__link { color: var(--color-ink); white-space: nowrap; }
+  .nav__link:hover, .nav__link.is-active { color: var(--color-accent); }
+  .nav__link--extern { color: var(--color-ink-2); }
   .nav__btn { font-size: 16px; padding: 9px 16px; }
 
   .nav-drop { position: relative; display: inline-flex; align-items: center; }
-  .nav-drop > .nav__link::after { content: ' ▾'; font-size: 0.75em; color: var(--color-on-dark-3); }
+  .nav-drop > .nav__link::after { content: ' ▾'; font-size: 0.75em; color: var(--color-ink-3); }
   .nav-drop__sub {
     display: none;
     position: absolute;
@@ -225,6 +226,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
     background: var(--color-paper);
     border-radius: var(--radius-sm);
     padding: var(--space-2xs);
+    border: var(--rule);
     box-shadow: var(--shadow-pop);
   }
   .nav-drop__panel a { color: var(--color-ink); padding: 10px 12px; border-radius: var(--radius-sm); font-weight: 500; }
@@ -234,7 +236,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
   .menu-toggle {
     display: none;
     background: none;
-    border: 1px solid var(--color-dark-rule);
+    border: 1px solid var(--color-rule-strong);
     border-radius: var(--radius-sm);
     width: 46px;
     height: 42px;
@@ -249,7 +251,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
     left: 12px;
     width: 20px;
     height: 2px;
-    background: var(--color-on-dark);
+    background: var(--color-ink);
     transition: transform var(--dur-medium) var(--ease-out), opacity var(--dur-medium) var(--ease-out);
   }
   .menu-toggle__bars { top: 19px; }
@@ -273,15 +275,15 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
       font-size: 18px;
     }
     .is-open .nav { display: flex; }
-    .nav__link, .nav-drop { padding: 12px 0; border-top: 1px solid var(--color-dark-rule-2); }
+    .nav__link, .nav-drop { padding: 12px 0; border-top: var(--rule); }
     .nav-drop > .nav__link { padding: 0; border: 0; }
     .nav-drop > .nav__link::after { content: none; }
     .nav-drop { flex-direction: column; align-items: stretch; }
     .nav-drop__sub { display: block; position: static; padding: 6px 0 0 14px; min-width: 0; }
-    .nav-drop__panel { background: none; box-shadow: none; padding: 0; }
-    .nav-drop__panel a { color: var(--color-on-dark-2); padding: var(--space-2xs) 0; }
-    .nav-drop__panel a:hover { background: none; color: var(--color-on-accent); }
-    .nav-drop__panel a.is-active { color: var(--color-accent-soft); }
+    .nav-drop__panel { background: none; border: 0; box-shadow: none; padding: 0; }
+    .nav-drop__panel a { color: var(--color-ink-2); padding: var(--space-2xs) 0; }
+    .nav-drop__panel a:hover { background: none; color: var(--color-accent); }
+    .nav-drop__panel a.is-active { color: var(--color-accent); }
     .nav__btn { text-align: center; margin-top: 10px; padding: 13px 16px; }
   }
   @media (max-width: 560px) {

@@ -50,8 +50,9 @@ const jahr = new Date().getFullYear();
 
 <style>
   .site-footer {
-    background: var(--color-ink);
-    color: var(--color-on-dark);
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+    border-top: var(--rule-strong); /* hell, damit das Logo auf seinem vorgesehenen Grund steht */
     padding-block: var(--space-2xl) var(--space-lg);
     display: flex;
     flex-direction: column;
@@ -66,35 +67,35 @@ const jahr = new Date().getFullYear();
     gap: var(--space-2xs) var(--space-md);
     font-size: var(--text-base);
     line-height: 1.5;
-    color: var(--color-on-dark-2);
+    color: var(--color-ink-2);
     padding-bottom: var(--space-2xs);
   }
   .mast__zeile > * { white-space: nowrap; }
-  .mast__zeile a { color: var(--color-on-dark); }
-  .mast__zeile a:hover { color: var(--color-accent-soft); }
+  .mast__zeile a { color: var(--color-ink); }
+  .mast__zeile a:hover { color: var(--color-accent); }
 
   .seiten {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs) var(--space-lg);
     padding-top: var(--space-md);
-    border-top: 1px solid var(--color-dark-rule-2);
+    border-top: var(--rule);
     font-family: var(--font-display);
     font-size: var(--text-lg);
     font-weight: 600;
   }
-  .seiten a { color: var(--color-on-dark); white-space: nowrap; }
-  .seiten a:hover { color: var(--color-accent-soft); }
+  .seiten a { color: var(--color-ink); white-space: nowrap; }
+  .seiten a:hover { color: var(--color-accent); }
 
   .recht {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2xs) var(--space-md);
     font-size: var(--text-sm);
-    color: var(--color-on-dark-3);
+    color: var(--color-ink-3);
   }
-  .recht a { color: var(--color-on-dark-2); white-space: nowrap; }
-  .recht a:hover { color: var(--color-on-accent); }
+  .recht a { color: var(--color-ink-2); white-space: nowrap; }
+  .recht a:hover { color: var(--color-accent); }
 
   @media (max-width: 560px) {
     .mast__zeile { flex-direction: column; gap: var(--space-3xs); }
