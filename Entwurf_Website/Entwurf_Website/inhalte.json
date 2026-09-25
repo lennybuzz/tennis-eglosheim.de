@@ -1,0 +1,394 @@
+{
+  "_hinweis": "Zentrale Inhaltsdatei. Nur diese Datei bearbeiten und per FTP hochladen – die Seiten lesen sie beim Laden. Anführungszeichen und Kommas nicht entfernen.",
+  "mitglieder": {
+    "anzahl": 184,
+    "stand": "Oktober 2026"
+  },
+  "anlage": {
+    "tennisplaetze": 4,
+    "padelplaetze": 3,
+    "weiteres": "Ballwand & Fitnessbereich, Clubhaus mit Sonnenterrasse"
+  },
+  "training": {
+    "zeitraum": "Sommertraining Mai bis September",
+    "hinweis": "Außerhalb der Schulferien, für Kinder, Jugendliche und Erwachsene.",
+    "zeiten": [
+      {
+        "gruppe": "Jugend",
+        "zeit": "Termine auf Anfrage beim Jugendwart"
+      },
+      {
+        "gruppe": "Erwachsene",
+        "zeit": "Einzel- und Gruppenstunden auf Anfrage"
+      },
+      {
+        "gruppe": "Padel-Training",
+        "zeit": "Neu im Angebot, Infos auf der Padel-Seite"
+      }
+    ]
+  },
+  "termine": [
+    {
+      "datum": "Termin folgt",
+      "titel": "Clubmeisterschaften"
+    },
+    {
+      "datum": "Termin folgt",
+      "titel": "Arbeitseinsatz auf der Anlage"
+    },
+    {
+      "datum": "Termin folgt",
+      "titel": "Vereinsabend im Clubhaus"
+    }
+  ],
+  "mannschaften": [
+    {
+      "name": "Herren",
+      "runde": "Sommerrunde 2026"
+    },
+    {
+      "name": "Herren 40",
+      "runde": "Sommerrunde 2026"
+    },
+    {
+      "name": "Damen",
+      "runde": "Sommerrunde 2026"
+    },
+    {
+      "name": "Jugend",
+      "runde": "Sommerrunde 2026"
+    }
+  ],
+  "sommerSpecial": {
+    "aktiv": true,
+    "titel": "Sommer-Special",
+    "kurz": "170 € statt 220 € und 6 statt 9 Arbeitsstunden",
+    "text": "Sichere dir unsere vergünstigte Mitgliedschaft für den Rest des Jahres. Du zahlst für diese Saison nur 170 € statt 220 € und leistest lediglich 6 statt 9 Arbeitsstunden. Ab dem zweiten Jahr geht die Mitgliedschaft automatisch in den regulären Tarif über."
+  },
+  "beitraege": {
+    "hinweis": "Wir sind eine eigenständige Abteilung des SKV Eglosheim e.V. Der Beitrag setzt sich aus dem Anteil der Tennisabteilung und dem Anteil des Hauptvereins zusammen. Mitglieder von 18 bis 74 Jahren leisten jährlich 9 Arbeitsstunden, ab 75 Jahren 3 Stunden. Die Stunden können durch Arbeitseinsatz, Clubhausdienst oder eine Ersatzleistung von 25 € pro Stunde erbracht werden.",
+    "gruppen": [
+      {
+        "titel": "Option 1: Mitgliedsbeitrag inkl. 9 Std. Arbeitsdienst",
+        "tarife": [
+          {
+            "name": "Schüler / Studenten",
+            "preis": "220 €",
+            "zusatz": "bis 25 Jahre"
+          },
+          {
+            "name": "Erwachsene",
+            "preis": "258 €",
+            "zusatz": "p. a."
+          },
+          {
+            "name": "Familie",
+            "preis": "440 €",
+            "zusatz": "Eltern mit mind. 1 Kind"
+          },
+          {
+            "name": "Ehepaare",
+            "preis": "450 €",
+            "zusatz": "ohne Kinder"
+          }
+        ]
+      },
+      {
+        "titel": "Option 2: Mitgliedsbeitrag ohne Arbeitsdienst",
+        "tarife": [
+          {
+            "name": "Kinder und Jugendliche",
+            "preis": "115 €",
+            "zusatz": "bis 18 Jahre"
+          },
+          {
+            "name": "Schüler / Studenten",
+            "preis": "400 €",
+            "zusatz": "bis 25 Jahre"
+          },
+          {
+            "name": "Erwachsene",
+            "preis": "440 €",
+            "zusatz": "p. a."
+          },
+          {
+            "name": "Familie",
+            "preis": "800 €",
+            "zusatz": "Eltern mit mind. 1 Kind"
+          },
+          {
+            "name": "Ehepaare",
+            "preis": "810 €",
+            "zusatz": "ohne Kinder"
+          }
+        ]
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "datum": "Mai 2024",
+      "titel": "Aus alt mach neu – unser Clubhaus",
+      "text": "Renoviert für die Sommersaison 2024."
+    },
+    {
+      "datum": "April 2025",
+      "titel": "Frühjahrsinstandsetzung",
+      "text": "Die Tennisplätze werden für die neue Saison hergerichtet."
+    },
+    {
+      "datum": "Mai 2025",
+      "titel": "Baubeginn der Padelplätze",
+      "text": "Was im Mai mit den ersten Baggerarbeiten begann …"
+    },
+    {
+      "datum": "Juli 2025",
+      "titel": "Padel-Eröffnung",
+      "text": "Am 25. Juli eröffnen die ersten beiden Padelplätze in Ludwigsburg."
+    },
+    {
+      "datum": "Mai 2026",
+      "titel": "Der dritte Padelplatz ist gebaut",
+      "text": "Jetzt 3 Padel- und 4 Tennisplätze auf der Anlage."
+    }
+  ],
+  "ansprechpartner": [
+    {
+      "name": "Benjamin Kohn",
+      "rolle": "Abteilungsleiter",
+      "aufgaben": [
+        "Gesamtkoordination",
+        "Vertragswesen"
+      ],
+      "email": "vorstand_1@tennis-eglosheim.de"
+    },
+    {
+      "name": "Sebastian Raith",
+      "rolle": "Stellvertretender Abteilungsleiter & Jugendwart",
+      "aufgaben": [
+        "Stellvertretung des Abteilungsleiters",
+        "Projekte",
+        "Betreuung und Organisation der Jugendmannschaften",
+        "Jugendtraining"
+      ],
+      "email": "vorstand_2@tennis-eglosheim.de"
+    },
+    {
+      "name": "Andreas Schäfer",
+      "rolle": "Sportwart",
+      "aufgaben": [
+        "Leitung des Sportlichen Bereichs",
+        "Betreuung und Organisation der Mannschaften"
+      ],
+      "email": "sportwart@tennis-eglosheim.de"
+    },
+    {
+      "name": "Lennart Flietel",
+      "rolle": "Digitalwart / Schriftführer",
+      "aufgaben": [
+        "Leitung digitale Dienste",
+        "Öffentlichkeitsarbeit"
+      ],
+      "email": "digital@tennis-eglosheim.de"
+    },
+    {
+      "name": "Stefan Knoblauch",
+      "rolle": "Kassierer",
+      "aufgaben": [
+        "Finanzwesen",
+        "Mitgliederanträge / Mitgliederverwaltung"
+      ],
+      "email": "schatzmeister@tennis-eglosheim.de"
+    },
+    {
+      "name": "Marc Wünsch",
+      "rolle": "Technischer Leiter",
+      "aufgaben": [
+        "Instandhaltung der Anlage",
+        "Organisation Arbeitsdienste"
+      ],
+      "email": "technischer_leiter@tennis-eglosheim.de"
+    },
+    {
+      "name": "Jörg Demmler",
+      "rolle": "Wirtschaftsausschuss",
+      "aufgaben": [
+        "Organisation Wirtschaftsbereich",
+        "Veranstaltungen"
+      ],
+      "email": "wirtschaftsausschuss@tennis-eglosheim.de"
+    }
+  ],
+  "spielbetrieb": {
+    "saison": "Sommersaison 2026",
+    "teams": [
+      {
+        "name": "Herren 30",
+        "liga": "Verbandsliga, Gruppe 026"
+      },
+      {
+        "name": "Herren 1",
+        "liga": "Bezirksliga, Gruppe 003"
+      },
+      {
+        "name": "Herren 30 (4er) 2",
+        "liga": "Bezirksstaffel 2, Gruppe 048"
+      }
+    ],
+    "winterHinweis": "In der Wintersaison 2025/2026 war zudem die Herren 30 (4er) Mannschaft vertreten. Aktuelle Tabellen gibt es beim WTB."
+  },
+  "faq": [
+    {
+      "id": "mitgliedschaft",
+      "kategorie": "Mitgliedschaft & Beiträge",
+      "fragen": [
+        {
+          "frage": "Wie werde ich Mitglied?",
+          "antwort": "Todo: Hier noch einen kleinen Text einfügen. Besten auf den Link 'Mitglied werden' verweisen."
+        },
+        {
+          "frage": "Was kostet die Mitgliedschaft?",
+          "antwort": "Todo: Link Verweis für die Beitragsübersicht einfügen. "
+        },
+        {
+          "frage": "Gibt es ein Probetraining?",
+          "antwort": "Ja. Melde dich über das Kontaktformular mit dem Anliegen „Probetraining“ – wir finden einen Termin, an dem du bei einer passenden Gruppe mitspielen kannst."
+        },
+        {
+          "frage": "Kann ich auch mitten in der Saison einsteigen?",
+          "antwort": "Ja. Für den Rest des Jahres gilt unser Sommer-Special: 170 € statt 220 € und 6 statt 9 Arbeitsstunden. Ab dem zweiten Jahr geht die Mitgliedschaft automatisch in den regulären Tarif über."
+        },
+        {
+          "frage": "Warum besteht der Beitrag aus zwei Teilen?",
+          "antwort": "Wir sind eine eigenständige Abteilung des SKV Eglosheim e. V. Der Beitrag setzt sich deshalb aus dem Anteil der Tennisabteilung und dem Anteil des Hauptvereins zusammen."
+        },
+        {
+          "frage": "Wie kündige ich meine Mitgliedschaft?",
+          "antwort": "Die Kündigung geht schriftlich per E-Mail an den Vorstand unter hello@tennis-eglosheim.de. Die Mitgliedschaft kann zum Jahresende gekündigt werden."
+        }
+      ]
+    },
+    {
+      "id": "arbeitsstunden",
+      "kategorie": "Arbeitsstunden",
+      "fragen": [
+        {
+          "frage": "Wie viele Arbeitsstunden muss ich leisten?",
+          "antwort": "Mitglieder von 18 bis 74 Jahren leisten jährlich 9 Arbeitsstunden, ab 75 Jahren 3 Stunden. Kinder und Jugendliche sind davon ausgenommen."
+        },
+        {
+          "frage": "Wie kann ich die Stunden erbringen?",
+          "antwort": "Durch Arbeitseinsatz auf der Anlage, durch Clubhausdienst oder durch eine Ersatzleistung von 25 € pro Stunde."
+        },
+        {
+          "frage": "Wann finden die Arbeitseinsätze statt?",
+          "antwort": "Die Termine geben wir vor der Saison bekannt – über die Terminseite und per Mail. Organisiert werden sie vom Technischen Leiter, Marc Wünsch."
+        },
+        {
+          "frage": "Ich kann an keinem Termin – was jetzt?",
+          "antwort": "Melde dich beim Technischen Leiter unter technischer_leiter@tennis-eglosheim.de. Meist findet sich eine Aufgabe, die du zeitlich flexibel übernehmen kannst."
+        }
+      ]
+    },
+    {
+      "id": "platzbuchung",
+      "kategorie": "Platzbuchung & Anlage",
+      "fragen": [
+        {
+          "frage": "Wie buche ich einen Platz?",
+          "antwort": "Über unser Buchungssystem unter tennis-eglosheim.ebusy.de. Dort siehst du alle freien Zeiten für Tennis und Padel und buchst direkt mit deinem Zugang."
+        },
+        {
+          "frage": "Wie viele Plätze gibt es?",
+          "antwort": "4 Tennisplätze und 3 Padelplätze, dazu eine Ballwand, ein Fitnessbereich und das Clubhaus mit Sonnenterrasse."
+        },
+        {
+          "frage": "Können Gäste bei uns spielen?",
+          "antwort": "Ja, Gäste können Plätze buchen. Die aktuellen Gastgebühren und die Buchung findest du im Buchungssystem."
+        },
+        {
+          "frage": "Wo finde ich die Anlage?",
+          "antwort": "Tammer Straße 30, 71634 Ludwigsburg-Eglosheim. Auf der Kontaktseite ist die Anlage in der Karte eingezeichnet."
+        },
+        {
+          "frage": "Ist das Clubhaus geöffnet?",
+          "antwort": "Das Clubhaus wird von Mitgliedern im Clubhausdienst betrieben und ist während des Spielbetriebs und bei Veranstaltungen geöffnet."
+        }
+      ]
+    },
+    {
+      "id": "training",
+      "kategorie": "Training",
+      "fragen": [
+        {
+          "frage": "Wann ist Trainingszeit?",
+          "antwort": "Sommertraining von Mai bis September, außerhalb der Schulferien – für Kinder, Jugendliche und Erwachsene."
+        },
+        {
+          "frage": "Gibt es Jugendtraining?",
+          "antwort": "Ja. Die Gruppen und Termine stimmt unser Jugendwart Sebastian Raith ab: vorstand_2@tennis-eglosheim.de."
+        },
+        {
+          "frage": "Kann ich Einzelstunden nehmen?",
+          "antwort": "Einzel- und Gruppenstunden für Erwachsene sind auf Anfrage möglich. Schreib uns, wir stellen den Kontakt zum Training her."
+        },
+        {
+          "frage": "Brauche ich eigene Ausrüstung?",
+          "antwort": "Für den Anfang reichen Sportschuhe mit Sandplatzsohle. Schläger können wir für ein Probetraining stellen, Padelschläger gibt es ebenfalls zum Ausprobieren."
+        }
+      ]
+    },
+    {
+      "id": "padel",
+      "kategorie": "Padel",
+      "fragen": [
+        {
+          "frage": "Was ist Padel überhaupt?",
+          "antwort": "Padel wird zu viert auf einem umschlossenen Kleinfeld gespielt. Die Wände gehören zum Spiel, aufgeschlagen wird von unten. Die Regeln sind nach wenigen Minuten verstanden."
+        },
+        {
+          "frage": "Muss ich Tennis spielen können?",
+          "antwort": "Nein. Padel ist gerade für Einsteiger leicht zugänglich – viele spielen bei uns ausschließlich Padel."
+        },
+        {
+          "frage": "Wie viele Padelplätze habt ihr?",
+          "antwort": "Drei. Die ersten beiden Plätze wurden im Juli 2025 als erste Padelplätze in Ludwigsburg eröffnet, der dritte kam im Mai 2026 dazu."
+        },
+        {
+          "frage": "Gibt es Padel-Training?",
+          "antwort": "Padel-Training ist neu im Angebot. Alle Infos dazu stehen auf der Padel-Seite."
+        }
+      ]
+    },
+    {
+      "id": "verein",
+      "kategorie": "Verein & Spielbetrieb",
+      "fragen": [
+        {
+          "frage": "Welche Mannschaften spielen für den Verein?",
+          "antwort": "In der Sommersaison 2026 sind Herren 30 in der Verbandsliga, Herren 1 in der Bezirksliga und Herren 30 (4er) 2 in der Bezirksstaffel 2 gemeldet. Aktuelle Tabellen gibt es beim WTB."
+        },
+        {
+          "frage": "Wie groß ist der Verein?",
+          "antwort": "Die Abteilung Tennis & Padel hat rund 184 Mitglieder (Stand Oktober 2026)."
+        },
+        {
+          "frage": "An wen wende ich mich mit welcher Frage?",
+          "antwort": "Die Zuständigkeiten aller sieben Ansprechpartner stehen mit E-Mail-Adresse auf der Seite Ansprechpartner. Wenn du unsicher bist, schreib an admin@tennis-eglosheim.de – wir leiten weiter."
+        },
+        {
+          "frage": "Wie erfahre ich von Terminen und Neuigkeiten?",
+          "antwort": "Über die Terminseite, unseren ClubDesk-Kalender und auf Instagram unter @skv.eglosheim_padel.tennis."
+        }
+      ]
+    }
+  ],
+  "kontakt": {
+    "verein": "Sport- und Kulturverein Eglosheim e. V. – Abteilung Tennis & Padel",
+    "strasse": "Tammer Straße 30",
+    "ort": "71634 Ludwigsburg-Eglosheim",
+    "telefon": "07141 – 31727",
+    "email": "admin@tennis-eglosheim.de",
+    "clubdeskTermine": "https://tennis-eglosheim.clubdesk.com/termine"
+  }
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.tennis-eglosheim.de/sitemap-index.xml

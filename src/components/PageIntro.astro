@@ -1,0 +1,32 @@
+---
+interface Props {
+  eyebrow: string;
+  titel: string;
+  breite?: string;
+}
+const { eyebrow, titel, breite = '900px' } = Astro.props;
+---
+
+<section class="intro px" style={`--breite:${breite}`}>
+  <div class="eyebrow">{eyebrow}</div>
+  <h1>{titel}</h1>
+  {Astro.slots.has('default') && <p class="lead"><slot /></p>}
+  <slot name="extra" />
+</section>
+
+<style>
+  .intro {
+    padding-block: clamp(40px, 5vw, 56px) 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: calc(var(--breite) + 2 * var(--gutter));
+  }
+  h1 {
+    font-size: clamp(36px, 4.6vw, 52px);
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+</style>

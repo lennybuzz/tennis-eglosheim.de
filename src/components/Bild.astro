@@ -1,0 +1,74 @@
+---
+/**
+ * Foto oder – solange noch keins da ist – ein gestalteter Platzhalter.
+ *
+ * Foto einsetzen: Datei nach src/assets/bilder/ legen, in der Seite importieren
+ *   import anlage from '../assets/bilder/anlage.jpg';
+ * und übergeben: <Bild bild={anlage} alt="…" platzhalter="…" />
+ * Astro erzeugt daraus automatisch optimierte WebP-Versionen.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  bild?: ImageMetadata;
+  alt?: string;
+  platzhalter: string;
+  class?: string;
+  /** Höhe, z. B. "420px" oder "100%" */
+  hoehe?: string;
+  /** Eckenradius; 0 für eckige Bilder */
+  radius?: string;
+  eager?: boolean;
+}
+
+const { bild, alt = '', platzhalter, class: className, hoehe = '360px', radius = 'var(--radius)', eager = false } = Astro.props;
+---
+
+{
+  bild ? (
+    <Image
+      src={bild}
+      alt={alt}
+      class:list={['bild', className]}
+      style={`--h:${hoehe}; --r:${radius}`}
+      widths={[480, 800, 1200, 1600, 2400]}
+      sizes="(max-width: 900px) 100vw, 50vw"
+      loading={eager ? 'eager' : 'lazy'}
+    />
+  ) : (
+    <div class:list={['bild bild--platzhalter', className]} style={`--h:${hoehe}; --r:${radius}`} role="img" aria-label={`Platzhalter: ${platzhalter}`}>
+      <span>{platzhalter}</span>
+    </div>
+  )
+}
+
+<style>
+  .bild {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: var(--h);
+    border-radius: var(--r);
+    object-fit: cover;
+  }
+  .bild--platzhalter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background:
+      repeating-linear-gradient(135deg, transparent 0 14px, rgba(36, 27, 25, 0.04) 14px 15px),
+      #EFE8E3;
+    color: var(--muted-2);
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .bild--platzhalter span {
+    border: 1px dashed var(--line-strong);
+    border-radius: 6px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.55);
+  }
+</style>

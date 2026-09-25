@@ -1,0 +1,367 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Bild from '../components/Bild.astro';
+import Tarif from '../components/Tarif.astro';
+import inhalte, { kontakt, links, minBeitrag } from '../lib/inhalte';
+
+const { anlage, mitglieder, training, spielbetrieb, termine, sommerSpecial, timeline } = inhalte;
+const tarife = inhalte.beitraege.gruppen[0].tarife.slice(0, 4);
+
+const zahlen = [
+  { wert: anlage.tennisplaetze, label: 'Tennisplätze' },
+  { wert: anlage.padelplaetze, label: 'Padelplätze · auch für Gäste' },
+  { wert: mitglieder.anzahl, label: `Mitglieder · Stand ${mitglieder.stand}` },
+  { wert: minBeitrag(), label: 'Jahresbeitrag ab', einheit: ' €', schritt: 5 },
+];
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="hero px">
+    <Bild class="hero__bild" platzhalter="Anlagenfoto (Drohne oder Platz mit Clubhaus)" hoehe="100%" radius="0" eager />
+    <div class="hero__verlauf" aria-hidden="true"></div>
+    <div class="hero__inhalt">
+      <div class="hero__text">
+        <div class="hero__ort">Ludwigsburg-Eglosheim</div>
+        <h1>Tennis &amp; <span>Padel</span> für Alle</h1>
+        <p>
+          Komme auf unsere Tennisanlage und genieße den Tennis-Sport – aktiv beim Spielen oder gemütlich auf der
+          Sonnenterasse unseres Vereinsheimes.
+        </p>
+        <div class="btn-row">
+          <a href={links.platzbuchung} class="btn btn--accent hero__btn">Platz buchen</a>
+          <a href="/mitglied-werden/" class="btn hero__btn hero__btn--ghost">Mitglied werden</a>
+        </div>
+      </div>
+      <ul class="hero__fakten">
+        <li>{anlage.tennisplaetze} Tennisplätze</li>
+        <li>{anlage.padelplaetze} Padelplätze</li>
+        <li>Ballwand &amp; Fitnessbereich</li>
+        <li>Clubhaus mit Sonnenterrasse</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Zahlenband -->
+  <section class="zahlen" aria-label="Der Verein in Zahlen">
+    {
+      zahlen.map((z) => (
+        <div class="zahlen__item">
+          <span class="zahlen__wert">
+            <span data-zaehler={z.wert} data-schritt={z.schritt ?? 1}>{z.wert}</span>
+            {z.einheit}
+          </span>
+          <span class="zahlen__label">{z.label}</span>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- Aktuell im Verein -->
+  <section id="aktuell" class="aktuell px">
+    <div class="kopfzeile">
+      <h2 class="aktuell__titel">Aktuell im Verein</h2>
+      <span class="grau">{spielbetrieb.saison}</span>
+    </div>
+    <div class="grid grid-4">
+      <div class="card board" style="--d:.05s">
+        <div class="board__kicker">Platz buchen</div>
+        <div class="board__titel">Padel &amp; Tennis online reservieren</div>
+        <p class="board__text">Mitglieder kostenfrei, Gäste buchen Padel stundenweise über eBuSy.</p>
+        <a href={links.platzbuchung} class="link-arrow card__link">Zu eBuSy →</a>
+      </div>
+      <div class="card board" style="--d:.14s">
+        <div class="board__kicker">Training</div>
+        <div class="board__titel">{training.zeitraum}</div>
+        <div class="liste">
+          {
+            training.zeiten.slice(0, 3).map((z) => (
+              <div class="liste__zeile liste__zeile--split">
+                <span class="stark">{z.gruppe}</span>
+                <span>{z.zeit}</span>
+              </div>
+            ))
+          }
+        </div>
+        <a href="/tennis/#training" class="link-arrow card__link">Trainingszeiten →</a>
+      </div>
+      <div class="card board" style="--d:.23s">
+        <div class="board__kicker">Spielbetrieb</div>
+        <div class="board__titel">{spielbetrieb.saison}</div>
+        <div class="liste">
+          {
+            spielbetrieb.teams.map((t) => (
+              <div class="liste__zeile">
+                <span class="liste__name">{t.name}</span>
+                <span class="grau-klein">{t.liga}</span>
+              </div>
+            ))
+          }
+        </div>
+        <a href={links.wtb} class="link-arrow card__link">Tabellen beim WTB →</a>
+      </div>
+      <div class="card board" style="--d:.32s">
+        <div class="board__kicker">Termine</div>
+        <div class="liste">
+          {
+            termine.slice(0, 3).map((t) => (
+              <div class="liste__zeile">
+                <span class="liste__termin">{t.titel}</span>
+                <span class="grau-klein">{t.datum}</span>
+              </div>
+            ))
+          }
+        </div>
+        <a href="/verein/termine/" class="link-arrow card__link">Alle Termine →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Verein + Kontaktdaten -->
+  <section class="verein px">
+    <div class="stack" style="--stack-gap:22px">
+      <h2 class="verein__titel">
+        Aktiv in der Mannschaft oder gemütlich auf der Sonnenterrasse – hier findet jeder schnell Anschluss.
+      </h2>
+      <p class="lead verein__lead">
+        Wir sind ein Verein mit Mitgliedern aus allen Gesellschaftsschichten und Altersstufen. Persönliche Atmosphäre statt
+        Anonymität, auf einer ruhig gelegenen Anlage in Eglosheim.
+      </p>
+      <div class="btn-row" style="gap:24px">
+        <a href="/verein/" class="link-arrow">Den Verein kennenlernen →</a>
+        <a href="/verein/ansprechpartner/" class="link-arrow">Ansprechpartner →</a>
+      </div>
+    </div>
+    <dl class="fakten">
+      <div><dt>Adresse</dt><dd>{kontakt.strasse}<br />{kontakt.ort}</dd></div>
+      <div><dt>Telefon</dt><dd><a href={`tel:${kontakt.telefonLink}`}>{kontakt.telefon}</a></dd></div>
+      <div><dt>E-Mail</dt><dd><a href="/kontakt/">{kontakt.email}</a></dd></div>
+      <div><dt>Instagram</dt><dd><a href={links.instagram}>@{kontakt.instagram}</a></dd></div>
+    </dl>
+  </section>
+
+  <!-- Padel-Split -->
+  <section class="padel px">
+    <div class="padel__text">
+      <div class="padel__kicker">Padel · seit Juli 2025</div>
+      <h2 class="h2">{anlage.padelplaetze} Padelplätze, stundenweise buchbar</h2>
+      <p>
+        Die ersten Padelplätze in Ludwigsburg – offen für Mitglieder und Gäste. Schläger können vor Ort geliehen werden.
+      </p>
+      <div class="btn-row">
+        <a href={links.platzbuchung} class="btn btn--accent">Platz buchen</a>
+        <a href="/padel/" class="btn btn--outline-light">Mehr zu Padel</a>
+      </div>
+    </div>
+    <Bild class="padel__bild" platzhalter="Padelplätze" hoehe="400px" radius="0 12px 12px 0" />
+  </section>
+
+  <!-- Beiträge -->
+  <section id="beitraege" class="beitraege px">
+    <div class="beitraege__kopf">
+      <div class="stack" style="--stack-gap:12px; max-width:640px">
+        <h2 class="h2">Padel und Tennis kann sich bei uns jeder leisten</h2>
+        <p class="lead">Beitrag inklusive Arbeitsdienst. Wir sind eine eigenständige Abteilung des SKV Eglosheim e.V.</p>
+      </div>
+      <a href="/mitglied-werden/#beitraege" class="btn btn--primary">Alle Beiträge ansehen</a>
+    </div>
+    <div class="grid grid-4" style="gap:16px">
+      {tarife.map((t) => <Tarif {...t} />)}
+    </div>
+    {
+      sommerSpecial.aktiv && (
+        <div class="special">
+          <span class="special__text">
+            {sommerSpecial.titel}: {sommerSpecial.kurz}
+          </span>
+          <a href="/mitglied-werden/">Bedingungen →</a>
+        </div>
+      )
+    }
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline px">
+    <div class="kopfzeile">
+      <h2 class="h2 h2--sm">Was bei uns passiert ist</h2>
+      <span class="grau">Unsere Anlage entwickelt sich weiter</span>
+    </div>
+    <ol class="timeline__liste">
+      {
+        timeline.map((e) => (
+          <li>
+            <div class="timeline__datum">{e.datum}</div>
+            <div class="timeline__titel">{e.titel}</div>
+            <p>{e.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>
+
+<script>
+  // Zahlenband: von 0 auf den echten Wert hochzählen (ohne JS steht der Wert direkt da).
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const els = [...document.querySelectorAll<HTMLElement>('[data-zaehler]')];
+    const ziele = els.map((el) => Number(el.dataset.zaehler));
+    const schritte = els.map((el) => Number(el.dataset.schritt) || 1);
+    const t0 = performance.now();
+    const dauer = 950;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - t0) / dauer);
+      const e = 1 - Math.pow(1 - p, 3);
+      els.forEach((el, i) => {
+        el.textContent = String(Math.round((ziele[i] * e) / schritte[i]) * schritte[i]);
+      });
+      if (p < 1) requestAnimationFrame(tick);
+      else els.forEach((el, i) => (el.textContent = String(ziele[i])));
+    };
+    requestAnimationFrame(tick);
+  }
+</script>
+
+<style>
+  .grau { font-size: 16px; color: var(--muted-2); }
+  .grau-klein { font-size: 15px; color: var(--muted-2); }
+  .stark { font-weight: 600; color: var(--ink); }
+  .kopfzeile { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: clamp(460px, 58vh, 600px);
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-block: 64px 44px;
+    overflow: hidden;
+  }
+  .hero :global(.hero__bild) { position: absolute; inset: 0; }
+  .hero__verlauf {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(20, 12, 10, 0.92) 0%, rgba(20, 12, 10, 0.66) 52%, rgba(20, 12, 10, 0.28) 100%);
+    pointer-events: none;
+  }
+  .hero__inhalt {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 56px;
+    color: #fff;
+    flex-wrap: wrap;
+  }
+  .hero__text { display: flex; flex-direction: column; gap: 18px; max-width: 760px; animation: fadeUp 0.7s ease both; }
+  .hero__ort { font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--rose); }
+  .hero h1 {
+    font-size: clamp(40px, 5.6vw, 82px);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    text-wrap: pretty;
+  }
+  .hero h1 span { color: var(--red-light); }
+  .hero__text p { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.55; color: #E4D8D4; max-width: 620px; text-wrap: pretty; }
+  .hero__btn { font-weight: 700; padding: 15px 26px; }
+  .hero__btn--ghost { border: 2px solid #fff; color: #fff; padding: 13px 26px; }
+  .hero__btn--ghost:hover { background: #fff; color: var(--ink); }
+  .hero__fakten {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 18px;
+    border-left: 2px solid var(--red-bright);
+    padding-left: 20px;
+    min-width: 230px;
+    animation: fadeUp 0.7s ease 0.15s both;
+  }
+  /* Platzhalter im dunklen Hero */
+  .hero :global(.bild--platzhalter) { background: #2E2321; color: #5a4b47; align-items: flex-start; justify-content: flex-end; }
+  .hero :global(.bild--platzhalter span) { background: none; border-color: #4a3b37; }
+
+  /* Zahlenband */
+  .zahlen { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--red); color: #fff; }
+  .zahlen__item { padding: 26px clamp(20px, 3vw, 40px); display: flex; flex-direction: column; gap: 2px; border-right: 1px solid rgba(255, 255, 255, 0.25); }
+  .zahlen__item:last-child { border-right: 0; }
+  .zahlen__wert { font-family: var(--font-display); font-size: clamp(42px, 4.4vw, 56px); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .zahlen__label { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  @media (max-width: 900px) {
+    .zahlen { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .zahlen__item { border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
+    .zahlen__item:nth-child(2n) { border-right: 0; }
+  }
+  @media (max-width: 420px) {
+    .zahlen__label { font-size: 13px; }
+  }
+
+  /* Aktuell */
+  .aktuell { padding-block: 44px; background: var(--sand); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 20px; }
+  .aktuell__titel { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; }
+  .board { padding: 24px; animation: fadeUp 0.6s ease var(--d) both; }
+  .board__kicker { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+  .board__titel { font-family: var(--font-display); font-size: 23px; font-weight: 600; line-height: 1.15; }
+  .board__text { font-size: 16px; line-height: 1.5; color: var(--muted); }
+  .liste { display: flex; flex-direction: column; gap: 6px; }
+  .liste__zeile { display: flex; flex-direction: column; border-top: 1px solid var(--line-soft); padding-top: 6px; font-size: 16px; color: var(--muted); }
+  .liste__zeile--split { flex-direction: row; justify-content: space-between; gap: 12px; }
+  .liste__zeile--split span:last-child { text-align: right; }
+  .liste__name { font-size: 17px; font-weight: 600; color: var(--ink); }
+  .liste__termin { font-family: var(--font-display); font-size: 18px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+
+  /* Verein */
+  .verein { padding-block: 80px; display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 72px); align-items: start; }
+  .verein__titel { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.05; font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
+  .verein__lead { line-height: 1.65; max-width: 640px; }
+  .fakten { margin: 0; display: flex; flex-direction: column; font-size: 17px; }
+  .fakten div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+  .fakten div:first-child { border-top: 2px solid var(--ink); }
+  .fakten div:last-child { border-bottom: 1px solid var(--line); }
+  .fakten dt { font-weight: 600; }
+  .fakten dd { margin: 0; color: var(--muted); text-align: right; overflow-wrap: anywhere; }
+  @media (max-width: 900px) {
+    .verein { grid-template-columns: minmax(0, 1fr); padding-block: 56px; }
+  }
+
+  /* Padel */
+  .padel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: stretch; padding-bottom: 80px; }
+  .padel__text {
+    background: var(--ink);
+    color: var(--cream);
+    padding: clamp(36px, 5vw, 56px) clamp(28px, 4vw, 48px);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    justify-content: center;
+    border-radius: 12px 0 0 12px;
+  }
+  .padel__kicker { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); font-weight: 700; }
+  .padel__text p { font-size: 18px; line-height: 1.6; color: var(--on-dark-muted); text-wrap: pretty; }
+  .padel :global(.padel__bild) { height: auto; min-height: 400px; }
+  @media (max-width: 900px) {
+    .padel { grid-template-columns: minmax(0, 1fr); padding-bottom: 56px; }
+    .padel__text { border-radius: 12px 12px 0 0; }
+    .padel :global(.padel__bild) { min-height: 260px; border-radius: 0 0 12px 12px; }
+  }
+
+  /* Beiträge */
+  .beitraege { background: var(--sand); border-top: 1px solid var(--line); padding-block: 72px; display: flex; flex-direction: column; gap: 28px; }
+  .beitraege__kopf { display: flex; align-items: end; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; }
+  .special { display: flex; align-items: center; gap: 16px; background: var(--red); border-radius: var(--radius); padding: 20px 24px; flex-wrap: wrap; }
+  .special__text { font-family: var(--font-display); font-size: 21px; font-weight: 600; color: #fff; }
+  .special a { margin-left: auto; color: #fff; font-weight: 600; white-space: nowrap; }
+  .special a:hover { color: #F6DAD8; }
+
+  /* Timeline */
+  .timeline { padding-block: 72px; display: flex; flex-direction: column; gap: 32px; }
+  .timeline__liste { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); row-gap: 32px; }
+  .timeline__liste li { display: flex; flex-direction: column; gap: 8px; padding: 22px 28px 0 0; border-top: 2px solid var(--line); position: relative; hyphens: auto; overflow-wrap: break-word; }
+  .timeline__liste li::before { content: ''; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--line-strong); }
+  .timeline__datum { font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; color: var(--muted-2); }
+  .timeline__titel { font-family: var(--font-display); font-size: 21px; font-weight: 600; line-height: 1.2; }
+  .timeline__liste p { font-size: 16px; line-height: 1.5; color: var(--muted); }
+</style>

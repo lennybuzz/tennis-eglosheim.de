@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import { kontakt } from '../../lib/inhalte';
+---
+
+<BaseLayout title="Nachricht nicht gesendet" noindex>
+  <PageIntro eyebrow="Kontakt" titel="Das hat leider nicht geklappt">
+    Deine Nachricht konnte nicht versendet werden. Bitte prüfe, ob alle Pflichtfelder ausgefüllt sind, und versuche es
+    erneut – oder schreib uns direkt an <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>.
+  </PageIntro>
+  <section class="px btn-row" style="padding-bottom:72px">
+    <a href="/kontakt/" class="btn btn--primary">Zurück zum Formular</a>
+  </section>
+</BaseLayout>

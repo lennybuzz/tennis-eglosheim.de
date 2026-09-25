@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import inhalte, { initialen } from '../../lib/inhalte';
+---
+
+<BaseLayout title="Ansprechpartner" description="Abteilungsleitung, Sportwart, Jugendwart, Kassierer und mehr: wer bei der Tennisabteilung des SKV Eglosheim wofür zuständig ist.">
+  <PageIntro eyebrow="Verein · Ansprechpartner" titel="Melde dich einfach bei uns">
+    Neugierig geworden? Dann melde dich einfach ganz unkompliziert bei uns. Egal ob du direkt beim Probetraining
+    reinschnuppern willst oder erst mal nur ein paar Fragen hast – wir sind für dich da. Schreib uns einfach eine kurze
+    Nachricht, wir freuen uns auf dich!
+  </PageIntro>
+
+  <section class="px grid grid-3" style="padding-block:16px 72px">
+    {
+      inhalte.ansprechpartner.map((p) => (
+        <div class="card person">
+          <div class="person__kopf">
+            <span class="person__initialen" aria-hidden="true">{initialen(p.name)}</span>
+            <div class="person__name-rolle">
+              <span class="person__name">{p.name}</span>
+              <span class="person__rolle">{p.rolle}</span>
+            </div>
+          </div>
+          <p class="person__aufgaben">{p.aufgaben.join(' · ')}</p>
+          <a href={`mailto:${p.email}`} class="person__mail">{p.email}</a>
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .person { gap: 12px; }
+  .person__kopf { display: flex; align-items: center; gap: 14px; }
+  .person__initialen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--sand);
+    border: 1px solid var(--line);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--red);
+    flex: 0 0 auto;
+  }
+  .person__name-rolle { display: flex; flex-direction: column; min-width: 0; }
+  .person__name { font-family: var(--font-display); font-size: 21px; font-weight: 600; line-height: 1.2; }
+  .person__rolle { font-size: 16px; color: var(--red); font-weight: 600; }
+  .person__aufgaben { font-size: 17px; line-height: 1.5; color: var(--muted); }
+  .person__mail { margin-top: auto; font-size: 17px; font-weight: 600; overflow-wrap: anywhere; }
+</style>

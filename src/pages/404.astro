@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+---
+
+<BaseLayout title="Seite nicht gefunden" noindex>
+  <PageIntro eyebrow="Fehler 404" titel="Diese Seite gibt es nicht (mehr)">
+    Unsere Website ist neu – vielleicht ist die Seite umgezogen. Von hier aus geht es weiter:
+  </PageIntro>
+  <section class="px btn-row" style="padding-bottom:72px">
+    <a href="/" class="btn btn--primary">Zur Startseite</a>
+    <a href="/verein/termine/" class="btn btn--outline">Termine</a>
+    <a href="/mitglied-werden/" class="btn btn--outline">Mitglied werden</a>
+    <a href="/kontakt/" class="btn btn--outline">Kontakt</a>
+  </section>
+</BaseLayout>

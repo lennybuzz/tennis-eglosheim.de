@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { links } from '../lib/inhalte';
+---
+
+<BaseLayout title="Online-Anmeldung" description="Online-Anmeldung für die Mitgliedschaft in der Tennis- und Padelabteilung des SKV Eglosheim.">
+  <PageIntro eyebrow="Mitglied werden · Anmeldung" titel="Online anmelden">
+    Fülle das Formular aus – wir melden uns anschließend mit allen weiteren Infos zu Schlüssel, Einführung und
+    Platzbuchung. Die aktuellen Beiträge findest du unter <a href="/mitglied-werden/#beitraege">Mitglied werden</a>.
+  </PageIntro>
+
+  <section class="px stack" style="--stack-gap:16px; padding-bottom:56px">
+    <div class="rahmen">
+      <iframe src={links.clubdeskAnmeldung} title="Anmeldeformular (ClubDesk)" allow="fullscreen"></iframe>
+    </div>
+    <div class="hinweis">
+      <span>Formular wird nicht angezeigt?</span>
+      <a href={links.clubdeskAnmeldung} class="btn btn--primary">Anmeldung bei ClubDesk öffnen</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .rahmen { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; }
+  iframe { width: 100%; height: 1900px; border: 0; display: block; }
+  .hinweis { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; color: var(--muted); }
+</style>

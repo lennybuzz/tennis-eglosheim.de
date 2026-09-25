@@ -1,0 +1,21 @@
+---
+// Rahmen für lange Texte (Impressum, Datenschutz, Videoüberwachung)
+---
+
+<section class="rechtstext px">
+  <slot />
+</section>
+
+<style>
+  .rechtstext {
+    padding-bottom: 72px;
+    max-width: calc(900px + 2 * var(--gutter));
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    overflow-wrap: break-word;
+  }
+  .rechtstext :global(p) { font-size: 17px; line-height: 1.7; color: var(--muted); }
+  .rechtstext :global(p.stark), .rechtstext :global(strong) { color: var(--ink); font-weight: 600; }
+  .rechtstext :global(h2) { margin-top: 24px; font-size: 24px; font-weight: 600; }
+</style>

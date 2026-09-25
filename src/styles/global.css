@@ -1,0 +1,171 @@
+/*
+ * Globale Styles & Design-Tokens – übernommen aus dem Claude-Design-Entwurf
+ * (Entwurf_Website/). Seitenspezifisches steht als <style> in der jeweiligen
+ * .astro-Datei.
+ */
+
+@import '@fontsource-variable/familjen-grotesk';
+@import '@fontsource-variable/source-sans-3';
+
+:root {
+  /* Farben */
+  --ink: #241B19;
+  --paper: #fff;
+  --sand: #F8F4F1;
+  --line: #E7E1DC;
+  --line-soft: #F2EDE9;
+  --line-strong: #DBD2CC;
+  --muted: #5C524F;
+  --muted-2: #8A817C;
+  --muted-3: #A79E98;
+  --red: #B61A1A;
+  --red-bright: #D8352F;
+  --red-light: #F2554E;
+  --rose: #F2A196;
+  --cream: #F6F1EE;
+  --on-dark-muted: #C8BBB7;
+  --on-dark-faint: #9E8D88;
+  --dark-line: #7A6A65;
+  --dark-line-2: #3E2F2C;
+
+  /* Schriften */
+  --font-display: 'Familjen Grotesk Variable', 'Familjen Grotesk', system-ui, sans-serif;
+  --font-body: 'Source Sans 3 Variable', 'Source Sans 3', system-ui, sans-serif;
+
+  /* Abstände */
+  --gutter: clamp(20px, 4vw, 44px);
+  --radius: 10px;
+  --header-h: 74px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg, iframe { max-width: 100%; }
+[hidden] { display: none !important; }
+
+a { color: var(--red); text-decoration: none; }
+a:hover { color: var(--ink); }
+
+:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 3px; }
+
+h1, h2, h3 { font-family: var(--font-display); margin: 0; }
+p { margin: 0; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Bausteine ---------- */
+
+.px { padding-inline: var(--gutter); }
+
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+}
+.eyebrow--grey { color: var(--muted-2); letter-spacing: 0.14em; }
+
+.h2 {
+  font-size: clamp(30px, 3.4vw, 42px);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.h2--sm { font-size: clamp(28px, 3vw, 34px); line-height: 1.08; }
+
+.lead { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.6; color: var(--muted); text-wrap: pretty; }
+.body { font-size: 19px; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
+.muted { color: var(--muted); }
+
+.stack { display: flex; flex-direction: column; gap: var(--stack-gap, 18px); }
+
+.btn {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 17px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: background-color .15s, color .15s, border-color .15s;
+}
+.btn--primary { background: var(--red); color: #fff; }
+.btn--primary:hover { background: var(--ink); color: #fff; }
+.btn--accent { background: var(--red-bright); color: #fff; }
+.btn--accent:hover { background: var(--red); color: #fff; }
+.btn--outline { border-color: var(--ink); color: var(--ink); }
+.btn--outline:hover { background: var(--ink); color: #fff; }
+.btn--outline-light { border-color: var(--dark-line); color: var(--cream); }
+.btn--outline-light:hover { border-color: var(--cream); color: #fff; }
+.btn--white { background: #fff; color: var(--ink); }
+.btn--white:hover { background: var(--cream); color: var(--ink); }
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.link-arrow { font-weight: 600; font-size: 17px; }
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card__kicker { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-2); font-weight: 600; }
+.card__title { font-family: var(--font-display); font-size: 24px; font-weight: 600; line-height: 1.2; }
+.card__text { font-size: 17px; line-height: 1.55; color: var(--muted); }
+.card__link { margin-top: auto; }
+a.card { color: var(--ink); transition: background-color .15s; }
+a.card:hover { background: var(--sand); color: var(--ink); }
+.card--dark { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.card--dark .card__kicker, .card--dark .card__text { color: var(--on-dark-muted); }
+a.card--dark:hover { background: #3a2c29; color: var(--cream); }
+
+.band-sand { background: var(--sand); border-block: 1px solid var(--line); }
+
+/* Raster, die auf schmalen Bildschirmen umbrechen */
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1100px) {
+  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Zweispaltige Abschnitte (Text + Bild etc.) */
+.split { display: grid; gap: clamp(32px, 5vw, 56px); align-items: center; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 900px) {
+  .split { grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}

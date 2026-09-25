@@ -1,0 +1,29 @@
+---
+interface Props {
+  name: string;
+  preis: string;
+  zusatz: string;
+}
+const { name, preis, zusatz } = Astro.props;
+---
+
+<div class="tarif">
+  <div class="tarif__name">{name}</div>
+  <div class="tarif__preis">{preis}</div>
+  <div class="tarif__zusatz">{zusatz}</div>
+</div>
+
+<style>
+  .tarif {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .tarif__name { font-size: 17px; color: var(--muted); }
+  .tarif__preis { font-family: var(--font-display); font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+  .tarif__zusatz { font-size: 15px; color: var(--muted-2); }
+</style>

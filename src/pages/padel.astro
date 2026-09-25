@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Bild from '../components/Bild.astro';
+import inhalte, { kontakt, links } from '../lib/inhalte';
+
+const { anlage, training } = inhalte;
+const galerie = [1, 2, 3, 4, 5, 6];
+---
+
+<BaseLayout title="Padel" description={`Padel in Ludwigsburg: ${anlage.padelplaetze} Padelplätze beim SKV Eglosheim, buchbar für Mitglieder und Gäste über eBuSy.`}>
+  <section class="hero">
+    <div class="hero__text px">
+      <div class="eyebrow">Padel · eröffnet 25. Juli 2025</div>
+      <h1>Padel in Ludwigsburg</h1>
+      <p class="body">
+        Unser Padel-Projekt ist Wirklichkeit geworden. Was im Mai mit den ersten Baggerarbeiten begann, ist nun fertig: Am
+        25. Juli 2025 haben wir unsere beiden brandneuen Padel-Plätze offiziell eröffnet. Mit diesem Neubau erweitern wir
+        unser sportliches Angebot um eine der am schnellsten wachsenden Trendsportarten Europas.
+      </p>
+      <div class="btn-row">
+        <a href={links.platzbuchung} class="btn btn--primary">Platz buchen</a>
+        <a href="#training" class="btn btn--outline">Padel-Training</a>
+      </div>
+    </div>
+    <Bild platzhalter="Drohnenfoto der Padelplätze" hoehe="440px" radius="0" eager />
+  </section>
+
+  <section class="kennzahlen band-sand">
+    <div class="kennzahlen__item">
+      <div class="kennzahlen__wert">{anlage.padelplaetze}</div>
+      <div class="kennzahlen__label">Padelplätze, der dritte seit Mai 2026</div>
+    </div>
+    <div class="kennzahlen__item">
+      <div class="kennzahlen__wert">Für Gäste</div>
+      <div class="kennzahlen__label">Buchbar auch ohne Mitgliedschaft</div>
+    </div>
+    <div class="kennzahlen__item">
+      <div class="kennzahlen__wert">eBuSy</div>
+      <div class="kennzahlen__label">Online reservieren, Belegung live</div>
+    </div>
+  </section>
+
+  <section class="split px" style="padding-block:64px; grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr)">
+    <div class="stack">
+      <h2 class="h2">Kommt vorbei und spielt mit</h2>
+      <p class="body">
+        Die modernen Plätze stehen nicht nur unseren Mitgliedern zur Verfügung, sondern können auch von interessierten Gästen
+        gebucht werden. Unser Ziel ist es, den TA SKV Eglosheim noch attraktiver für Jung und Alt zu machen, neue
+        Sportbegeisterte zu gewinnen und unsere Gemeinschaft weiter zu stärken.
+      </p>
+      <p class="body">Wir freuen uns auf viele spannende Matches und eine tolle Padel-Saison in Eglosheim.</p>
+      <a href={links.instagram} class="link-arrow" style="font-size:18px">Folgt uns bei Instagram: @{kontakt.instagram} →</a>
+    </div>
+    <Bild platzhalter="Spielszene auf dem Padelplatz" hoehe="360px" />
+  </section>
+
+  <section id="training" class="split px training">
+    <div class="stack" style="--stack-gap:16px">
+      <div class="eyebrow training__eyebrow">Neu im Angebot</div>
+      <h2 class="h2">Padel-Training</h2>
+      <p class="training__text">{training.zeitraum} – {training.hinweis}</p>
+      <a href="/mitglied-werden/" class="btn btn--accent" style="align-self:flex-start; margin-top:6px">Mitglied werden</a>
+    </div>
+    <div class="training__liste">
+      {
+        training.zeiten.map((z) => (
+          <div class="training__zeile">
+            <span class="training__gruppe">{z.gruppe}</span>
+            <span class="training__zeit">{z.zeit}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="galerie" class="px stack" style="--stack-gap:24px; padding-block:64px">
+    <h2 class="h2 h2--sm">Unsere Anlage</h2>
+    <div class="grid grid-3">
+      {galerie.map((n) => <Bild platzhalter={`Foto ${n}`} hoehe="260px" />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+  .hero__text { padding-block: 56px; display: flex; flex-direction: column; gap: 20px; }
+  .hero h1 { font-size: clamp(38px, 4.8vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: minmax(0, 1fr); }
+    .hero__text { padding-block: 40px; }
+    .hero :global(.bild) { height: 280px; }
+  }
+
+  .kennzahlen { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kennzahlen__item { padding: 32px var(--gutter); border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+  .kennzahlen__item:last-child { border-right: 0; }
+  .kennzahlen__wert { font-family: var(--font-display); font-size: clamp(30px, 3vw, 38px); font-weight: 600; }
+  .kennzahlen__label { color: var(--muted); }
+  @media (max-width: 720px) {
+    .kennzahlen { grid-template-columns: minmax(0, 1fr); }
+    .kennzahlen__item { border-right: 0; border-bottom: 1px solid var(--line); padding-block: 22px; }
+    .kennzahlen__item:last-child { border-bottom: 0; }
+  }
+
+  .training {
+    background: var(--ink);
+    color: var(--cream);
+    padding-block: 64px;
+    align-items: start;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+  .training__eyebrow { color: #E8615A; }
+  .training__text { font-size: 19px; line-height: 1.6; color: var(--on-dark-muted); text-wrap: pretty; }
+  .training__liste { display: flex; flex-direction: column; border: 1px solid var(--dark-line-2); border-radius: var(--radius); overflow: hidden; }
+  .training__zeile { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--dark-line-2); }
+  .training__zeile:last-child { border-bottom: 0; }
+  .training__gruppe { font-family: var(--font-display); font-size: 20px; font-weight: 600; }
+  .training__zeit { color: var(--on-dark-faint); text-align: right; }
+</style>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: #fff; color: #241B19; font-family: 'Source Sans 3', system-ui, sans-serif; }
+  a { color: #B61A1A; text-decoration: none; }
+  a:hover { color: #241B19; }
+  * { box-sizing: border-box; }
+  .nav-drop { position: relative; }
+  .nav-drop > div.sub { display: none; }
+  .nav-drop:hover > div.sub, .nav-drop:focus-within > div.sub { display: flex; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+
+<div style="display:flex; flex-direction:column">
+
+  <header style="position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between; gap:32px; padding:14px 44px; background:#241B19; color:#F6F1EE; flex-wrap:wrap">
+    <a href="./Startseite.dc.html" style="display:flex; align-items:center; gap:12px; color:#F6F1EE">
+      <img src="./logo-mark.svg" alt="SKV Eglosheim" style="height:46px; width:auto; display:block; flex:0 0 auto">
+      <span style="font-family:'Familjen Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.25; white-space:nowrap">SKV Eglosheim e.V.<br>Abteilung Tennis &amp; Padel</span>
+    </a>
+    <nav style="display:flex; align-items:center; gap:20px; font-size:16px; font-weight:500; flex-wrap:wrap; row-gap:12px">
+      <span class="nav-drop" style="display:inline-flex; align-items:center">
+        <a href="./Verein.dc.html" style="color:#F6F1EE">Verein</a>
+        <div class="sub" style="position:absolute; top:100%; left:-16px; padding-top:14px; flex-direction:column; min-width:220px; z-index:70">
+          <div style="display:flex; flex-direction:column; background:#fff; border-radius:8px; padding:8px; box-shadow:0 14px 34px rgba(20,12,10,0.28)">
+            <a href="./Verein.dc.html" style="color:#241B19; padding:10px 12px; border-radius:6px; font-weight:500" style-hover="background:#F8F4F1">Der Verein</a>
+            <a href="./Ansprechpartner.dc.html" style="color:#241B19; padding:10px 12px; border-radius:6px; font-weight:500" style-hover="background:#F8F4F1">Ansprechpartner</a>
+            <a href="./Termine.dc.html" style="color:#241B19; padding:10px 12px; border-radius:6px; font-weight:500" style-hover="background:#F8F4F1">Termine</a>
+            <a href="./FAQ.dc.html" style="color:#241B19; padding:10px 12px; border-radius:6px; font-weight:500" style-hover="background:#F8F4F1">Häufige Fragen</a>
+          </div>
+        </div>
+      </span>
+      <a href="./Tennis.dc.html" style="color:#F6F1EE">Tennis</a>
+      <a href="./Padel.dc.html" style="color:#F6F1EE">Padel</a>
+      <a href="./Kontakt.dc.html" style="color:#F6F1EE">Kontakt</a>
+      <a href="https://tennis-eglosheim.ebusy.de/" style="border:1px solid #7A6A65; color:#F6F1EE; padding:9px 16px; border-radius:6px; font-weight:600; white-space:nowrap" style-hover="border-color:#F6F1EE; color:#fff">Platz buchen</a>
+      <a href="./Mitglied-werden.dc.html" style="background:#D8352F; color:#fff; padding:10px 17px; border-radius:6px; font-weight:600; white-space:nowrap" style-hover="background:#B61A1A; color:#fff">Mitglied werden</a>
+    </nav>
+  </header>
+
+  <section style="position:relative; min-height:clamp(460px,58vh,600px); background:#241B19; display:flex; flex-direction:column; justify-content:flex-end; padding:64px 44px 44px">
+    <image-slot id="start-hero" style="position:absolute; inset:0; width:100%; height:100%" shape="rect" placeholder="Anlagenfoto (Drohne oder Platz mit Clubhaus)"></image-slot>
+    <div style="position:absolute; inset:0; background:linear-gradient(100deg, rgba(20,12,10,0.92) 0%, rgba(20,12,10,0.66) 52%, rgba(20,12,10,0.28) 100%); pointer-events:none"></div>
+    <div style="position:relative; display:flex; align-items:flex-end; justify-content:space-between; gap:56px; color:#fff; flex-wrap:wrap">
+      <div style="display:flex; flex-direction:column; gap:18px; max-width:760px; animation:fadeUp 0.7s ease both">
+        <div style="font-size:14px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:#F2A196">Ludwigsburg-Eglosheim</div>
+        <h1 style="margin:0; font-family:'Familjen Grotesk',sans-serif; font-size:clamp(40px,5.6vw,82px); line-height:1.02; font-weight:700; letter-spacing:-0.035em; text-wrap:pretty">Tennis &amp; <span style="color:#F2554E">Padel</span> für Alle</h1>
+        <p style="margin:0; font-size:20px; line-height:1.55; color:#E4D8D4; max-width:620px; text-wrap:pretty">Komme auf unsere Tennisanlage und genieße den Tennis-Sport – aktiv beim Spielen oder gemütlich auf der Sonnenterasse unseres Vereinsheimes.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:2px">
+          <a href="https://tennis-eglosheim.ebusy.de/" style="background:#D8352F; color:#fff; padding:15px 26px; border-radius:6px; font-weight:700; font-size:17px" style-hover="background:#B61A1A; color:#fff">Platz buchen</a>
+          <a href="./Mitglied-werden.dc.html" style="border:2px solid #fff; color:#fff; padding:13px 26px; border-radius:6px; font-weight:700; font-size:17px" style-hover="background:#fff; color:#241B19">Mitglied werden</a>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px; font-size:18px; border-left:2px solid #D8352F; padding-left:20px; min-width:230px; animation:fadeUp 0.7s ease 0.15s both">
+        <span>{{ nTennis }} Tennisplätze</span>
+        <span>{{ nPadel }} Padelplätze</span>
+        <span>Ballwand &amp; Fitnessbereich</span>
+        <span>Clubhaus mit Sonnenterrasse</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); background:#B61A1A; color:#fff">
+    <div style="padding:26px 40px; display:flex; flex-direction:column; gap:2px; border-right:1px solid rgba(255,255,255,0.25)">
+      <span style="font-family:'Familjen Grotesk',sans-serif; font-size:56px; font-weight:700; line-height:1">{{ cTennis }}</span>
+      <span style="font-size:16px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em">Tennisplätze</span>
+    </div>
+    <div style="padding:26px 40px; display:flex; flex-direction:column; gap:2px; border-right:1px solid rgba(255,255,255,0.25)">
+      <span style="font-family:'Familjen Grotesk',sans-serif; font-size:56px; font-weight:700; line-height:1">{{ cPadel }}</span>
+      <span style="font-size:16px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em">Padelplätze · auch für Gäste</span>
+    </div>
+    <div style="padding:26px 40px; display:flex; flex-direction:column; gap:2px; border-right:1px solid rgba(255,255,255,0.25)">
+      <span style="font-family:'Familjen Grotesk',sans-serif; font-size:56px; font-weight:700; line-height:1">{{ cMitglieder }}</span>
+      <span style="font-size:16px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em">Mitglieder · Stand {{ mitgliederStand }}</span>
+    </div>
+    <div style="padding:26px 40px; display:flex; flex-direction:column; gap:2px">
+      <span style="font-family:'Familjen Grotesk',sans-serif; font-size:56px; font-weight:700; line-height:1">{{ cBeitrag }}&nbsp;€</span>
+      <span style="font-size:16px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em">Jahresbeitrag ab</span>
+    </div>
+  </section>
+
+  <section id="aktuell" style="padding:44px; background:#F8F4F1; border-bottom:1px solid #E7E1DC; display:flex; flex-direction:column; gap:20px">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:24px; flex-wrap:wrap">
+      <h2 style="margin:0; font-family:'Familjen Grotesk',sans-serif; font-size:28px; font-weight:600; letter-spacing:-0.01em">Aktuell im Verein</h2>
+      <span style="font-size:16px; color:#8A817C">{{ saison }}</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px">
+      <div style="animation:fadeUp 0.6s ease 0.05s both; background:#fff; border:1px solid #E7E1DC; border-radius:10px; padding:24px; display:flex; flex-direction:column; gap:10px">
+        <div style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#B61A1A; font-weight:700">Platz buchen</div>
+        <div style="font-family:'Familjen Grotesk',sans-serif; font-size:23px; font-weight:600; line-height:1.15">Padel &amp; Tennis online reservieren</div>
+        <p style="margin:0; font-size:16px; line-height:1.5; color:#5C524F">Mitglieder kostenfrei, Gäste buchen Padel stundenweise über eBuSy.</p>
+        <a href="https://tennis-eglosheim.ebusy.de/" style="margin-top:auto; font-weight:600; font-size:17px">Zu eBuSy →</a>
+      </div>
+      <div style="animation:fadeUp 0.6s ease 0.14s both; background:#fff; border:1px solid #E7E1DC; border-radius:10px; padding:24px; display:flex; flex-direction:column; gap:10px">
+        <div style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#B61A1A; font-weight:700">Training</div>
+        <div style="font-family:'Familjen Grotesk',sans-serif; font-size:23px; font-weight:600; line-height:1.15">{{ trainingZeitraum }}</div>
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <sc-for list="{{ trainingZeiten }}" as="z" hint-placeholder-count="3">
+            <div style="display:flex; justify-content:space-between; gap:12px; font-size:16px; color:#5C524F; border-top:1px solid #F2EDE9; padding-top:6px"><span style="font-weight:600; color:#241B19">{{ z.gruppe }}</span><span style="text-align:right">{{ z.zeit }}</span></div>
+          </sc-for>
+        </div>
+        <a href="./Tennis.dc.html" style="margin-top:auto; font-weight:600; font-size:17px">Trainingszeiten →</a>
+      </div>
+      <div style="animation:fadeUp 0.6s ease 0.23s both; background:#fff; border:1px solid #E7E1DC; border-radius:10px; padding:24px; display:flex; flex-direction:column; gap:10px">
+        <div style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#B61A1A; font-weight:700">Spielbetrieb</div>
+        <div style="font-family:'Familjen Grotesk',sans-serif; font-size:23px; font-weight:600; line-height:1.15">{{ saison }}</div>
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <sc-for list="{{ teams }}" as="t" hint-placeholder-count="3">
+            <div style="display:flex; flex-direction:column; border-top:1px solid #F2EDE9; padding-top:6px"><span style="font-size:17px; font-weight:600">{{ t.name }}</span><span style="font-size:15px; color:#8A817C">{{ t.liga }}</span></div>
+          </sc-for>
+        </div>
+        <a href="./Tennis.dc.html" style="margin-top:auto; font-weight:600; font-size:17px">Tabellen beim WTB →</a>
+      </div>
+      <div style="animation:fadeUp 0.6s ease 0.32s both; background:#fff; border:1px solid #E7E1DC; border-radius:10px; padding:24px; display:flex; flex-direction:column; gap:10px">
+        <div style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#B61A1A; font-weight:700">Termine</div>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <sc-for list="{{ termine }}" as="t" hint-placeholder-count="3">
+            <div style="display:flex; flex-direction:column; border-top:1px solid #F2EDE9; padding-top:6px"><span style="font-family:'Familjen Grotesk',sans-serif; font-size:18px; font-weight:600; line-height:1.2">{{ t.titel }}</span><span style="font-size:15px; color:#8A817C">{{ t.datum }}</span></div>
+          </sc-for>
+        </div>
+        <a href="./Termine.dc.html" style="margin-top:auto; font-weight:600; font-size:17px">Alle Termine →</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:80px 44px; display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:72px; align-items:start">
+    <div style="display:flex; flex-direction:column; gap:22px">
+      <h2 style="margin:0; font-family:'Familjen Grotesk',sans-serif; font-size:44px; line-height:1.05; font-weight:600; letter-spacing:-0.02em; text-wrap:balance">Aktiv in der Mannschaft oder gemütlich auf der Sonnenterrasse – hier findet jeder schnell Anschluss.</h2>
+      <p style="margin:0; font-size:20px; line-height:1.65; color:#5C524F; max-width:640px; text-wrap:pretty">Wir sind ein Verein mit Mitgliedern aus allen Gesellschaftsschichten und Altersstufen. Persönliche Atmosphäre statt Anonymität, auf einer ruhig gelegenen Anlage in Eglosheim.</p>
+      <div style="display:flex; gap:24px; flex-wrap:wrap">
+        <a href="./Verein.dc.html" style="font-weight:600; font-size:18px">Den Verein kennenlernen →</a>
+        <a href="./Ansprechpartner.dc.html" style="font-weight:600; font-size:18px">Ansprechpartner →</a>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:16px 0; border-top:2px solid #241B19"><span style="font-size:17px; color:#241B19; font-weight:600">Adresse</span><span style="font-size:17px; color:#5C524F; text-align:right">{{ strasse }}<br>{{ ort }}</span></div>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:16px 0; border-top:1px solid #E7E1DC"><span style="font-size:17px; color:#241B19; font-weight:600">Telefon</span><span style="font-size:17px; color:#5C524F">{{ telefon }}</span></div>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:16px 0; border-top:1px solid #E7E1DC"><span style="font-size:17px; color:#241B19; font-weight:600">E-Mail</span><a href="./Kontakt.dc.html" style="font-size:17px">{{ email }}</a></div>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:16px 0; border-top:1px solid #E7E1DC; border-bottom:1px solid #E7E1DC"><span style="font-size:17px; color:#241B19; font-weight:600">Instagram</span><a href="https://www.instagram.com/skv.eglosheim_padel.tennis/" style="font-size:17px">@skv.eglosheim_padel.tennis</a></div>
+    </div>
+  </section>
+
+  <section style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); align-items:stretch; padding:0 44px 80px">
+    <div style="background:#241B19; color:#F6F1EE; padding:56px 48px; display:flex; flex-direction:column; gap:18px; justify-content:center; border-radius:12px 0 0 12px">
+      <div style="font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#F2A196; font-weight:700">Padel · seit Juli 2025</div>
+      <h2 style="margin:0; font-family:'Familjen Grotesk',sans-serif; font-size:40px; line-height:1.05; font-weight:600; letter-spacing:-0.02em">{{ nPadel }} Padelplätze, stundenweise buchbar</h2>
+      <p style="margin:0; font-size:18px; line-height:1.6; color:#C8BBB7; text-wrap:pretty">Die ersten Padelplätze in Ludwigsburg – offen für Mitglieder und Gäste. Schläger können vor Ort geliehen werden.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:4px">
+        <a href="https://tennis-eglosheim.ebusy.de/" style="background:#D8352F; color:#fff; padding:14px 22px; border-radius:6px; font-weight:600; font-size:17px" style-hover="background:#B61A1A; color:#fff">Platz buchen</a>
+        <a href="./Padel.dc.html" style="border:1px solid #7A6A65; color:#F6F1EE; padding:14px 22px; border-radius:6px; font-weight:600; font-size:17px" style-hover="border-color:#F6F1EE; color:#fff">Mehr zu Padel</a>
+      </div>
+    </div>
+    <image-slot id="start-padel" style="min-width:0; width:100%; height:400px; border-radius:0 12px 12px 0; overflow:hidden" shape="rect" placeholder="Padelplätze"></image-slot>
+  </section>
+
+  <section id="beitraege" style="background:#F8F4F1; border-top:1px solid #E7E1DC; padding:72px 44px; display:flex; flex-direction:column; gap:28px">
+    <div style="display:flex; align-items:end; justify-content:space-between; gap:40px; flex-wrap:wrap">
+      <div style="display:flex; flex-direction:column; gap:12px; max-width:640px">
+        <h2 style="margin:0; font-family:'Familjen Grotesk',sans-serif; font-size:42px; line-height:1.05; font-weight:600; letter-spacing:-0.02em">Padel und Tennis kann sich bei uns jeder leisten</h2>
+        <p style="margin:0; font-size:19px; line-height:1.6; color:#5C524F; text-wrap:pretty">Beitrag inklusive Arbeitsdienst. Wir sind eine eigenständige Abteilung des SKV Eglosheim e.V.</p>
+      </div>
+      <a href="./Mitglied-werden.dc.html" style="background:#B61A1A; color:#fff; padding:15px 24px; border-radius:6px; font-weight:600; font-size:17px; white-space:nowrap" style-hover="background:#241B19; color:#fff">Alle Beiträge ansehen</a>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px">
+      <sc-for list="{{ tarife }}" as="t" hint-placeholder-count="4">
+        <div style="background:#fff; border:1px solid #E7E1DC; border-radius:10px; padding:22px; display:flex; flex-direction:column; gap:6px">
+          <div style="font-size:17px; color:#5C524F">{{ t.name }}</div>
+          <div style="font-family:'Familjen Grotesk',sans-serif; font-size:34px; font-weight:700; letter-spacing:-0.02em">{{ t.preis }}</div>
+          <div style="font-size:15px; color:#8A817C">{{ t.zusatz }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ specialAktiv }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; align-items:center; gap:16px; background:#B61A1A; border-radius:10px; padding:20px 24px; flex-wrap:wrap">
+        <span style="font-family:'Familjen Grotesk',sans-serif; font-size:21px; font-weight:600; color:#fff">{{ specialTitel }}: {{ specialKurz }}</span>
+        <a href="./Mitglied-werden.dc.html" style="margin-left:auto; color:#fff; font-weight:600; font-size:17px; white-space:nowrap" style-hover="color:#F6DAD8">Bedingungen →</a>
+      </div>
+    </sc-if>
+  </section>
+
+  <section lang="de" style="padding:72px 44px; display:flex; flex-direction:column; gap:32px">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:32px; flex-wrap:wrap">
+      <h2 style="margin:0; font-family:'Familjen Grotesk',sans-serif; font-size:34px; font-weight:600; letter-spacing:-0.02em">Was bei uns passiert ist</h2>
+      <span style="font-size:16px; color:#8A817C">Unsere Anlage entwickelt sich weiter</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+      <sc-for list="{{ timeline }}" as="e" hint-placeholder-count="5">
+        <div style="display:flex; flex-direction:column; gap:8px; padding:22px 28px 0 0; border-top:2px solid #E7E1DC; position:relative">
+          <span style="position:absolute; top:-7px; left:0; width:12px; height:12px; border-radius:50%; background:#DBD2CC"></span>
+          <div style="font-size:14px; letter-spacing:0.12em; text-transform:uppercase; font-weight:600; color:#8A817C">{{ e.datum }}</div>
+          <div style="font-family:'Familjen Grotesk',sans-serif; font-size:21px; font-weight:600; line-height:1.2; overflow-wrap:break-word; hyphens:auto">{{ e.titel }}</div>
+          <p style="margin:0; font-size:16px; line-height:1.5; color:#5C524F; overflow-wrap:break-word; hyphens:auto">{{ e.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="background:#241B19; color:#F6F1EE; padding:56px 44px; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); gap:40px">
+    <div style="display:flex; flex-direction:column; gap:14px; align-items:flex-start">
+      <img src="./logo.svg" alt="SKV Eglosheim – Tennis &amp; Padel" style="height:96px; width:auto; display:block">
+      <p style="margin:0; font-size:17px; line-height:1.6; color:#C8BBB7">Tammer Straße 30<br>71634 Ludwigsburg-Eglosheim<br>Tel. 07141 – 31727</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:17px">
+      <div style="font-weight:600; margin-bottom:4px">Verein</div>
+      <a href="./Verein.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Der Verein</a><a href="./Ansprechpartner.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Ansprechpartner</a><a href="./Termine.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Termine</a><a href="./Mitglied-werden.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Mitglied werden</a>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:17px">
+      <div style="font-weight:600; margin-bottom:4px">Sport</div>
+      <a href="./Tennis.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Tennis</a><a href="./Padel.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Padel</a><a href="https://tennis-eglosheim.ebusy.de/" style="color:#C8BBB7" style-hover="color:#fff">Platz buchen</a><a href="https://www.instagram.com/skv.eglosheim_padel.tennis/" style="color:#C8BBB7" style-hover="color:#fff">Instagram</a>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:17px">
+      <div style="font-weight:600; margin-bottom:4px">Rechtliches</div>
+      <a href="./Kontakt.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Kontakt</a><a href="./Impressum.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Impressum</a><a href="./Datenschutz.dc.html" style="color:#C8BBB7" style-hover="color:#fff">Datenschutz</a>
+      <div style="margin-top:12px; color:#9E8D88">© 2026 TA SKV Eglosheim</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { d: null, cTennis: 4, cPadel: 3, cMitglieder: 184, cBeitrag: 115 };
+
+  async componentDidMount() {
+    let d = null;
+    try {
+      const r = await fetch('./inhalte.json');
+      d = await r.json();
+      this.setState({ d });
+    } catch (e) {
+      console.warn('inhalte.json konnte nicht geladen werden', e);
+    }
+    this.countUp(d);
+  }
+
+  countUp(d) {
+    const min = this.minBeitrag(d);
+    const targets = {
+      cTennis: (d && d.anlage && d.anlage.tennisplaetze) || 4,
+      cPadel: (d && d.anlage && d.anlage.padelplaetze) || 3,
+      cMitglieder: (d && d.mitglieder && d.mitglieder.anzahl) || 184,
+      cBeitrag: min
+    };
+    const t0 = performance.now(), dur = 950;
+    const tick = now => {
+      const p = Math.min(1, (now - t0) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      this.setState({
+        cTennis: Math.round(targets.cTennis * e),
+        cPadel: Math.round(targets.cPadel * e),
+        cMitglieder: Math.round(targets.cMitglieder * e),
+        cBeitrag: Math.round(targets.cBeitrag * e / 5) * 5
+      });
+      if (p < 1) requestAnimationFrame(tick);
+      else this.setState(targets);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  minBeitrag(d) {
+    const gruppen = (d && d.beitraege && d.beitraege.gruppen) || [];
+    const nums = [];
+    gruppen.forEach(g => (g.tarife || []).forEach(t => {
+      const n = parseInt(String(t.preis).replace(/[^0-9]/g, ''), 10);
+      if (!isNaN(n)) nums.push(n);
+    }));
+    return nums.length ? Math.min.apply(null, nums) : 115;
+  }
+
+  renderVals() {
+    const d = this.state.d;
+    const c = {
+      cTennis: this.state.cTennis,
+      cPadel: this.state.cPadel,
+      cMitglieder: this.state.cMitglieder,
+      cBeitrag: this.state.cBeitrag
+    };
+    if (!d) return Object.assign(c, {
+      nTennis: 4, nPadel: 3, mitgliederStand: 'Oktober 2026', saison: 'Sommersaison 2026', teams: [], trainingZeitraum: '',
+      trainingZeiten: [], termine: [], tarife: [], specialAktiv: false, specialTitel: '',
+      specialKurz: '', timeline: [], strasse: 'Tammer Straße 30',
+      ort: '71634 Ludwigsburg-Eglosheim', telefon: '07141 – 31727',
+      email: 'admin@tennis-eglosheim.de'
+    });
+    const gruppe = (d.beitraege && d.beitraege.gruppen && d.beitraege.gruppen[0]) || { tarife: [] };
+    const s = d.sommerSpecial || {};
+    const k = d.kontakt || {};
+    return Object.assign(c, {
+      nTennis: d.anlage && d.anlage.tennisplaetze,
+      nPadel: d.anlage && d.anlage.padelplaetze,
+      mitgliederStand: (d.mitglieder && d.mitglieder.stand) || 'Oktober 2026',
+      saison: (d.spielbetrieb && d.spielbetrieb.saison) || '',
+      teams: (d.spielbetrieb && d.spielbetrieb.teams) || [],
+      trainingZeitraum: d.training && d.training.zeitraum,
+      trainingZeiten: ((d.training && d.training.zeiten) || []).slice(0, 3),
+      termine: (d.termine || []).slice(0, 3),
+      tarife: (gruppe.tarife || []).slice(0, 4),
+      specialAktiv: !!s.aktiv,
+      specialTitel: s.titel,
+      specialKurz: s.kurz,
+      timeline: d.timeline || [],
+      strasse: k.strasse,
+      ort: k.ort,
+      telefon: k.telefon,
+      email: k.email
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import { kontakt } from '../../lib/inhalte';
+
+const { lat, lon } = kontakt.karte;
+const bbox = [lon - 0.01, lat - 0.005, lon + 0.01, lat + 0.005].map((n) => n.toFixed(5)).join('%2C');
+const kartenUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lon}`;
+const grosseKarte = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=17/${lat}/${lon}`;
+
+const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Jugend & Training', 'Sonstiges'];
+---
+
+<BaseLayout title="Kontakt" description="Kontakt zur Tennis- und Padelabteilung des SKV Eglosheim: Tammer Straße 30, 71634 Ludwigsburg-Eglosheim. Kontaktformular, Telefon, E-Mail und Anfahrt.">
+  <PageIntro eyebrow="Kontakt" titel="Schreib uns, wir freuen uns">
+    Ein Probetraining, eine Frage zur Mitgliedschaft oder zur Platzbuchung: Schreib uns über das Formular – wir leiten die
+    Anfrage an die passende Person weiter.
+  </PageIntro>
+
+  <section class="split px" style="padding-block:8px 64px; align-items:start">
+    <div class="stack" style="--stack-gap:26px">
+      <div class="stack" style="--stack-gap:10px">
+        <div class="eyebrow eyebrow--grey">Anlage</div>
+        <div class="anlage__name">Sport- und Kulturverein Eglosheim e.&nbsp;V.<br />Abteilung Tennis &amp; Padel</div>
+        <p class="anlage__adresse">{kontakt.strasse}<br />{kontakt.ort}</p>
+        <div class="anlage__links">
+          <a href={`tel:${kontakt.telefonLink}`}>Tel. {kontakt.telefon}</a>
+          <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
+        </div>
+        <div class="btn-row" style="margin-top:10px">
+          <a href={grosseKarte} class="btn btn--outline">Größere Karte öffnen</a>
+          <a href="/verein/ansprechpartner/" class="btn btn--outline">Ansprechpartner</a>
+        </div>
+      </div>
+      <div class="stack" style="--stack-gap:8px">
+        <iframe class="karte" title="Karte der Anlage – OpenStreetMap" src={kartenUrl} loading="lazy"></iframe>
+        <div class="karte__credit">
+          Kartendaten © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende
+        </div>
+      </div>
+    </div>
+
+    <div class="stack" style="--stack-gap:16px">
+      <div class="eyebrow eyebrow--grey">Kontaktformular</div>
+      <form method="post" action="/kontakt.php" class="formular">
+        <label>
+          Name
+          <input type="text" name="name" required maxlength="200" autocomplete="name" placeholder="Vor- und Nachname" />
+        </label>
+        <div class="formular__zeile">
+          <label>
+            E-Mail
+            <input type="email" name="email" required maxlength="200" autocomplete="email" placeholder="name@beispiel.de" />
+          </label>
+          <label>
+            <span>Telefon <span class="optional">(optional)</span></span>
+            <input type="tel" name="telefon" maxlength="50" autocomplete="tel" placeholder="Für einen Rückruf" />
+          </label>
+        </div>
+        <label>
+          Anliegen
+          <select name="anliegen">
+            {anliegen.map((a) => <option>{a}</option>)}
+          </select>
+        </label>
+        <label>
+          Nachricht
+          <textarea name="nachricht" rows="6" required maxlength="5000" placeholder="Worum geht es?"></textarea>
+        </label>
+        <!-- Spamschutz: Dieses Feld bleibt für Menschen unsichtbar und leer. -->
+        <div class="honig" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <label class="formular__check">
+          <input type="checkbox" name="datenschutz" value="ja" required />
+          <span>
+            Ich habe die <a href="/datenschutz/">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur
+            Beantwortung meiner Anfrage einverstanden.
+          </span>
+        </label>
+        <button type="submit" class="btn btn--primary formular__senden">Nachricht senden</button>
+      </form>
+      <div class="formular__alt">
+        Lieber direkt per E-Mail? <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a> oder die passende Person unter{' '}
+        <a href="/verein/ansprechpartner/">Ansprechpartner</a>.
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .anlage__name { font-family: var(--font-display); font-size: 24px; font-weight: 600; line-height: 1.3; }
+  .anlage__adresse { font-size: 19px; line-height: 1.6; color: var(--muted); }
+  .anlage__links { display: flex; flex-direction: column; gap: 4px; font-size: 19px; }
+  .karte { width: 100%; height: 440px; border: 1px solid var(--line); border-radius: var(--radius); display: block; }
+  .karte__credit { font-size: 15px; color: var(--muted-2); }
+  .karte__credit a { color: var(--muted-2); text-decoration: underline; }
+
+  .formular { display: flex; flex-direction: column; gap: 18px; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(20px, 3vw, 28px); }
+  .formular label { display: flex; flex-direction: column; gap: 6px; font-size: 16px; font-weight: 600; }
+  .formular__zeile { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+  .optional { font-weight: 400; color: var(--muted-2); }
+  .formular input:not([type='checkbox']),
+  .formular select,
+  .formular textarea {
+    font: inherit;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--ink);
+    padding: 12px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .formular textarea { resize: vertical; }
+  .formular input:focus, .formular select:focus, .formular textarea:focus { border-color: var(--red); outline: none; }
+  .formular .formular__check { flex-direction: row; align-items: flex-start; gap: 10px; line-height: 1.5; color: var(--muted); font-weight: 400; }
+  .formular__check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--red); flex: 0 0 auto; }
+  .formular__senden { align-self: flex-start; border: 0; cursor: pointer; font-family: var(--font-display); padding: 15px 26px; }
+  .formular__alt { font-size: 16px; line-height: 1.6; color: var(--muted-2); }
+  .honig { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+</style>

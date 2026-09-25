@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import Bild from '../../components/Bild.astro';
+import inhalte from '../../lib/inhalte';
+
+const { anlage } = inhalte;
+---
+
+<BaseLayout title="Der Verein" description="Tennis & Padel für alle Altersstufen: unsere Anlage in Ludwigsburg-Eglosheim mit Sandplätzen, Padelplätzen, Ballwand, Fitnessbereich und Clubhaus.">
+  <PageIntro eyebrow="Der Verein" titel="Wir sind ein Verein für alle Altersstufen">
+    Wir sind ein Verein mit Mitgliedern aus allen Gesellschaftsschichten und Altersstufen. Bedingt durch unsere Größe und
+    einer persönlichen Atmosphäre, findet man als neues Mitglied sehr schnell Anschluss und Spielpartner.
+  </PageIntro>
+
+  <section class="split px" style="padding-block:24px 64px">
+    <div class="stack">
+      <h2 class="h2 h2--sm">Unser Tennisverein</h2>
+      <p class="body">
+        Sie möchten aktiv in einer Mannschaft spielen oder im Hobby Bereich den Spaß und die Freude am Tennisspielen
+        genießen? In unseren Damen- und Herrenmannschaften findet jeder Spieler seinen Platz.
+      </p>
+      <p class="body">
+        Unsere schöne Anlage ist ruhig und idyllisch gelegen. Unsere Terrasse bietet die Möglichkeit alle Plätze einzusehen
+        und spannende Matches zu verfolgen. Das große Clubhaus verfügt neben einem von den Mitgliedern betriebenen
+        Gastronomiebereich, der zum gemütlichen Beisammensein einlädt, auch über einen gut ausgestatteten Jugendraum. Für die
+        Kleinsten gibt es einen Außenbereich mit Sandkasten.
+      </p>
+    </div>
+    <Bild platzhalter="Foto der Anlage" hoehe="420px" />
+  </section>
+
+  <section class="band-sand px anlage">
+    <h2 class="h2 h2--sm">Was unsere Anlage bietet</h2>
+    <div class="grid grid-4">
+      <div class="card">
+        <div class="anlage__zahl">{anlage.tennisplaetze}</div>
+        <div class="anlage__titel">Sandplätze</div>
+        <p class="anlage__text">
+          Wir verfügen zwar „nur“ über {anlage.tennisplaetze} Sandplätze, aufgrund unserer Mitgliederzahlen ist die Kapazität
+          aber absolut ausreichend und es kommt so gut wie nie zu Wartezeiten.
+        </p>
+      </div>
+      <div class="card">
+        <div class="anlage__zahl">{anlage.padelplaetze}</div>
+        <div class="anlage__titel">Padelplätze</div>
+        <p class="anlage__text">Seit Juli 2025 auf der Anlage, buchbar für Mitglieder und Gäste.</p>
+        <a href="/padel/" class="link-arrow card__link">Mehr zu Padel →</a>
+      </div>
+      <div class="card">
+        <div class="anlage__titel">Ballwand &amp; Fitnessbereich</div>
+        <p class="anlage__text">
+          An unserer Ballwand kann man sich bereits vor dem Match warm spielen oder ohne Spielpartner trainieren. Unser
+          Outdoor Fitnessbereich bietet zahlreiche Möglichkeiten sich körperlich zu ertüchtigen. Neben Übungen um sich vor dem
+          Spiel aufzuwärmen und Verletzungen vorzubeugen, kann man beispielsweise über Therabänder seinen Körper ganzheitlich
+          trainieren.
+        </p>
+      </div>
+      <div class="card">
+        <div class="anlage__titel">Eigener Schlüssel</div>
+        <p class="anlage__text">
+          Jedes Mitglied erhält seinen eigenen Schlüssel und hat somit jederzeit freien Zutritt zur Anlage und der
+          Möglichkeit Tennis zu spielen.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px grid grid-3" style="padding-block:64px">
+    <a href="/verein/ansprechpartner/" class="card">
+      <span class="card__kicker">Verein</span>
+      <span class="card__title">Ansprechpartner</span>
+      <span class="card__text">Wer bei uns wofür zuständig ist, mit direkter E-Mail-Adresse.</span>
+    </a>
+    <a href="/verein/termine/" class="card">
+      <span class="card__kicker">Verein</span>
+      <span class="card__title">Termine</span>
+      <span class="card__text">Alle Vereinstermine im Kalender.</span>
+    </a>
+    <a href="/mitglied-werden/" class="card card--dark">
+      <span class="card__kicker">Mitmachen</span>
+      <span class="card__title">Werde jetzt Mitglied</span>
+      <span class="card__text">Beiträge, Arbeitsdienst und Anmeldung auf einen Blick.</span>
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  .anlage { padding-block: 56px; display: flex; flex-direction: column; gap: 28px; }
+  .anlage__zahl { font-family: var(--font-display); font-size: 38px; font-weight: 600; line-height: 1; }
+  .anlage__titel { font-family: var(--font-display); font-size: 21px; font-weight: 600; }
+  .anlage__text { font-size: 16px; line-height: 1.55; color: var(--muted); }
+</style>

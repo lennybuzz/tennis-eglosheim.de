@@ -1,0 +1,187 @@
+---
+import { Image } from 'astro:assets';
+import logoMark from '../assets/logo-mark.svg';
+import { links } from '../lib/inhalte';
+
+const path = Astro.url.pathname;
+const aktiv = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+
+const vereinLinks = [
+  { href: '/verein/', label: 'Der Verein', exakt: true },
+  { href: '/verein/ansprechpartner/', label: 'Ansprechpartner' },
+  { href: '/verein/termine/', label: 'Termine' },
+  { href: '/faq/', label: 'Häufige Fragen' },
+];
+const hauptLinks = [
+  { href: '/tennis/', label: 'Tennis' },
+  { href: '/padel/', label: 'Padel' },
+  { href: '/kontakt/', label: 'Kontakt' },
+];
+const vereinAktiv = aktiv('/verein/') || aktiv('/faq/');
+---
+
+<header class="site-header">
+  <a href="/" class="brand">
+    <Image src={logoMark} alt="SKV Eglosheim" class="brand__logo" loading="eager" />
+    <span class="brand__text">SKV Eglosheim e.V.<br />Abteilung Tennis &amp; Padel</span>
+  </a>
+
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
+    <span class="menu-toggle__bars" aria-hidden="true"></span>
+    <span class="visually-hidden">Menü</span>
+  </button>
+
+  <nav id="hauptnavigation" class="nav" aria-label="Hauptnavigation">
+    <div class="nav-drop">
+      <a href="/verein/" class:list={['nav__link', { 'is-active': vereinAktiv }]}>Verein</a>
+      <div class="nav-drop__sub">
+        <div class="nav-drop__panel">
+          {
+            vereinLinks.map((l) => (
+              <a
+                href={l.href}
+                class:list={{ 'is-active': l.exakt ? path === l.href : aktiv(l.href) }}
+                aria-current={path === l.href ? 'page' : undefined}
+              >
+                {l.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    {
+      hauptLinks.map((l) => (
+        <a
+          href={l.href}
+          class:list={['nav__link', { 'is-active': aktiv(l.href) }]}
+          aria-current={path === l.href ? 'page' : undefined}
+        >
+          {l.label}
+        </a>
+      ))
+    }
+    <a href={links.platzbuchung} class="btn btn--outline-light nav__btn">Platz buchen</a>
+    <a href="/mitglied-werden/" class="btn btn--accent nav__btn">Mitglied werden</a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const header = document.querySelector<HTMLElement>('.site-header');
+  toggle?.addEventListener('click', () => {
+    const offen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!offen));
+    header?.classList.toggle('is-open', !offen);
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 14px var(--gutter);
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--cream); }
+  .brand:hover { color: #fff; }
+  .brand__logo { height: 46px; width: auto; display: block; flex: 0 0 auto; }
+  .brand__text {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  .nav { display: flex; align-items: center; gap: 20px; font-size: 16px; font-weight: 500; }
+  .nav__link { color: var(--cream); }
+  .nav__link:hover, .nav__link.is-active { color: var(--rose); }
+  .nav__btn { font-size: 16px; padding: 9px 16px; }
+
+  .nav-drop { position: relative; display: inline-flex; align-items: center; }
+  .nav-drop__sub {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -16px;
+    padding-top: 14px;
+    min-width: 220px;
+    z-index: 70;
+  }
+  .nav-drop:hover .nav-drop__sub,
+  .nav-drop:focus-within .nav-drop__sub { display: block; }
+  .nav-drop__panel {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 14px 34px rgba(20, 12, 10, 0.28);
+  }
+  .nav-drop__panel a { color: var(--ink); padding: 10px 12px; border-radius: 6px; font-weight: 500; }
+  .nav-drop__panel a:hover { background: var(--sand); }
+  .nav-drop__panel a.is-active { color: var(--red); }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--dark-line);
+    border-radius: 6px;
+    width: 46px;
+    height: 42px;
+    cursor: pointer;
+    position: relative;
+  }
+  .menu-toggle__bars,
+  .menu-toggle__bars::before,
+  .menu-toggle__bars::after {
+    position: absolute;
+    left: 12px;
+    width: 20px;
+    height: 2px;
+    background: var(--cream);
+    transition: transform .2s, opacity .2s;
+  }
+  .menu-toggle__bars { top: 19px; }
+  .menu-toggle__bars::before, .menu-toggle__bars::after { content: ''; left: 0; }
+  .menu-toggle__bars::before { top: -6px; }
+  .menu-toggle__bars::after { top: 6px; }
+  .is-open .menu-toggle__bars { background: transparent; }
+  .is-open .menu-toggle__bars::before { transform: translateY(6px) rotate(45deg); }
+  .is-open .menu-toggle__bars::after { transform: translateY(-6px) rotate(-45deg); }
+
+  @media (max-width: 1080px) {
+    .site-header { flex-wrap: wrap; gap: 0; }
+    .menu-toggle { display: block; }
+    .nav {
+      display: none;
+      flex-basis: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 12px 0 8px;
+      font-size: 18px;
+    }
+    .is-open .nav { display: flex; }
+    .nav__link, .nav-drop { padding: 12px 0; border-top: 1px solid var(--dark-line-2); }
+    .nav-drop { flex-direction: column; align-items: stretch; }
+    .nav-drop__sub { display: block; position: static; padding: 6px 0 0 14px; min-width: 0; }
+    .nav-drop__panel { background: none; box-shadow: none; padding: 0; }
+    .nav-drop__panel a { color: var(--on-dark-muted); padding: 8px 0; }
+    .nav-drop__panel a:hover { background: none; color: #fff; }
+    .nav-drop__panel a.is-active { color: var(--rose); }
+    .nav__btn { text-align: center; margin-top: 10px; padding: 13px 16px; }
+  }
+  @media (max-width: 420px) {
+    .brand__text { font-size: 14px; }
+    .brand__logo { height: 40px; }
+  }
+</style>
