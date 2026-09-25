@@ -101,10 +101,24 @@ Rand `--gutter`. Abschnitte bewusst unterschiedlich hoch polstern, nicht überal
 
 - Navigation: **N12 Banner + Leiste**. Banner nur bei zeitlich begrenzter
   Ankündigung (Sommer-Special), verschwindet beim Scrollen, lässt sich
-  schließen. Darunter die Leiste: Verein ▾ · Tennis · Padel · Kontakt ·
+  schließen. Darunter die helle Leiste mit Haarlinie unten: Verein ▾ · Tennis · Padel · Kontakt ·
   Platz buchen ↗ · [Mitglied werden].
-- Fußzeile: **Ft1 Mast-headed**. Großes Logo, Anschrift/Telefon/E-Mail/Instagram
+- Fußzeile: **Ft1 Mast-headed**, auf Sand (`--color-paper-2`). Großes Logo, Anschrift/Telefon/E-Mail/Instagram
   in einer Zeile, Seitenlinks als eine Reihe, Rechtliches als zweite Reihe.
+
+## Logo
+
+Das Logo (roter Schild mit weißer Fläche) steht **nur auf hellem Grund**
+(`--color-paper` oder `--color-paper-2`). Deshalb sind Kopf- und Fußzeile hell.
+Dunkle Flächen (`--color-ink`) sind erlaubt, aber nie mit Logo darauf.
+
+## Fremde Inhalte
+
+Karten, Kalender und andere iframes fremder Anbieter werden **erst nach Klick**
+geladen – über die Komponente `src/components/Einbettung.astro` (Platzhalter mit
+Hinweis, wer den Inhalt liefert, und Button „… laden“). Kein Cookie-Banner, solange
+die Seite selbst kein Tracking einsetzt. Ausnahme: das ClubDesk-Anmeldeformular
+lädt direkt, weil die Seite nur dafür aufgerufen wird; darüber steht ein Hinweis.
 
 ## Kleine Überschriften (Eyebrows)
 

@@ -11,6 +11,11 @@ import { links } from '../lib/inhalte';
   </PageIntro>
 
   <section class="px stack" style="--stack-gap:16px; padding-bottom:56px">
+    <p class="datenschutz">
+      Das Formular wird von ClubDesk bereitgestellt. Beim Laden dieser Seite wird deine IP-Adresse an ClubDesk übertragen,
+      und ClubDesk speichert technisch notwendige Cookies (Sprache und Sitzung), damit das Formular funktioniert. Mehr dazu
+      in der <a href="/datenschutz/">Datenschutzerklärung</a>.
+    </p>
     <div class="rahmen">
       <iframe src={links.clubdeskAnmeldung} title="Anmeldeformular (ClubDesk)" allow="fullscreen"></iframe>
     </div>
@@ -22,7 +27,8 @@ import { links } from '../lib/inhalte';
 </BaseLayout>
 
 <style>
-  .rahmen { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; }
+  .datenschutz { max-width: 72ch; font-size: var(--text-sm); line-height: 1.55; color: var(--color-ink-3); }
+  .rahmen { border: var(--rule); border-radius: var(--radius); overflow: hidden; background: var(--color-paper); }
   iframe { width: 100%; height: 1900px; border: 0; display: block; }
   .hinweis { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; color: var(--muted); }
 </style>

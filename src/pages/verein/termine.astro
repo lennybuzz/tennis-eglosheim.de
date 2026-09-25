@@ -1,27 +1,32 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
+import Einbettung from '../../components/Einbettung.astro';
 import { links } from '../../lib/inhalte';
 ---
 
 <BaseLayout title="Termine" description="Alle Vereinstermine der Tennisabteilung des SKV Eglosheim im ClubDesk-Kalender.">
   <PageIntro eyebrow="Verein · Termine" titel="Termine im Verein">
-    Alle Vereinstermine pflegen wir im ClubDesk-Kalender. Er ist hier direkt eingebettet und immer aktuell.
+    Alle Vereinstermine pflegen wir im ClubDesk-Kalender. Du kannst ihn hier laden – er ist immer aktuell.
   </PageIntro>
 
   <section class="px stack" style="--stack-gap:16px; padding-bottom:56px">
-    <div class="rahmen">
-      <iframe src={links.clubdeskTermine} title="Termine im ClubDesk-Kalender" loading="lazy"></iframe>
-    </div>
+    <Einbettung
+      src={links.clubdeskTermine}
+      titel="Termine im ClubDesk-Kalender"
+      anbieter="ClubDesk"
+      hinweis="Dabei wird deine IP-Adresse an ClubDesk übertragen, und ClubDesk speichert ein Cookie für die Spracheinstellung."
+      knopf="Kalender laden"
+      hoehe="900px"
+      platzhalterHoehe="320px"
+    />
     <div class="hinweis">
-      <span>Kalender wird nicht angezeigt?</span>
+      <span>Lieber direkt bei ClubDesk?</span>
       <a href={links.clubdeskTermine} class="btn btn--primary">Termine bei ClubDesk öffnen</a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .rahmen { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--sand); }
-  iframe { width: 100%; height: 900px; border: 0; display: block; }
   .hinweis { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; color: var(--muted); }
 </style>

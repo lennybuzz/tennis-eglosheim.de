@@ -1,0 +1,104 @@
+---
+/**
+ * Fremde Inhalte (Karte, Kalender) erst nach Klick laden.
+ *
+ * Bis zum Klick wird nichts vom fremden Anbieter geladen: keine Anfrage,
+ * keine IP-Übertragung, keine Cookies. Der iframe steckt in einem <template>
+ * und wird erst beim Klick auf den Button eingesetzt. Die Wahl wird nicht
+ * gespeichert – beim nächsten Seitenaufruf steht wieder der Platzhalter da.
+ */
+interface Props {
+  src: string;
+  /** Titel für den iframe und Überschrift im Platzhalter, z. B. "Karte der Anlage" */
+  titel: string;
+  /** Wer den Inhalt liefert, z. B. "OpenStreetMap" */
+  anbieter: string;
+  /** Was beim Laden passiert, z. B. "Dabei wird deine IP-Adresse an … übertragen." */
+  hinweis: string;
+  /** Beschriftung des Buttons, z. B. "Karte laden" */
+  knopf: string;
+  /** Höhe des geladenen iframes, z. B. "440px" */
+  hoehe: string;
+  /** Höhe des Platzhalters, falls kleiner als der iframe */
+  platzhalterHoehe?: string;
+  allow?: string;
+}
+
+const { src, titel, anbieter, hinweis, knopf, hoehe, platzhalterHoehe = hoehe, allow } = Astro.props;
+---
+
+<div class="einbettung" style={`--h:${hoehe}; --h-platzhalter:${platzhalterHoehe}`} data-einbettung>
+  <div class="einbettung__platzhalter">
+    <p class="einbettung__titel">{titel}</p>
+    <p class="einbettung__text">
+      Der Inhalt kommt von {anbieter} und wird erst geladen, wenn du auf „{knopf}“ klickst. {hinweis}{' '}
+      Mehr dazu in der <a href="/datenschutz/">Datenschutzerklärung</a>.
+    </p>
+    <button type="button" class="btn btn--primary" data-laden>{knopf}</button>
+  </div>
+  <template>
+    <iframe src={src} title={titel} allow={allow}></iframe>
+  </template>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-einbettung]').forEach((box) => {
+    const knopf = box.querySelector<HTMLButtonElement>('[data-laden]');
+    const vorlage = box.querySelector('template');
+    knopf?.addEventListener('click', () => {
+      const frame = vorlage?.content.firstElementChild?.cloneNode(true) as HTMLIFrameElement | undefined;
+      if (!frame) return;
+      box.replaceChildren(frame);
+      box.classList.add('ist-geladen');
+      // Tastaturnutzer landen direkt im geladenen Inhalt statt am Seitenanfang
+      frame.focus();
+    });
+  });
+</script>
+
+<style>
+  .einbettung {
+    border: var(--rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--color-paper-2);
+  }
+  .einbettung__platzhalter {
+    min-height: var(--h-platzhalter);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    padding: var(--space-lg);
+    background:
+      repeating-linear-gradient(135deg, transparent 0 14px, var(--color-rule-soft) 14px 15px),
+      var(--color-paper-2);
+  }
+  .einbettung__titel {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .einbettung__text {
+    max-width: 52ch;
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    color: var(--color-ink-2);
+    text-wrap: pretty;
+  }
+  .einbettung__platzhalter .btn { margin-top: var(--space-2xs); }
+
+  .einbettung :global(iframe) {
+    display: block;
+    width: 100%;
+    height: var(--h);
+    border: 0;
+    background: var(--color-paper);
+  }
+
+  @media (max-width: 560px) {
+    .einbettung__platzhalter { padding: var(--space-md); }
+  }
+</style>
