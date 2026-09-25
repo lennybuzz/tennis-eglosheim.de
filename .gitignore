@@ -14,3 +14,6 @@ npm-debug.log*
 kontakt-config.php
 
 .DS_Store
+
+# Protokoll des Design-Tools (Hallmark), nur lokal
+.hallmark/
