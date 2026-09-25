@@ -12,67 +12,42 @@ const grosseKarte = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=
 const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Jugend & Training', 'Sonstiges'];
 ---
 
-<BaseLayout title="Kontakt" description={`Kontakt zur Tennis- und Padelabteilung des SKV Eglosheim: ${kontakt.strasse}, ${kontakt.ort}. Kontaktformular, E-Mail und Anfahrt.`}>
+<BaseLayout
+  title="Kontakt"
+  description={`Kontakt zur Tennis- und Padelabteilung des SKV Eglosheim: ${kontakt.strasse}, ${kontakt.ort}. Kontaktformular, E-Mail und Anfahrt.`}
+>
   <PageIntro titel="Schreib uns, wir freuen uns">
     Ein Probetraining, eine Frage zur Mitgliedschaft oder zur Platzbuchung: Schreib uns über das Formular – wir leiten die
     Anfrage an die passende Person weiter.
   </PageIntro>
 
-  <section class="split px" style="padding-block:8px 64px; align-items:start">
-    <div class="stack" style="--stack-gap:26px">
-      <div class="stack" style="--stack-gap:10px">
-        <h2 class="abschnitt">Anlage</h2>
-        <div class="anlage__name">Sport- und Kulturverein Eglosheim e.&nbsp;V.<br />Abteilung Tennis &amp; Padel</div>
-        <p class="anlage__adresse">{kontakt.strasse}<br />{kontakt.ort}</p>
-        <div class="anlage__links">
-          {kontakt.telefon && <a href={`tel:${kontakt.telefonLink}`}>Tel. {kontakt.telefon}</a>}
-          <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
-        </div>
-        <div class="btn-row" style="margin-top:10px">
-          <a href={grosseKarte} class="btn btn--outline">Größere Karte öffnen</a>
-          <a href="/verein/ansprechpartner/" class="btn btn--outline">Ansprechpartner</a>
-        </div>
-      </div>
-      <div class="stack" style="--stack-gap:8px">
-        <Einbettung
-          src={kartenUrl}
-          titel="Karte der Anlage"
-          anbieter="OpenStreetMap"
-          hinweis="Dabei wird deine IP-Adresse an die OpenStreetMap Foundation übertragen."
-          knopf="Karte laden"
-          hoehe="440px"
-        />
-        <div class="karte__credit">
-          Kartendaten © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende
-        </div>
-      </div>
-    </div>
-
-    <div class="stack" style="--stack-gap:16px">
-      <h2 class="abschnitt">Kontaktformular</h2>
+  <div class="kontakt px">
+    <!-- Hauptaktion: Formular -->
+    <section class="formular-bereich" aria-labelledby="formular-titel">
+      <h2 id="formular-titel" class="abschnitt">Kontaktformular</h2>
       <form method="post" action="/kontakt.php" class="formular" data-formular>
-        <label>
-          Name
+        <label class="feld">
+          <span class="feld__name">Name</span>
           <input type="text" name="name" required maxlength="200" autocomplete="name" placeholder="Vor- und Nachname" />
         </label>
         <div class="formular__zeile">
-          <label>
-            E-Mail
+          <label class="feld">
+            <span class="feld__name">E-Mail</span>
             <input type="email" name="email" required maxlength="200" autocomplete="email" placeholder="name@beispiel.de" />
           </label>
-          <label>
-            <span>Telefon <span class="optional">(optional)</span></span>
+          <label class="feld">
+            <span class="feld__name">Telefon <span class="optional">(optional)</span></span>
             <input type="tel" name="telefon" maxlength="50" autocomplete="tel" placeholder="Für einen Rückruf" />
           </label>
         </div>
-        <label>
-          Anliegen
+        <label class="feld">
+          <span class="feld__name">Anliegen</span>
           <select name="anliegen">
             {anliegen.map((a) => <option>{a}</option>)}
           </select>
         </label>
-        <label>
-          Nachricht
+        <label class="feld">
+          <span class="feld__name">Nachricht</span>
           <textarea name="nachricht" rows="6" required maxlength="5000" placeholder="Worum geht es?"></textarea>
         </label>
         <!-- Spamschutz: Dieses Feld bleibt für Menschen unsichtbar und leer. -->
@@ -88,12 +63,40 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
         </label>
         <button type="submit" class="btn btn--primary formular__senden">Nachricht senden</button>
       </form>
-      <div class="formular__alt">
+      <p class="formular__alt">
         Lieber direkt per E-Mail? <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a> oder die passende Person unter{' '}
         <a href="/verein/ansprechpartner/">Ansprechpartner</a>.
+      </p>
+    </section>
+
+    <!-- Anlage und Karte -->
+    <aside class="anlage" aria-labelledby="anlage-titel">
+      <h2 id="anlage-titel" class="abschnitt">Anlage</h2>
+      <p class="anlage__name">Sport- und Kulturverein Eglosheim e.&nbsp;V.<br />Abteilung Tennis &amp; Padel</p>
+      <p class="anlage__adresse">{kontakt.strasse}<br />{kontakt.ort}</p>
+      <p class="anlage__links">
+        {kontakt.telefon && <a href={`tel:${kontakt.telefonLink}`}>Tel. {kontakt.telefon}</a>}
+        <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
+      </p>
+      <div class="btn-row">
+        <a href={grosseKarte} class="btn btn--outline">Größere Karte öffnen</a>
+        <a href="/verein/ansprechpartner/" class="btn btn--outline">Ansprechpartner</a>
       </div>
-    </div>
-  </section>
+      <div class="anlage__karte">
+        <Einbettung
+          src={kartenUrl}
+          titel="Karte der Anlage"
+          anbieter="OpenStreetMap"
+          hinweis="Dabei wird deine IP-Adresse an die OpenStreetMap Foundation übertragen."
+          knopf="Karte laden"
+          hoehe="400px"
+        />
+        <p class="karte__credit">
+          Kartendaten © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende
+        </p>
+      </div>
+    </aside>
+  </div>
 </BaseLayout>
 
 <script>
@@ -119,35 +122,75 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
 </script>
 
 <style>
-  .abschnitt { font-size: var(--text-sm); font-weight: 600; color: var(--color-ink-3); font-family: var(--font-body); }
-  .anlage__name { font-family: var(--font-display); font-size: 24px; font-weight: 600; line-height: 1.3; }
-  .anlage__adresse { font-size: 19px; line-height: 1.6; color: var(--muted); }
-  .anlage__links { display: flex; flex-direction: column; gap: 4px; font-size: 19px; }
-  .karte__credit { font-size: 15px; color: var(--muted-2); }
-  .karte__credit a { color: var(--muted-2); text-decoration: underline; }
+  /* Hallmark · genre: editorial · macrostructure: Long Document (Formular + Randspalte) · design-system: design.md · designed-as-app
+   * tone: Vereinsbrett · anchor hue: 28 · Formen eckig · enrichment: Karte erst nach Klick
+   * pre-emit critique: P4 H5 E5 S4 R5 V4
+   */
+  .kontakt {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-xl) var(--space-2xl);
+    align-items: start;
+    padding-block: var(--space-sm) var(--space-3xl);
+  }
+  .abschnitt {
+    padding-bottom: var(--space-xs);
+    border-bottom: var(--rule-strong);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-ink-3);
+  }
 
-  .formular { display: flex; flex-direction: column; gap: 18px; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(20px, 3vw, 28px); }
-  .formular label { display: flex; flex-direction: column; gap: 6px; font-size: 16px; font-weight: 600; }
-  .formular__zeile { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
-  .optional { font-weight: 400; color: var(--muted-2); }
+  /* ---------- Formular ---------- */
+  .formular-bereich { display: flex; flex-direction: column; gap: var(--space-md); max-width: 44rem; }
+  .formular { display: flex; flex-direction: column; gap: var(--space-md); }
+  .formular__zeile { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: var(--space-md); }
+  .feld { display: flex; flex-direction: column; gap: var(--space-2xs); }
+  .feld__name { font-weight: 600; color: var(--color-ink); }
+  .optional { font-weight: 400; color: var(--color-ink-3); }
   .formular input:not([type='checkbox']),
   .formular select,
   .formular textarea {
     font: inherit;
-    font-size: 17px;
-    font-weight: 400;
-    color: var(--ink);
-    padding: 12px 14px;
-    border: 1px solid var(--line-strong);
+    font-size: var(--text-base);
+    color: var(--color-ink);
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-rule-strong);
     border-radius: var(--radius-sm);
     background: var(--color-paper);
+    transition: border-color var(--dur-short) var(--ease-out);
   }
-  .formular textarea { resize: vertical; }
-  /* Fokus: Rahmen in Rot plus der globale Fokusring – nie ohne sichtbaren Ring */
+  .formular ::placeholder { color: var(--color-ink-3); opacity: 1; }
+  .formular textarea { resize: vertical; min-height: 9rem; }
+  .formular input:hover, .formular select:hover, .formular textarea:hover { border-color: var(--color-ink-3); }
+  /* Fokus: roter Rahmen plus der globale Fokusring – nie ohne sichtbaren Ring */
   .formular input:focus, .formular select:focus, .formular textarea:focus { border-color: var(--color-accent); }
-  .formular .formular__check { flex-direction: row; align-items: flex-start; gap: 10px; line-height: 1.5; color: var(--muted); font-weight: 400; }
-  .formular__check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--red); flex: 0 0 auto; }
-  .formular__senden { align-self: flex-start; border: 0; cursor: pointer; font-family: var(--font-display); padding: 15px 26px; }
-  .formular__alt { font-size: 16px; line-height: 1.6; color: var(--muted-2); }
+  /* Fehler: erst nach dem ersten Absende-Versuch bzw. Verlassen des Felds markieren */
+  .formular :user-invalid { border-color: var(--color-accent); background: color-mix(in oklch, var(--color-accent) 5%, var(--color-paper)); }
+  .formular__check { display: flex; align-items: flex-start; gap: var(--space-xs); line-height: 1.55; color: var(--color-ink-2); }
+  .formular__check input { width: 1.25rem; height: 1.25rem; margin: 0.15rem 0 0; accent-color: var(--color-accent); flex: 0 0 auto; }
+  .formular__check input:user-invalid { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .formular__senden { align-self: flex-start; }
+  .formular__alt { font-size: var(--text-sm); line-height: 1.6; color: var(--color-ink-3); }
   .honig { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  /* ---------- Anlage ---------- */
+  .anlage {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .anlage__name { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; line-height: 1.3; }
+  .anlage__adresse { font-size: var(--text-md); line-height: 1.6; color: var(--color-ink-2); }
+  .anlage__links { display: flex; flex-direction: column; gap: var(--space-3xs); font-size: var(--text-md); }
+  .anlage__links a { overflow-wrap: anywhere; }
+  .anlage__karte { display: flex; flex-direction: column; gap: var(--space-2xs); margin-top: var(--space-xs); }
+  .karte__credit { font-size: var(--text-sm); color: var(--color-ink-3); }
+  .karte__credit a { color: var(--color-ink-3); text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .kontakt { grid-template-columns: minmax(0, 1fr); }
+    .formular-bereich { max-width: none; }
+  }
 </style>

@@ -57,19 +57,19 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
   </section>
 
   <section class="cta">
-    <div class="stack" style="--stack-gap:14px">
+    <div class="cta__text-block">
       <h2 class="cta__titel">Deine Frage ist nicht dabei?</h2>
       <p class="cta__text">
         Schreib uns, wir antworten persönlich und leiten deine Anfrage an die Person weiter, die sie beantworten kann – vom
         Jugendwart bis zum Kassierer.
       </p>
     </div>
-    <div class="stack" style="--stack-gap:12px; align-items:flex-start">
+    <div class="cta__aktionen">
       <a href="/kontakt/" class="btn cta__btn">Zum Kontaktformular</a>
       <a href="/verein/ansprechpartner/" class="btn cta__btn cta__btn--ghost">Ansprechpartner ansehen</a>
-      <div class="cta__mail">
+      <p class="cta__mail">
         oder direkt an&nbsp;<a href={`mailto:${inhalte.kontakt.email}`}>{inhalte.kontakt.email}</a>
-      </div>
+      </p>
     </div>
   </section>
 </BaseLayout>
@@ -113,120 +113,164 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
 </script>
 
 <style>
-  .suche { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+  /* Hallmark · genre: editorial · macrostructure: Conversational FAQ · design-system: design.md · designed-as-app
+   * tone: Vereinsbrett · anchor hue: 28 · Formen eckig · enrichment: none
+   * pre-emit critique: P4 H4 E5 S4 R5 V4
+   */
+
+  /* ---------- Suche ---------- */
+  .suche { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; margin-top: var(--space-2xs); }
   .suche input {
+    width: 24rem;
+    max-width: 100%;
     font: inherit;
-    font-size: 18px;
-    color: var(--ink);
-    padding: 14px 18px;
-    border: 1px solid var(--line-strong);
+    font-size: var(--text-md);
+    color: var(--color-ink);
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-rule-strong);
     border-radius: var(--radius-sm);
     background: var(--color-paper);
-    width: 380px;
-    max-width: 100%;
+    transition: border-color var(--dur-short) var(--ease-out);
   }
+  .suche input::placeholder { color: var(--color-ink-3); opacity: 1; }
+  .suche input:hover { border-color: var(--color-ink-3); }
   .suche input:focus { border-color: var(--color-accent); }
-  .suche__treffer { font-size: 16px; color: var(--muted-2); }
+  .suche__treffer { font-size: var(--text-sm); color: var(--color-ink-3); font-variant-numeric: tabular-nums; }
 
-  .faq { padding-block: 8px 72px; display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 56px; align-items: start; }
+  /* ---------- Themenliste + Fragen ---------- */
+  .faq {
+    display: grid;
+    grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+    gap: var(--space-2xl);
+    align-items: start;
+    padding-block: var(--space-2xs) var(--space-2xl);
+  }
 
   .index {
     position: sticky;
-    top: calc(var(--header-h) + 28px);
+    top: calc(var(--header-h) + var(--space-lg));
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    border-left: 2px solid var(--line);
-    padding-left: 20px;
+    gap: var(--space-3xs);
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--color-rule);
   }
-  .index__link { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; color: var(--ink); font-weight: 500; padding: 8px 0; line-height: 1.35; }
-  .index__link:hover { color: var(--red); }
   .index__titel { margin-bottom: var(--space-2xs); font-size: var(--text-sm); font-weight: 600; color: var(--color-ink-3); }
-  .index__anzahl { font-size: 14px; color: var(--color-ink-3); font-variant-numeric: tabular-nums; }
+  .index__link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    padding-block: var(--space-2xs);
+    color: var(--color-ink);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .index__link:hover { color: var(--color-accent); }
+  .index__anzahl { font-size: var(--text-sm); color: var(--color-ink-3); font-variant-numeric: tabular-nums; }
   .index__alle {
-    margin-top: 18px;
     align-self: flex-start;
-    background: none;
-    border: 1px solid var(--line-strong);
-    color: var(--muted);
+    margin-top: var(--space-sm);
+    padding: var(--space-2xs) var(--space-sm);
     font: inherit;
-    font-size: 15px;
+    font-size: var(--text-sm);
     font-weight: 600;
-    padding: 10px 14px;
+    color: var(--color-ink-2);
+    background: none;
+    border: 1px solid var(--color-rule-strong);
     border-radius: var(--radius-sm);
     cursor: pointer;
+    transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
   }
-  .index__alle:hover { border-color: var(--ink); color: var(--ink); }
+  .index__alle:hover { border-color: var(--color-ink); color: var(--color-ink); }
 
-  .gruppen { display: flex; flex-direction: column; gap: 48px; min-width: 0; }
-  .gruppe { display: flex; flex-direction: column; gap: 6px; }
-  .gruppe h2 { margin-bottom: 10px; font-size: 30px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+  .gruppen { display: flex; flex-direction: column; gap: var(--space-xl); min-width: 0; }
+  .gruppe { display: flex; flex-direction: column; }
+  .gruppe h2 { margin-bottom: var(--space-sm); font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
 
-  .frage { border-top: 1px solid var(--line); }
+  .frage { border-top: var(--rule); }
+  .frage:last-child { border-bottom: var(--rule); }
   .frage summary {
     list-style: none;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 24px;
-    cursor: pointer;
-    padding: 20px 0;
+    gap: var(--space-md);
+    padding-block: var(--space-md);
     font-family: var(--font-display);
-    font-size: 21px;
+    font-size: var(--text-lg);
     font-weight: 600;
     line-height: 1.35;
+    cursor: pointer;
     text-wrap: pretty;
+    transition: color var(--dur-short) var(--ease-out);
   }
   .frage summary::-webkit-details-marker { display: none; }
-  .frage summary:hover { color: var(--red); }
+  .frage summary:hover { color: var(--color-accent); }
   .frage__zeichen {
     flex: 0 0 auto;
-    width: 30px;
-    height: 30px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--line-strong);
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 1.875rem;
+    height: 1.875rem;
+    border: 1px solid var(--color-rule-strong);
+    border-radius: var(--radius-sm);
     font-family: var(--font-body);
-    font-size: 20px;
+    font-size: var(--text-lg);
     font-weight: 400;
-    color: var(--red);
     line-height: 1;
+    color: var(--color-accent);
   }
   .frage__zeichen::before { content: '+'; }
   .frage[open] .frage__zeichen::before { content: '–'; }
-  .frage p { max-width: 70ch; padding: 0 70px 24px 0; font-size: 19px; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
-
-  .leer { border: 1px dashed var(--line-strong); border-radius: var(--radius); padding: 40px; display: flex; flex-direction: column; gap: 10px; }
-  .leer__titel { font-family: var(--font-display); font-size: 22px; font-weight: 600; }
-  .leer p { font-size: 18px; line-height: 1.6; color: var(--muted); }
-
-  @media (max-width: 900px) {
-    .faq { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-    .index { position: static; }
-    .frage p { padding-right: 0; }
+  .frage p {
+    max-width: 70ch;
+    padding: 0 var(--space-2xl) var(--space-md) 0;
+    font-size: var(--text-md);
+    line-height: 1.65;
+    color: var(--color-ink-2);
+    text-wrap: pretty;
   }
 
+  .leer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-xl);
+    border: 1px dashed var(--color-rule-strong);
+    border-radius: var(--radius);
+  }
+  .leer__titel { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; }
+  .leer p { font-size: var(--text-md); line-height: 1.6; color: var(--color-ink-2); }
+
+  /* ---------- Abschluss: dunkle Fläche (ohne Logo, siehe design.md) ---------- */
   .cta {
-    margin: 0 var(--gutter) 72px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: var(--space-xl);
+    align-items: center;
+    margin: 0 var(--gutter) var(--space-2xl);
+    padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 3rem);
     background: var(--color-ink);
     color: var(--color-on-dark);
     border-radius: var(--radius);
-    padding: clamp(32px, 5vw, 52px) clamp(24px, 4vw, 48px);
-    display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    gap: 44px;
-    align-items: center;
   }
-  .cta__titel { font-size: clamp(28px, 3vw, 36px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; }
-  .cta__text { font-size: 19px; line-height: 1.6; color: var(--color-on-dark-2); text-wrap: pretty; }
-  .cta__btn { background: var(--color-accent-2); color: var(--color-on-accent); padding: 15px 26px; }
+  .cta__text-block { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .cta__titel { font-size: var(--text-3xl); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; }
+  .cta__text { max-width: 60ch; font-size: var(--text-md); line-height: 1.6; color: var(--color-on-dark-2); text-wrap: pretty; }
+  .cta__aktionen { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-xs); }
+  .cta__btn { background: var(--color-accent-2); color: var(--color-on-accent); }
   .cta__btn:hover { background: var(--color-on-dark); color: var(--color-ink); }
   .cta__btn--ghost { background: none; border-color: var(--color-dark-rule); }
-  .cta__mail { color: var(--color-on-dark-3); margin-top: 6px; }
+  .cta__mail { margin-top: var(--space-3xs); color: var(--color-on-dark-3); }
   .cta__mail a { color: var(--color-on-dark); text-decoration: underline; }
+  .cta :focus-visible { outline-color: var(--color-on-dark); }
+
   @media (max-width: 900px) {
-    .cta { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .faq { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
+    .index { position: static; }
+    .frage p { padding-right: 0; }
+    .cta { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
   }
 </style>
