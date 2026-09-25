@@ -11,7 +11,7 @@ const grosseKarte = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=
 const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Jugend & Training', 'Sonstiges'];
 ---
 
-<BaseLayout title="Kontakt" description="Kontakt zur Tennis- und Padelabteilung des SKV Eglosheim: Tammer Straße 30, 71634 Ludwigsburg-Eglosheim. Kontaktformular, Telefon, E-Mail und Anfahrt.">
+<BaseLayout title="Kontakt" description={`Kontakt zur Tennis- und Padelabteilung des SKV Eglosheim: ${kontakt.strasse}, ${kontakt.ort}. Kontaktformular, E-Mail und Anfahrt.`}>
   <PageIntro eyebrow="Kontakt" titel="Schreib uns, wir freuen uns">
     Ein Probetraining, eine Frage zur Mitgliedschaft oder zur Platzbuchung: Schreib uns über das Formular – wir leiten die
     Anfrage an die passende Person weiter.
@@ -24,7 +24,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
         <div class="anlage__name">Sport- und Kulturverein Eglosheim e.&nbsp;V.<br />Abteilung Tennis &amp; Padel</div>
         <p class="anlage__adresse">{kontakt.strasse}<br />{kontakt.ort}</p>
         <div class="anlage__links">
-          <a href={`tel:${kontakt.telefonLink}`}>Tel. {kontakt.telefon}</a>
+          {kontakt.telefon && <a href={`tel:${kontakt.telefonLink}`}>Tel. {kontakt.telefon}</a>}
           <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
         </div>
         <div class="btn-row" style="margin-top:10px">
@@ -109,7 +109,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
     color: var(--ink);
     padding: 12px 14px;
     border: 1px solid var(--line-strong);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     background: #fff;
   }
   .formular textarea { resize: vertical; }

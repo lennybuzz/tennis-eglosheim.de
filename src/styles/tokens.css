@@ -1,0 +1,94 @@
+/* Hallmark · design-system: design.md · genre: editorial (sportlich) · theme: custom
+ * vibe: "Vereinsbrett, warm, direkt, sportlich" · paper oklch(99.2% 0.005 55) · accent oklch(49.8% 0.189 28) club red
+ * display: Familjen Grotesk · body: Source Sans 3 · axes: light / grotesk-sans / warm
+ *
+ * Design-Tokens der Website. Farben, Schriften, Abstände und Bewegung werden
+ * ausschließlich über diese Variablen gesetzt – keine Hex-Werte in den Seiten.
+ * Die Regeln dazu stehen in design.md im Projektordner.
+ */
+
+:root {
+  /* ---------- Farben: helle Flächen ---------- */
+  --color-paper: oklch(99.2% 0.005 55);       /* Seitenhintergrund, leicht warm statt Reinweiß */
+  --color-paper-2: oklch(96.9% 0.006 60);     /* Sand: Bänder, Kacheln */
+  --color-paper-3: oklch(93.5% 0.01 58);      /* Platzhalterfläche für fehlende Fotos */
+  --color-rule-soft: oklch(94.9% 0.008 61);
+  --color-rule: oklch(91.3% 0.009 63);
+  --color-rule-strong: oklch(86.9% 0.013 56);
+
+  /* ---------- Farben: Schrift ---------- */
+  --color-ink: oklch(23.2% 0.015 33);
+  --color-ink-2: oklch(44.7% 0.014 37);       /* Fließtext gedämpft */
+  --color-ink-3: oklch(53.5% 0.013 45);       /* Nebeninfos – ≥ 4,5:1 auf paper und paper-2 */
+
+  /* ---------- Farben: Vereinsrot ---------- */
+  --color-accent: oklch(49.8% 0.189 28);
+  --color-accent-2: oklch(58.2% 0.2 28);      /* hellere Stufe für Buttons auf Dunkel */
+  --color-accent-3: oklch(66.1% 0.194 26);    /* Akzent in Überschriften auf Dunkel */
+  --color-accent-soft: oklch(78.6% 0.099 28); /* Rosé: aktive Links auf Dunkel */
+  --color-on-accent: oklch(99.2% 0.005 55);
+  --color-on-accent-2: oklch(93% 0.03 35);    /* Nebentext auf Rot */
+
+  /* ---------- Farben: dunkle Flächen ---------- */
+  --color-ink-raised: oklch(30.8% 0.022 32);  /* Hover auf Dunkel, Platzhalter im Hero */
+  --color-on-dark: oklch(96.1% 0.007 53);
+  --color-on-dark-2: oklch(80.2% 0.016 38);
+  --color-on-dark-3: oklch(65.7% 0.022 37);
+  --color-dark-rule: oklch(53.8% 0.022 38);
+  --color-dark-rule-2: oklch(32.1% 0.023 31);
+  --color-scrim: oklch(16.5% 0.015 34);       /* Verlauf über dem Hero-Foto */
+
+  --color-focus: var(--color-accent-2);
+
+  /* ---------- Schriften ---------- */
+  --font-display: 'Familjen Grotesk Variable', 'Familjen Grotesk', system-ui, sans-serif;
+  --font-body: 'Source Sans 3 Variable', 'Source Sans 3', system-ui, sans-serif;
+
+  /* ---------- Schriftgrößen ---------- */
+  --text-xs: 0.8125rem;   /* 13px */
+  --text-sm: 0.9375rem;   /* 15px */
+  --text-base: 1.0625rem; /* 17px */
+  --text-md: 1.1875rem;   /* 19px */
+  --text-lg: 1.3125rem;   /* 21px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: clamp(1.75rem, 3vw, 2.125rem);
+  --text-3xl: clamp(1.875rem, 3.4vw, 2.625rem);
+  --text-4xl: clamp(2.25rem, 4.6vw, 3.25rem);
+  --text-display: clamp(2.5rem, 5.6vw, 5.125rem);
+
+  /* ---------- Abstände (4-Punkt-Raster) ---------- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+  --gutter: clamp(20px, 4vw, 44px);
+
+  /* ---------- Form ---------- */
+  --radius: 3px;      /* eckig: Flächen, Kacheln, Bilder */
+  --radius-sm: 2px;   /* Buttons, Felder */
+  --rule: 1px solid var(--color-rule);
+  --rule-strong: 2px solid var(--color-ink);
+  --shadow-pop: 0 14px 34px color-mix(in oklch, var(--color-scrim) 28%, transparent);
+
+  /* ---------- Bewegung ---------- */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-short: 150ms;
+  --dur-medium: 240ms;
+  --dur-long: 600ms;
+
+  /* ---------- Ebenen ---------- */
+  --z-header: 60;
+  --z-dropdown: 70;
+  --z-skip: 100;
+
+  /* ---------- Layout ---------- */
+  --header-h: 74px;
+  --banner-h: 0px; /* wird vom Header gesetzt, wenn das Banner sichtbar ist */
+}

@@ -1,83 +1,104 @@
 ---
+/**
+ * Fußzeile nach design.md (Ft1 Mast-headed):
+ * großes Logo, Kontakt in einer Zeile, Seitenlinks als eine Reihe,
+ * Rechtliches als zweite, leisere Reihe.
+ */
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.svg';
 import { kontakt, links } from '../lib/inhalte';
 
-const spalten = [
-  {
-    titel: 'Verein',
-    links: [
-      { href: '/verein/', label: 'Der Verein' },
-      { href: '/verein/ansprechpartner/', label: 'Ansprechpartner' },
-      { href: '/verein/termine/', label: 'Termine' },
-      { href: '/faq/', label: 'Häufige Fragen' },
-      { href: '/mitglied-werden/', label: 'Mitglied werden' },
-    ],
-  },
-  {
-    titel: 'Sport',
-    links: [
-      { href: '/tennis/', label: 'Tennis' },
-      { href: '/padel/', label: 'Padel' },
-      { href: links.platzbuchung, label: 'Platz buchen' },
-      { href: links.instagram, label: 'Instagram' },
-    ],
-  },
-  {
-    titel: 'Rechtliches',
-    links: [
-      { href: '/kontakt/', label: 'Kontakt' },
-      { href: '/impressum/', label: 'Impressum' },
-      { href: '/datenschutz/', label: 'Datenschutz' },
-      { href: '/videoueberwachung/', label: 'Videoüberwachung' },
-    ],
-  },
+const seiten = [
+  { href: '/verein/', label: 'Verein' },
+  { href: '/tennis/', label: 'Tennis' },
+  { href: '/padel/', label: 'Padel' },
+  { href: '/verein/termine/', label: 'Termine' },
+  { href: '/verein/ansprechpartner/', label: 'Ansprechpartner' },
+  { href: '/faq/', label: 'Häufige Fragen' },
+  { href: '/mitglied-werden/', label: 'Mitglied werden' },
+  { href: links.platzbuchung, label: 'Platz buchen ↗' },
+];
+const rechtliches = [
+  { href: '/kontakt/', label: 'Kontakt' },
+  { href: '/impressum/', label: 'Impressum' },
+  { href: '/datenschutz/', label: 'Datenschutz' },
+  { href: '/videoueberwachung/', label: 'Videoüberwachung' },
 ];
 const jahr = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
-  <div class="site-footer__brand">
-    <Image src={logo} alt="SKV Eglosheim – Tennis & Padel" class="site-footer__logo" />
-    <p>{kontakt.strasse}<br />{kontakt.ort}<br />Tel. {kontakt.telefon}</p>
+<footer class="site-footer px">
+  <div class="mast">
+    <Image src={logo} alt="SKV Eglosheim – Tennis & Padel" class="mast__logo" />
+    <p class="mast__zeile">
+      <span>{kontakt.strasse}, {kontakt.ort}</span>
+      {kontakt.telefon && <a href={`tel:${kontakt.telefonLink}`}>{kontakt.telefon}</a>}
+      <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
+      <a href={links.instagram}>@{kontakt.instagram}</a>
+    </p>
   </div>
-  {
-    spalten.map((s, i) => (
-      <div class="site-footer__col">
-        <div class="site-footer__title">{s.titel}</div>
-        {s.links.map((l) => (
-          <a href={l.href}>{l.label}</a>
-        ))}
-        {i === spalten.length - 1 && <div class="site-footer__copy">© {jahr} TA SKV Eglosheim</div>}
-      </div>
-    ))
-  }
+
+  <nav class="seiten" aria-label="Seiten">
+    {seiten.map((l) => <a href={l.href}>{l.label}</a>)}
+  </nav>
+
+  <div class="recht">
+    <span>© {jahr} TA SKV Eglosheim</span>
+    {rechtliches.map((l) => <a href={l.href}>{l.label}</a>)}
+  </div>
 </footer>
 
 <style>
   .site-footer {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 56px var(--gutter);
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 1fr));
-    gap: 40px;
-    font-size: 17px;
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+    padding-block: var(--space-2xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
   }
-  .site-footer__brand { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
-  .site-footer__logo { height: 96px; width: auto; display: block; }
-  .site-footer__brand p { line-height: 1.6; color: var(--on-dark-muted); }
-  .site-footer__col { display: flex; flex-direction: column; gap: 10px; }
-  .site-footer__title { font-weight: 600; margin-bottom: 4px; }
-  .site-footer__col a { color: var(--on-dark-muted); }
-  .site-footer__col a:hover { color: #fff; }
-  .site-footer__copy { margin-top: 12px; color: var(--on-dark-faint); }
 
-  @media (max-width: 900px) {
-    .site-footer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .site-footer__brand { grid-column: 1 / -1; }
+  .mast { display: flex; align-items: flex-end; gap: var(--space-lg) var(--space-xl); flex-wrap: wrap; }
+  .mast__logo { height: clamp(96px, 12vw, 132px); width: auto; display: block; }
+  .mast__zeile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-md);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    color: var(--color-on-dark-2);
+    padding-bottom: var(--space-2xs);
   }
-  @media (max-width: 480px) {
-    .site-footer { grid-template-columns: minmax(0, 1fr); }
+  .mast__zeile > * { white-space: nowrap; }
+  .mast__zeile a { color: var(--color-on-dark); }
+  .mast__zeile a:hover { color: var(--color-accent-soft); }
+
+  .seiten {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-dark-rule-2);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+  .seiten a { color: var(--color-on-dark); white-space: nowrap; }
+  .seiten a:hover { color: var(--color-accent-soft); }
+
+  .recht {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-md);
+    font-size: var(--text-sm);
+    color: var(--color-on-dark-3);
+  }
+  .recht a { color: var(--color-on-dark-2); white-space: nowrap; }
+  .recht a:hover { color: var(--color-on-accent); }
+
+  @media (max-width: 560px) {
+    .mast__zeile { flex-direction: column; gap: var(--space-3xs); }
+    .mast__zeile > * { white-space: normal; overflow-wrap: anywhere; }
+    .seiten { font-size: var(--text-md); gap: var(--space-xs) var(--space-md); }
   }
 </style>

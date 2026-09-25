@@ -7,7 +7,88 @@
   "anlage": {
     "tennisplaetze": 4,
     "padelplaetze": 3,
-    "weiteres": "Ballwand & Fitnessbereich, Clubhaus mit Sonnenterrasse"
+    "weiteres": "Ballwand & Fitnessbereich, Clubhaus mit Sonnenterrasse",
+    "tennisplaetze_belag": "Asche",
+    "padel_hinweis": "Outdoor, mit Flutlicht. Padelplatz 0 ist nur für Mitglieder."
+  },
+  "buchung": {
+    "_hinweis": "Quelle: Buchungsseite tennis-eglosheim.ebusy.de. Bei Änderungen dort bitte auch hier anpassen.",
+    "system": "eBuSy",
+    "adresseAnzeige": "tennis-eglosheim.ebusy.de",
+    "spielzeiten": [
+      {
+        "tage": "Montag bis Samstag",
+        "zeit": "07:00–22:00 Uhr"
+      },
+      {
+        "tage": "Sonntag",
+        "zeit": "09:00–22:00 Uhr"
+      }
+    ],
+    "spielzeitenHinweis": "Ausnahme Tennis: Für Gäste und Mitglieder anderer SKV-Abteilungen sind die Tennisplätze montags bis freitags nur bis 17:00 Uhr buchbar.",
+    "schritte": [
+      {
+        "titel": "Registrieren",
+        "text": "Auf der Buchungsseite oben rechts auf „Registrieren“ klicken und den Bestätigungslink in der E-Mail öffnen. Mitglieder registrieren sich beim ersten Mal hier und nicht in der eBuSy-App."
+      },
+      {
+        "titel": "Platz buchen",
+        "text": "Einloggen, auf „Platzbuchung“ klicken, Sportart, Tag und Uhrzeit wählen und mit „Jetzt buchen“ abschließen. Die Bestätigung kommt per E-Mail."
+      },
+      {
+        "titel": "Tor öffnen",
+        "text": "Am Spieltag schickt dir das Schließsystem KleverKey eine E-Mail. Der Button darin öffnet das kleine Tor, von 30 Minuten vor bis 30 Minuten nach deiner Buchung."
+      }
+    ],
+    "leihe": "Padelschläger buchst du direkt mit: 3 € pro Schläger und Buchung, bis zu vier pro Platz, eine Dose Bälle gratis. Tennisschläger können wir derzeit nicht verleihen.",
+    "preiseHinweis": "Mitglieder der Tennis- & Padelabteilung spielen auf allen Plätzen kostenfrei. Für Gäste und Mitglieder anderer SKV-Abteilungen gelten diese Preise pro Stunde:",
+    "preise": [
+      {
+        "platz": "Padel",
+        "zeitraum": "Mo–Fr, 07–16 Uhr",
+        "gast": "24 €",
+        "skv": "16 €"
+      },
+      {
+        "platz": "Padel",
+        "zeitraum": "Mo–Fr, 16–22 Uhr",
+        "gast": "30 €",
+        "skv": "20 €"
+      },
+      {
+        "platz": "Padel",
+        "zeitraum": "Sa und So",
+        "gast": "30 €",
+        "skv": "20 €"
+      },
+      {
+        "platz": "Tennis",
+        "zeitraum": "Mo–Fr, 07–17 Uhr",
+        "gast": "24 €",
+        "skv": "16 €"
+      },
+      {
+        "platz": "Tennis",
+        "zeitraum": "Sa und So",
+        "gast": "30 €",
+        "skv": "20 €"
+      }
+    ],
+    "stornierung": [
+      {
+        "frist": "mehr als 24 Std. vorher",
+        "erstattung": "volle Gutschrift"
+      },
+      {
+        "frist": "24 bis 8 Std. vorher",
+        "erstattung": "50 % Gutschrift"
+      },
+      {
+        "frist": "weniger als 8 Std. vorher",
+        "erstattung": "keine, außer der Platz ist wetterbedingt unbespielbar"
+      }
+    ],
+    "stornierungHinweis": "Erstattungen gibt es als Guthaben auf deinem eBuSy-Konto."
   },
   "training": {
     "zeitraum": "Sommertraining Mai bis September",
@@ -122,6 +203,27 @@
             "zusatz": "ohne Kinder"
           }
         ]
+      }
+    ]
+  },
+  "mitgliedschaftBedingungen": {
+    "_hinweis": "Bedingungen der Mitgliedschaft, wie sie auf der Startseite stehen.",
+    "punkte": [
+      {
+        "titel": "Arbeitsstunden",
+        "text": "Von 18 bis 74 Jahren 9 Stunden im Jahr, ab 75 Jahren 3 Stunden, Kinder und Jugendliche keine. Zu leisten durch Arbeitseinsatz oder Clubhausdienst, sonst 25 € pro Stunde. Ohne Arbeitsdienst gibt es eigene Tarife."
+      },
+      {
+        "titel": "Zwei Beitragsteile",
+        "text": "Wir sind eine eigenständige Abteilung des SKV Eglosheim e.V. Der Beitrag setzt sich aus dem Anteil der Abteilung und dem Anteil des Hauptvereins zusammen."
+      },
+      {
+        "titel": "Kündigung",
+        "text": "Schriftlich per E-Mail an den Vorstand, zum Jahresende."
+      },
+      {
+        "titel": "Als Mitglied",
+        "text": "Kostenfrei auf allen Plätzen spielen, bis zu 14 Tage im Voraus buchen (Gäste 10 Tage), bis zu 6 offene Buchungen, eine pro Tag. Padelplatz 0 ist nur für Mitglieder."
       }
     ]
   },
@@ -308,7 +410,7 @@
         },
         {
           "frage": "Wo finde ich die Anlage?",
-          "antwort": "Tammer Straße 30, 71634 Ludwigsburg-Eglosheim. Auf der Kontaktseite ist die Anlage in der Karte eingezeichnet."
+          "antwort": "Junkerleswiesen 4, 71634 Ludwigsburg (Eglosheim). Auf der Kontaktseite ist die Anlage in der Karte eingezeichnet."
         },
         {
           "frage": "Ist das Clubhaus geöffnet?",
@@ -385,15 +487,15 @@
   ],
   "kontakt": {
     "verein": "Sport- und Kulturverein Eglosheim e. V. – Abteilung Tennis & Padel",
-    "strasse": "Tammer Straße 30",
-    "ort": "71634 Ludwigsburg-Eglosheim",
-    "telefon": "07141 – 31727",
+    "strasse": "Junkerleswiesen 4",
+    "ort": "71634 Ludwigsburg",
+    "telefon": "",
     "email": "hello@tennis-eglosheim.de",
-    "telefonLink": "+49714131727",
+    "telefonLink": "",
     "instagram": "skv.eglosheim_padel.tennis",
     "karte": {
-      "lat": 48.911,
-      "lon": 9.1735
+      "lat": 48.91124,
+      "lon": 9.16356
     }
   },
   "links": {

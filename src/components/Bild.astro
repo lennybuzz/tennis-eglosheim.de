@@ -19,10 +19,13 @@ interface Props {
   hoehe?: string;
   /** Eckenradius; 0 für eckige Bilder */
   radius?: string;
+  /** Oberhalb der Falz: sofort und mit hoher Priorität laden */
   eager?: boolean;
+  /** Anzeigebreite fürs responsive Laden, z. B. "100vw" für volle Breite */
+  sizes?: string;
 }
 
-const { bild, alt = '', platzhalter, class: className, hoehe = '360px', radius = 'var(--radius)', eager = false } = Astro.props;
+const { bild, alt = '', platzhalter, class: className, hoehe = '360px', radius = 'var(--radius)', eager = false, sizes = '(max-width: 900px) 100vw, 50vw' } = Astro.props;
 ---
 
 {
@@ -33,8 +36,9 @@ const { bild, alt = '', platzhalter, class: className, hoehe = '360px', radius =
       class:list={['bild', className]}
       style={`--h:${hoehe}; --r:${radius}`}
       widths={[480, 800, 1200, 1600, 2400]}
-      sizes="(max-width: 900px) 100vw, 50vw"
+      sizes={sizes}
       loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
     />
   ) : (
     <div class:list={['bild bild--platzhalter', className]} style={`--h:${hoehe}; --r:${radius}`} role="img" aria-label={`Platzhalter: ${platzhalter}`}>
@@ -58,17 +62,17 @@ const { bild, alt = '', platzhalter, class: className, hoehe = '360px', radius =
     justify-content: center;
     padding: 20px;
     background:
-      repeating-linear-gradient(135deg, transparent 0 14px, rgba(36, 27, 25, 0.04) 14px 15px),
-      #EFE8E3;
-    color: var(--muted-2);
-    font-size: 15px;
+      repeating-linear-gradient(135deg, transparent 0 14px, var(--color-rule) 14px 15px),
+      var(--color-paper-3);
+    color: var(--color-ink-3);
+    font-size: var(--text-sm);
     font-weight: 600;
     text-align: center;
   }
   .bild--platzhalter span {
-    border: 1px dashed var(--line-strong);
-    border-radius: 6px;
-    padding: 8px 14px;
-    background: rgba(255, 255, 255, 0.55);
+    border: 1px dashed var(--color-rule-strong);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2xs) 14px;
+    background: var(--color-paper);
   }
 </style>

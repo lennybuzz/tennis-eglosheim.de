@@ -1,8 +1,15 @@
 ---
+/**
+ * Kopfzeile nach design.md (N12 Banner + Leiste):
+ * - Banner nur bei zeitlich begrenzter Ankündigung (Sommer-Special aus inhalte.json).
+ *   Es scrollt mit weg, die Leiste bleibt oben stehen. Lässt sich schließen.
+ * - Leiste: Verein ▾ · Tennis · Padel · Kontakt · Platz buchen ↗ · [Mitglied werden]
+ */
 import { Image } from 'astro:assets';
 import logoMark from '../assets/logo-mark.svg';
-import { links } from '../lib/inhalte';
+import inhalte, { links } from '../lib/inhalte';
 
+const { sommerSpecial } = inhalte;
 const path = Astro.url.pathname;
 const aktiv = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 
@@ -18,80 +25,172 @@ const hauptLinks = [
   { href: '/kontakt/', label: 'Kontakt' },
 ];
 const vereinAktiv = aktiv('/verein/') || aktiv('/faq/');
+
+// Schlüssel fürs Schließen: ändert sich der Text, erscheint das Banner wieder
+const bannerId = `banner:${sommerSpecial.titel}|${sommerSpecial.kurz}`;
+const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
 ---
 
-<header class="site-header">
-  <a href="/" class="brand">
-    <Image src={logoMark} alt="SKV Eglosheim" class="brand__logo" loading="eager" />
-    <span class="brand__text">SKV Eglosheim e.V.<br />Abteilung Tennis &amp; Padel</span>
-  </a>
-
-  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
-    <span class="menu-toggle__bars" aria-hidden="true"></span>
-    <span class="visually-hidden">Menü</span>
-  </button>
-
-  <nav id="hauptnavigation" class="nav" aria-label="Hauptnavigation">
-    <div class="nav-drop">
-      <a href="/verein/" class:list={['nav__link', { 'is-active': vereinAktiv }]}>Verein</a>
-      <div class="nav-drop__sub">
-        <div class="nav-drop__panel">
-          {
-            vereinLinks.map((l) => (
-              <a
-                href={l.href}
-                class:list={{ 'is-active': l.exakt ? path === l.href : aktiv(l.href) }}
-                aria-current={path === l.href ? 'page' : undefined}
-              >
-                {l.label}
-              </a>
-            ))
+<header class:list={['site-header', { 'has-banner': zeigeBanner }]}>
+  {
+    zeigeBanner && (
+      <div class="banner" data-banner-id={bannerId}>
+        <p class="banner__text">
+          <strong>{sommerSpecial.titel}:</strong> {sommerSpecial.kurz}
+        </p>
+        <a href="/mitglied-werden/" class="banner__link">Bedingungen →</a>
+        <button class="banner__x" type="button" aria-label="Hinweis ausblenden">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    )
+  }
+  {
+    zeigeBanner && (
+      <script is:inline>
+        try {
+          var b = document.querySelector('[data-banner-id]');
+          if (b && localStorage.getItem('banner-weg') === b.dataset.bannerId) {
+            b.hidden = true;
+            b.parentElement.classList.remove('has-banner');
           }
+        } catch (e) {}
+      </script>
+    )
+  }
+
+  <div class="bar">
+    <a href="/" class="brand">
+      <Image src={logoMark} alt="" class="brand__logo" loading="eager" />
+      <span class="brand__text">SKV Eglosheim e.V.<br />Abteilung Tennis &amp; Padel</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
+      <span class="menu-toggle__bars" aria-hidden="true"></span>
+      <span class="visually-hidden">Menü</span>
+    </button>
+
+    <nav id="hauptnavigation" class="nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <a href="/verein/" class:list={['nav__link', { 'is-active': vereinAktiv }]}>Verein</a>
+        <div class="nav-drop__sub">
+          <div class="nav-drop__panel">
+            {
+              vereinLinks.map((l) => (
+                <a
+                  href={l.href}
+                  class:list={{ 'is-active': l.exakt ? path === l.href : aktiv(l.href) }}
+                  aria-current={path === l.href ? 'page' : undefined}
+                >
+                  {l.label}
+                </a>
+              ))
+            }
+          </div>
         </div>
       </div>
-    </div>
-    {
-      hauptLinks.map((l) => (
-        <a
-          href={l.href}
-          class:list={['nav__link', { 'is-active': aktiv(l.href) }]}
-          aria-current={path === l.href ? 'page' : undefined}
-        >
-          {l.label}
-        </a>
-      ))
-    }
-    <a href={links.platzbuchung} class="btn btn--outline-light nav__btn">Platz buchen</a>
-    <a href="/mitglied-werden/" class="btn btn--accent nav__btn">Mitglied werden</a>
-  </nav>
+      {
+        hauptLinks.map((l) => (
+          <a
+            href={l.href}
+            class:list={['nav__link', { 'is-active': aktiv(l.href) }]}
+            aria-current={path === l.href ? 'page' : undefined}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+      <a href={links.platzbuchung} class="nav__link nav__link--extern">Platz buchen <span aria-hidden="true">↗</span></a>
+      <a href="/mitglied-werden/" class="btn btn--accent nav__btn">Mitglied werden</a>
+    </nav>
+  </div>
 </header>
 
 <script>
-  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
   const header = document.querySelector<HTMLElement>('.site-header');
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
   toggle?.addEventListener('click', () => {
     const offen = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!offen));
     header?.classList.toggle('is-open', !offen);
   });
+
+  const banner = document.querySelector<HTMLElement>('[data-banner-id]');
+  banner?.querySelector('.banner__x')?.addEventListener('click', () => {
+    banner.hidden = true;
+    header?.classList.remove('has-banner');
+    try {
+      localStorage.setItem('banner-weg', banner.dataset.bannerId ?? '');
+    } catch {
+      /* ohne Speicher: Banner kommt beim nächsten Seitenaufruf wieder */
+    }
+  });
 </script>
 
 <style>
+  /*
+   * Die ganze Kopfzeile ist sticky, aber um die Bannerhöhe nach oben versetzt:
+   * Beim Scrollen verschwindet das Banner, die Leiste bleibt oben stehen.
+   */
   .site-header {
+    --banner-h: 0px;
     position: sticky;
-    top: 0;
-    z-index: 60;
+    top: calc(var(--banner-h) * -1);
+    z-index: var(--z-header);
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+  }
+  .site-header.has-banner { --banner-h: 44px; }
+
+  /* ---------- Banner ---------- */
+  .banner {
+    height: var(--banner-h);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding-inline: var(--gutter) var(--space-2xs);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-size: var(--text-sm);
+  }
+  .banner__text {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .banner__text strong { font-weight: 700; }
+  .banner__link { color: var(--color-on-accent); font-weight: 600; white-space: nowrap; }
+  .banner__link:hover { color: var(--color-on-accent-2); text-decoration: underline; text-underline-offset: 3px; }
+  .banner__x {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--color-on-accent);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--dur-short) var(--ease-out);
+  }
+  .banner__x:hover { background: color-mix(in oklch, var(--color-ink) 18%, transparent); }
+  .banner__x:focus-visible { outline-color: var(--color-on-accent); outline-offset: -3px; }
+
+  /* ---------- Leiste ---------- */
+  .bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
+    gap: var(--space-lg);
+    min-height: var(--header-h);
     padding: 14px var(--gutter);
-    background: var(--ink);
-    color: var(--cream);
   }
 
-  .brand { display: flex; align-items: center; gap: 12px; color: var(--cream); }
-  .brand:hover { color: #fff; }
+  .brand { display: flex; align-items: center; gap: var(--space-xs); color: var(--color-on-dark); }
+  .brand:hover { color: var(--color-on-accent); }
   .brand__logo { height: 46px; width: auto; display: block; flex: 0 0 auto; }
   .brand__text {
     font-family: var(--font-display);
@@ -101,12 +200,14 @@ const vereinAktiv = aktiv('/verein/') || aktiv('/faq/');
     white-space: nowrap;
   }
 
-  .nav { display: flex; align-items: center; gap: 20px; font-size: 16px; font-weight: 500; }
-  .nav__link { color: var(--cream); }
-  .nav__link:hover, .nav__link.is-active { color: var(--rose); }
+  .nav { display: flex; align-items: center; gap: 22px; font-size: 16px; font-weight: 500; }
+  .nav__link { color: var(--color-on-dark); white-space: nowrap; }
+  .nav__link:hover, .nav__link.is-active { color: var(--color-accent-soft); }
+  .nav__link--extern { color: var(--color-on-dark-2); }
   .nav__btn { font-size: 16px; padding: 9px 16px; }
 
   .nav-drop { position: relative; display: inline-flex; align-items: center; }
+  .nav-drop > .nav__link::after { content: ' ▾'; font-size: 0.75em; color: var(--color-on-dark-3); }
   .nav-drop__sub {
     display: none;
     position: absolute;
@@ -114,31 +215,32 @@ const vereinAktiv = aktiv('/verein/') || aktiv('/faq/');
     left: -16px;
     padding-top: 14px;
     min-width: 220px;
-    z-index: 70;
+    z-index: var(--z-dropdown);
   }
   .nav-drop:hover .nav-drop__sub,
   .nav-drop:focus-within .nav-drop__sub { display: block; }
   .nav-drop__panel {
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border-radius: 8px;
-    padding: 8px;
-    box-shadow: 0 14px 34px rgba(20, 12, 10, 0.28);
+    background: var(--color-paper);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2xs);
+    box-shadow: var(--shadow-pop);
   }
-  .nav-drop__panel a { color: var(--ink); padding: 10px 12px; border-radius: 6px; font-weight: 500; }
-  .nav-drop__panel a:hover { background: var(--sand); }
-  .nav-drop__panel a.is-active { color: var(--red); }
+  .nav-drop__panel a { color: var(--color-ink); padding: 10px 12px; border-radius: var(--radius-sm); font-weight: 500; }
+  .nav-drop__panel a:hover { background: var(--color-paper-2); }
+  .nav-drop__panel a.is-active { color: var(--color-accent); }
 
   .menu-toggle {
     display: none;
     background: none;
-    border: 1px solid var(--dark-line);
-    border-radius: 6px;
+    border: 1px solid var(--color-dark-rule);
+    border-radius: var(--radius-sm);
     width: 46px;
     height: 42px;
     cursor: pointer;
     position: relative;
+    flex: 0 0 auto;
   }
   .menu-toggle__bars,
   .menu-toggle__bars::before,
@@ -147,8 +249,8 @@ const vereinAktiv = aktiv('/verein/') || aktiv('/faq/');
     left: 12px;
     width: 20px;
     height: 2px;
-    background: var(--cream);
-    transition: transform .2s, opacity .2s;
+    background: var(--color-on-dark);
+    transition: transform var(--dur-medium) var(--ease-out), opacity var(--dur-medium) var(--ease-out);
   }
   .menu-toggle__bars { top: 19px; }
   .menu-toggle__bars::before, .menu-toggle__bars::after { content: ''; left: 0; }
@@ -159,7 +261,7 @@ const vereinAktiv = aktiv('/verein/') || aktiv('/faq/');
   .is-open .menu-toggle__bars::after { transform: translateY(-6px) rotate(-45deg); }
 
   @media (max-width: 1080px) {
-    .site-header { flex-wrap: wrap; gap: 0; }
+    .bar { flex-wrap: wrap; gap: 0 var(--space-sm); }
     .menu-toggle { display: block; }
     .nav {
       display: none;
@@ -167,18 +269,23 @@ const vereinAktiv = aktiv('/verein/') || aktiv('/faq/');
       flex-direction: column;
       align-items: stretch;
       gap: 0;
-      padding: 12px 0 8px;
+      padding: var(--space-xs) 0 var(--space-2xs);
       font-size: 18px;
     }
     .is-open .nav { display: flex; }
-    .nav__link, .nav-drop { padding: 12px 0; border-top: 1px solid var(--dark-line-2); }
+    .nav__link, .nav-drop { padding: 12px 0; border-top: 1px solid var(--color-dark-rule-2); }
+    .nav-drop > .nav__link { padding: 0; border: 0; }
+    .nav-drop > .nav__link::after { content: none; }
     .nav-drop { flex-direction: column; align-items: stretch; }
     .nav-drop__sub { display: block; position: static; padding: 6px 0 0 14px; min-width: 0; }
     .nav-drop__panel { background: none; box-shadow: none; padding: 0; }
-    .nav-drop__panel a { color: var(--on-dark-muted); padding: 8px 0; }
-    .nav-drop__panel a:hover { background: none; color: #fff; }
-    .nav-drop__panel a.is-active { color: var(--rose); }
+    .nav-drop__panel a { color: var(--color-on-dark-2); padding: var(--space-2xs) 0; }
+    .nav-drop__panel a:hover { background: none; color: var(--color-on-accent); }
+    .nav-drop__panel a.is-active { color: var(--color-accent-soft); }
     .nav__btn { text-align: center; margin-top: 10px; padding: 13px 16px; }
+  }
+  @media (max-width: 560px) {
+    .banner__text strong { display: none; }
   }
   @media (max-width: 420px) {
     .brand__text { font-size: 14px; }
