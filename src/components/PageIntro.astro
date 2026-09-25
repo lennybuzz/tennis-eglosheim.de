@@ -1,14 +1,32 @@
 ---
+/**
+ * Seitenkopf für Unterseiten: Titel, Einleitung, optional Brotkrumen.
+ *
+ * Kleine Überschriften über dem Titel gibt es nach design.md nicht mehr –
+ * nur noch Brotkrumen auf Unterseiten, z. B. pfad={[{ label: 'Verein', href: '/verein/' }, { label: 'Termine' }]}.
+ */
 interface Props {
-  eyebrow: string;
   titel: string;
+  /** Brotkrumen: übergeordnete Seiten mit Link, die aktuelle Seite ohne */
+  pfad?: { label: string; href?: string }[];
   breite?: string;
 }
-const { eyebrow, titel, breite = '900px' } = Astro.props;
+const { titel, pfad, breite = '900px' } = Astro.props;
 ---
 
 <section class="intro px" style={`--breite:${breite}`}>
-  <div class="eyebrow">{eyebrow}</div>
+  {
+    pfad && (
+      <nav class="pfad" aria-label="Brotkrumen">
+        {pfad.map((p, i) => (
+          <>
+            {i > 0 && <span aria-hidden="true">›</span>}
+            {p.href ? <a href={p.href}>{p.label}</a> : <span aria-current="page">{p.label}</span>}
+          </>
+        ))}
+      </nav>
+    )
+  }
   <h1>{titel}</h1>
   {Astro.slots.has('default') && <p class="lead"><slot /></p>}
   <slot name="extra" />
@@ -16,17 +34,32 @@ const { eyebrow, titel, breite = '900px' } = Astro.props;
 
 <style>
   .intro {
-    padding-block: clamp(40px, 5vw, 56px) 40px;
+    padding-block: var(--space-2xl) var(--space-lg);
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: var(--space-sm);
     max-width: calc(var(--breite) + 2 * var(--gutter));
   }
-  h1 {
-    font-size: clamp(36px, 4.6vw, 52px);
-    line-height: 1.02;
+  .pfad {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3xs) var(--space-2xs);
+    font-size: var(--text-sm);
     font-weight: 600;
-    letter-spacing: -0.03em;
+    color: var(--color-ink-3);
+  }
+  .pfad a { color: var(--color-ink-2); white-space: nowrap; }
+  .pfad a:hover { color: var(--color-accent); }
+  h1 {
+    font-size: var(--text-4xl);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.035em;
     text-wrap: balance;
+  }
+  .lead { max-width: 64ch; }
+
+  @media (max-width: 760px) {
+    .intro { padding-block: var(--space-xl) var(--space-md); }
   }
 </style>

@@ -1,119 +1,166 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
-import inhalte, { kontakt, links } from '../lib/inhalte';
+import inhalte, { links, mitLinks } from '../lib/inhalte';
 
-const { anlage, training } = inhalte;
-const galerie = [1, 2, 3, 4, 5, 6];
+const { anlage, buchung, timeline } = inhalte;
+const preise = buchung.preise.filter((p) => p.platz === 'Padel');
+// Die Frage nach dem Training verweist auf diese Seite selbst – hier weglassen
+const padelFragen = (inhalte.faq.find((g) => g.id === 'padel')?.fragen ?? []).filter((f) => !/training/i.test(f.frage));
+const padelChronik = timeline.filter((e) => /padel/i.test(e.titel));
 ---
 
-<BaseLayout title="Padel" description={`Padel in Ludwigsburg: ${anlage.padelplaetze} Padelplätze beim SKV Eglosheim, buchbar für Mitglieder und Gäste über eBuSy.`}>
-  <section class="hero">
-    <div class="hero__text px">
-      <div class="eyebrow">Padel · eröffnet 25. Juli 2025</div>
-      <h1>Padel in Ludwigsburg</h1>
-      <p class="body">
-        Unser Padel-Projekt ist Wirklichkeit geworden. Was im Mai mit den ersten Baggerarbeiten begann, ist nun fertig: Am
-        25. Juli 2025 haben wir unsere beiden brandneuen Padel-Plätze offiziell eröffnet. Mit diesem Neubau erweitern wir
-        unser sportliches Angebot um eine der am schnellsten wachsenden Trendsportarten Europas.
+<BaseLayout
+  title="Padel"
+  description={`Padel in Ludwigsburg: ${anlage.padelplaetze} Outdoor-Padelplätze mit Flutlicht beim SKV Eglosheim, buchbar für Mitglieder und Gäste über eBuSy.`}
+>
+  <PageIntro titel="Padel in Ludwigsburg">
+    Seit Juli 2025 die ersten Padelplätze in Ludwigsburg: {anlage.padelplaetze} Outdoor-Plätze mit Flutlicht, offen für
+    Mitglieder und Gäste.
+    <div slot="extra" class="btn-row">
+      <a href={links.platzbuchung} class="btn btn--primary">Platz buchen <span aria-hidden="true">↗</span></a>
+      <a href="#training" class="btn btn--outline">Padel-Training</a>
+    </div>
+  </PageIntro>
+
+  <!-- Die Plätze: Text | Foto + Chronik -->
+  <section class="diptychon px">
+    <div class="diptychon__text">
+      <h2 class="diptychon__titel">Kommt vorbei und spielt mit</h2>
+      <p>
+        Was im Mai 2025 mit den ersten Baggerarbeiten begann, haben wir am 25. Juli 2025 eröffnet – seit Mai 2026 mit einem
+        dritten Platz. Die Plätze stehen nicht nur unseren Mitgliedern offen, sondern können auch von Gästen gebucht werden.
+      </p>
+      <p>
+        Unser Ziel: den TA SKV Eglosheim noch attraktiver für Jung und Alt machen, neue Sportbegeisterte gewinnen und
+        unsere Gemeinschaft weiter stärken.
+      </p>
+      <p class="links">
+        <a href={links.instagram} class="link-arrow">Folgt uns auf Instagram ↗</a>
+      </p>
+    </div>
+    <div class="diptychon__beleg">
+      <Bild platzhalter="Drohnenfoto der Padelplätze" hoehe="360px" sizes="(max-width: 900px) 100vw, 55vw" eager />
+      <table class="tabelle">
+        <caption>Vom Bagger zum dritten Platz</caption>
+        <tbody>
+          {
+            padelChronik.map((e) => (
+              <tr>
+                <th scope="row">{e.datum}</th>
+                <td>{e.titel}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Buchung: Preise | Text -->
+  <section id="buchen" class="diptychon diptychon--umgekehrt diptychon--band px">
+    <div class="diptychon__text">
+      <h2 class="diptychon__titel">Buchen und spielen</h2>
+      <p>
+        Du buchst online über {buchung.system}, als Doppel- oder als Einzelplatz. Mitglieder der Tennis- &amp; Padelabteilung
+        spielen kostenfrei, Gäste zahlen pro Stunde. Padelplatz 0 ist unseren Mitgliedern vorbehalten.
+      </p>
+      <p>{buchung.leihePadel}</p>
+      <p class="klein">
+        Die Plätze haben Flutlicht; du schaltest es an der Eingangstür ein und nach dem Spiel bitte wieder aus. Das Tor
+        öffnest du mit dem Link aus der KleverKey-E-Mail.
       </p>
       <div class="btn-row">
-        <a href={links.platzbuchung} class="btn btn--primary">Platz buchen</a>
-        <a href="#training" class="btn btn--outline">Padel-Training</a>
+        <a href={links.platzbuchung} class="btn btn--primary">Platz buchen <span aria-hidden="true">↗</span></a>
+        <a href="/#so-gehts" class="btn btn--outline">So buchst du</a>
       </div>
     </div>
-    <Bild platzhalter="Drohnenfoto der Padelplätze" hoehe="440px" radius="0" eager />
+    <div class="diptychon__beleg diptychon__beleg--zweispaltig">
+      <div class="beleg__block">
+        <table class="tabelle tabelle--gast">
+          <caption>Preise pro Stunde</caption>
+          <thead>
+            <tr>
+              <th scope="col">Zeit</th>
+              <th scope="col">Gäste</th>
+              <th scope="col">SKV-Mitglieder<span class="tabelle__zusatz"> andere Abteilungen</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              preise.map((p) => (
+                <tr>
+                  <th scope="row">{p.zeitraum}</th>
+                  <td>{p.gast}</td>
+                  <td>{p.skv}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="beleg__hinweis">Mitglieder der Tennis- &amp; Padelabteilung spielen kostenfrei.</p>
+      </div>
+      <div class="beleg__block">
+        <table class="tabelle">
+          <caption>Spielzeiten</caption>
+          <tbody>
+            {
+              buchung.spielzeiten.map((s) => (
+                <tr>
+                  <th scope="row">{s.tage}</th>
+                  <td>{s.zeit}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
-  <section class="kennzahlen band-sand">
-    <div class="kennzahlen__item">
-      <div class="kennzahlen__wert">{anlage.padelplaetze}</div>
-      <div class="kennzahlen__label">Padelplätze, der dritte seit Mai 2026</div>
-    </div>
-    <div class="kennzahlen__item">
-      <div class="kennzahlen__wert">Für Gäste</div>
-      <div class="kennzahlen__label">Buchbar auch ohne Mitgliedschaft</div>
-    </div>
-    <div class="kennzahlen__item">
-      <div class="kennzahlen__wert">eBuSy</div>
-      <div class="kennzahlen__label">Online reservieren, Belegung live</div>
-    </div>
-  </section>
-
-  <section class="split px" style="padding-block:64px; grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr)">
-    <div class="stack">
-      <h2 class="h2">Kommt vorbei und spielt mit</h2>
-      <p class="body">
-        Die modernen Plätze stehen nicht nur unseren Mitgliedern zur Verfügung, sondern können auch von interessierten Gästen
-        gebucht werden. Unser Ziel ist es, den TA SKV Eglosheim noch attraktiver für Jung und Alt zu machen, neue
-        Sportbegeisterte zu gewinnen und unsere Gemeinschaft weiter zu stärken.
+  <!-- Neu bei Padel und Training: Text | Fragen -->
+  <section id="training" class="diptychon px">
+    <div class="diptychon__text">
+      <h2 class="diptychon__titel">Neu bei Padel?</h2>
+      <p>
+        Padel ist in wenigen Minuten erklärt und macht vom ersten Ballwechsel an Spaß. Die wichtigsten Antworten stehen
+        hier, alle weiteren in unseren häufigen Fragen.
       </p>
-      <p class="body">Wir freuen uns auf viele spannende Matches und eine tolle Padel-Saison in Eglosheim.</p>
-      <a href={links.instagram} class="link-arrow" style="font-size:18px">Folgt uns bei Instagram: @{kontakt.instagram} →</a>
+      <p class="links">
+        <a href="/faq/#padel" class="link-arrow">Alle Fragen zu Padel →</a>
+      </p>
+      <h3 class="unter">Padel-Training</h3>
+      <p>Padel-Training ist neu im Angebot. Schreib uns, wenn du mitmachen möchtest – wir sagen dir, wann die nächste Gruppe startet.</p>
+      <div class="btn-row">
+        <a href="/kontakt/" class="btn btn--primary">Training anfragen</a>
+        <a href="/mitglied-werden/" class="btn btn--outline">Mitglied werden</a>
+      </div>
     </div>
-    <Bild platzhalter="Spielszene auf dem Padelplatz" hoehe="360px" />
-  </section>
-
-  <section id="training" class="split px training">
-    <div class="stack" style="--stack-gap:16px">
-      <div class="eyebrow training__eyebrow">Neu im Angebot</div>
-      <h2 class="h2">Padel-Training</h2>
-      <p class="training__text">{training.zeitraum} – {training.hinweis}</p>
-      <a href="/mitglied-werden/" class="btn btn--accent" style="align-self:flex-start; margin-top:6px">Mitglied werden</a>
-    </div>
-    <div class="training__liste">
-      {
-        training.zeiten.map((z) => (
-          <div class="training__zeile">
-            <span class="training__gruppe">{z.gruppe}</span>
-            <span class="training__zeit">{z.zeit}</span>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <section id="galerie" class="px stack" style="--stack-gap:24px; padding-block:64px">
-    <h2 class="h2 h2--sm">Unsere Anlage</h2>
-    <div class="grid grid-3">
-      {galerie.map((n) => <Bild platzhalter={`Foto ${n}`} hoehe="260px" />)}
+    <div class="diptychon__beleg">
+      <dl class="bedingungen">
+        {
+          padelFragen.map((f) => (
+            <div>
+              <dt>{f.frage}</dt>
+              <dd set:html={mitLinks(f.antwort)} />
+            </div>
+          ))
+        }
+      </dl>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
-  .hero__text { padding-block: 56px; display: flex; flex-direction: column; gap: 20px; }
-  .hero h1 { font-size: clamp(38px, 4.8vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; }
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: minmax(0, 1fr); }
-    .hero__text { padding-block: 40px; }
-    .hero :global(.bild) { height: 280px; }
-  }
-
-  .kennzahlen { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .kennzahlen__item { padding: 32px var(--gutter); border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
-  .kennzahlen__item:last-child { border-right: 0; }
-  .kennzahlen__wert { font-family: var(--font-display); font-size: clamp(30px, 3vw, 38px); font-weight: 600; }
-  .kennzahlen__label { color: var(--muted); }
-  @media (max-width: 720px) {
-    .kennzahlen { grid-template-columns: minmax(0, 1fr); }
-    .kennzahlen__item { border-right: 0; border-bottom: 1px solid var(--line); padding-block: 22px; }
-    .kennzahlen__item:last-child { border-bottom: 0; }
-  }
-
-  .training {
-    background: var(--ink);
-    color: var(--cream);
-    padding-block: 64px;
-    align-items: start;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  }
-  .training__eyebrow { color: #E8615A; }
-  .training__text { font-size: 19px; line-height: 1.6; color: var(--on-dark-muted); text-wrap: pretty; }
-  .training__liste { display: flex; flex-direction: column; border: 1px solid var(--dark-line-2); border-radius: var(--radius); overflow: hidden; }
-  .training__zeile { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--dark-line-2); }
-  .training__zeile:last-child { border-bottom: 0; }
-  .training__gruppe { font-family: var(--font-display); font-size: 20px; font-weight: 600; }
-  .training__zeit { color: var(--on-dark-faint); text-align: right; }
+  /* Hallmark · genre: editorial · macrostructure: Split Studio · design-system: design.md · designed-as-app
+   * tone: Vereinsbrett · anchor hue: 28 · Formen eckig · enrichment: ein Foto (Platzhalter bis echtes Bild)
+   * pre-emit critique: P4 H4 E4 S5 R5 V4
+   */
+  .beleg__block { display: flex; flex-direction: column; gap: var(--space-2xs); min-width: 0; }
+  .beleg__hinweis { font-size: var(--text-sm); line-height: 1.5; color: var(--color-ink-3); }
+  .links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
+  .diptychon:last-of-type { padding-bottom: var(--space-3xl); }
+  .bedingungen dd { color: var(--color-ink-2); line-height: 1.55; }
+  .unter { margin-top: var(--space-md); font-size: var(--text-xl); font-weight: 600; }
 </style>

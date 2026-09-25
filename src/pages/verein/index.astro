@@ -4,90 +4,138 @@ import PageIntro from '../../components/PageIntro.astro';
 import Bild from '../../components/Bild.astro';
 import inhalte from '../../lib/inhalte';
 
-const { anlage } = inhalte;
+const { anlage, mitglieder, kontakt, buchung } = inhalte;
 ---
 
-<BaseLayout title="Der Verein" description="Tennis & Padel für alle Altersstufen: unsere Anlage in Ludwigsburg-Eglosheim mit Sandplätzen, Padelplätzen, Ballwand, Fitnessbereich und Clubhaus.">
-  <PageIntro eyebrow="Der Verein" titel="Wir sind ein Verein für alle Altersstufen">
-    Wir sind ein Verein mit Mitgliedern aus allen Gesellschaftsschichten und Altersstufen. Bedingt durch unsere Größe und
-    einer persönlichen Atmosphäre, findet man als neues Mitglied sehr schnell Anschluss und Spielpartner.
+<BaseLayout
+  title="Der Verein"
+  description="Tennis & Padel für alle Altersstufen: unsere Anlage in Ludwigsburg-Eglosheim mit Sandplätzen, Padelplätzen, Ballwand, Fitnessbereich und Clubhaus."
+>
+  <PageIntro titel="Wir sind ein Verein für alle Altersstufen">
+    Unsere Mitglieder kommen aus allen Gesellschaftsschichten und Altersstufen. Dank unserer Größe und der persönlichen
+    Atmosphäre findest du als neues Mitglied sehr schnell Anschluss und Spielpartner.
   </PageIntro>
 
-  <section class="split px" style="padding-block:24px 64px">
-    <div class="stack">
-      <h2 class="h2 h2--sm">Unser Tennisverein</h2>
-      <p class="body">
-        Sie möchten aktiv in einer Mannschaft spielen oder im Hobby Bereich den Spaß und die Freude am Tennisspielen
-        genießen? In unseren Damen- und Herrenmannschaften findet jeder Spieler seinen Platz.
+  <div class="dokument px">
+    <article class="dokument__text">
+      <h2>Unser Tennisverein</h2>
+      <p>
+        Du möchtest aktiv in einer Mannschaft spielen oder im Hobbybereich einfach Spaß am Tennis haben? In unseren Damen-
+        und Herrenmannschaften findet jeder seinen Platz.
       </p>
-      <p class="body">
-        Unsere schöne Anlage ist ruhig und idyllisch gelegen. Unsere Terrasse bietet die Möglichkeit alle Plätze einzusehen
-        und spannende Matches zu verfolgen. Das große Clubhaus verfügt neben einem von den Mitgliedern betriebenen
-        Gastronomiebereich, der zum gemütlichen Beisammensein einlädt, auch über einen gut ausgestatteten Jugendraum. Für die
-        Kleinsten gibt es einen Außenbereich mit Sandkasten.
+      <p>
+        Unsere Anlage liegt ruhig und idyllisch. Von der Terrasse aus siehst du alle Plätze und kannst spannende Matches
+        verfolgen. Das große Clubhaus hat einen von den Mitgliedern betriebenen Gastronomiebereich, der zum gemütlichen
+        Beisammensein einlädt, und einen gut ausgestatteten Jugendraum. Für die Kleinsten gibt es einen Außenbereich mit
+        Sandkasten.
       </p>
-    </div>
-    <Bild platzhalter="Foto der Anlage" hoehe="420px" />
-  </section>
 
-  <section class="band-sand px anlage">
-    <h2 class="h2 h2--sm">Was unsere Anlage bietet</h2>
-    <div class="grid grid-4">
-      <div class="card">
-        <div class="anlage__zahl">{anlage.tennisplaetze}</div>
-        <div class="anlage__titel">Sandplätze</div>
-        <p class="anlage__text">
-          Wir verfügen zwar „nur“ über {anlage.tennisplaetze} Sandplätze, aufgrund unserer Mitgliederzahlen ist die Kapazität
-          aber absolut ausreichend und es kommt so gut wie nie zu Wartezeiten.
-        </p>
-      </div>
-      <div class="card">
-        <div class="anlage__zahl">{anlage.padelplaetze}</div>
-        <div class="anlage__titel">Padelplätze</div>
-        <p class="anlage__text">Seit Juli 2025 auf der Anlage, buchbar für Mitglieder und Gäste.</p>
-        <a href="/padel/" class="link-arrow card__link">Mehr zu Padel →</a>
-      </div>
-      <div class="card">
-        <div class="anlage__titel">Ballwand &amp; Fitnessbereich</div>
-        <p class="anlage__text">
-          An unserer Ballwand kann man sich bereits vor dem Match warm spielen oder ohne Spielpartner trainieren. Unser
-          Outdoor Fitnessbereich bietet zahlreiche Möglichkeiten sich körperlich zu ertüchtigen. Neben Übungen um sich vor dem
-          Spiel aufzuwärmen und Verletzungen vorzubeugen, kann man beispielsweise über Therabänder seinen Körper ganzheitlich
-          trainieren.
-        </p>
-      </div>
-      <div class="card">
-        <div class="anlage__titel">Eigener Schlüssel</div>
-        <p class="anlage__text">
-          Jedes Mitglied erhält seinen eigenen Schlüssel und hat somit jederzeit freien Zutritt zur Anlage und der
-          Möglichkeit Tennis zu spielen.
-        </p>
-      </div>
-    </div>
-  </section>
+      <h2>Was unsere Anlage bietet</h2>
+      <p>
+        Wir haben „nur“ <strong>{anlage.tennisplaetze} Sandplätze</strong> – bei unserer Mitgliederzahl reicht die
+        Kapazität aber völlig aus, Wartezeiten gibt es so gut wie nie. Seit Juli 2025 kommen{' '}
+        <strong>{anlage.padelplaetze} Padelplätze</strong> mit Flutlicht dazu, buchbar für Mitglieder und Gäste.
+      </p>
+      <p>
+        An der <strong>Ballwand</strong> spielst du dich vor dem Match warm oder trainierst ohne Spielpartner. Unser{' '}
+        <strong>Outdoor-Fitnessbereich</strong> bietet viele Möglichkeiten, dich aufzuwärmen, Verletzungen vorzubeugen
+        oder mit Therabändern den ganzen Körper zu trainieren.
+      </p>
+      <p>
+        Jedes Mitglied erhält einen <strong>eigenen Schlüssel</strong> und hat damit jederzeit Zutritt zur Anlage.
+      </p>
 
-  <section class="px grid grid-3" style="padding-block:64px">
-    <a href="/verein/ansprechpartner/" class="card">
-      <span class="card__kicker">Verein</span>
-      <span class="card__title">Ansprechpartner</span>
-      <span class="card__text">Wer bei uns wofür zuständig ist, mit direkter E-Mail-Adresse.</span>
-    </a>
-    <a href="/verein/termine/" class="card">
-      <span class="card__kicker">Verein</span>
-      <span class="card__title">Termine</span>
-      <span class="card__text">Alle Vereinstermine im Kalender.</span>
-    </a>
-    <a href="/mitglied-werden/" class="card card--dark">
-      <span class="card__kicker">Mitmachen</span>
-      <span class="card__title">Werde jetzt Mitglied</span>
-      <span class="card__text">Beiträge, Arbeitsdienst und Anmeldung auf einen Blick.</span>
-    </a>
-  </section>
+      <h2>Mitmachen</h2>
+      <p>
+        Am einfachsten lernst du uns bei einem Probetraining kennen. Wer bei uns wofür zuständig ist, steht bei den
+        Ansprechpartnern; alle Vereinstermine findest du im Kalender.
+      </p>
+      <p class="weiter">
+        <a href="/mitglied-werden/" class="link-arrow">Mitglied werden →</a>
+        <a href="/verein/ansprechpartner/" class="link-arrow">Ansprechpartner →</a>
+        <a href="/verein/termine/" class="link-arrow">Termine →</a>
+        <a href="/padel/" class="link-arrow">Padel →</a>
+      </p>
+    </article>
+
+    <aside class="dokument__rand" aria-label="Der Verein in Zahlen">
+      <Bild platzhalter="Foto der Anlage" hoehe="280px" sizes="(max-width: 900px) 100vw, 30vw" />
+      <table class="tabelle">
+        <caption>Auf einen Blick</caption>
+        <tbody>
+          <tr>
+            <th scope="row">Mitglieder</th>
+            <td>{mitglieder.anzahl} <span class="tabelle__zusatz">Stand {mitglieder.stand}</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Tennis</th>
+            <td>{anlage.tennisplaetze} Sandplätze</td>
+          </tr>
+          <tr>
+            <th scope="row">Padel</th>
+            <td>{anlage.padelplaetze} Plätze mit Flutlicht</td>
+          </tr>
+          <tr>
+            <th scope="row">Spielzeiten</th>
+            <td>
+              {
+                buchung.spielzeiten.map((s, i) => (
+                  <>
+                    {i > 0 && <br />}
+                    {s.tage.replace('Montag bis Samstag', 'Mo–Sa').replace('Sonntag', 'So')} {s.zeit}
+                  </>
+                ))
+              }
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Anlage</th>
+            <td>{kontakt.strasse}<br />{kontakt.ort}</td>
+          </tr>
+        </tbody>
+      </table>
+    </aside>
+  </div>
 </BaseLayout>
 
 <style>
-  .anlage { padding-block: 56px; display: flex; flex-direction: column; gap: 28px; }
-  .anlage__zahl { font-family: var(--font-display); font-size: 38px; font-weight: 600; line-height: 1; }
-  .anlage__titel { font-family: var(--font-display); font-size: 21px; font-weight: 600; }
-  .anlage__text { font-size: 16px; line-height: 1.55; color: var(--muted); }
+  /* Hallmark · genre: editorial · macrostructure: Long Document · design-system: design.md · designed-as-app
+   * tone: Vereinsbrett · anchor hue: 28 · Formen eckig · enrichment: ein Foto (Platzhalter bis echtes Bild)
+   * pre-emit critique: P4 H4 E4 S4 R5 V4
+   */
+  .dokument {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: var(--space-xl) var(--space-2xl);
+    align-items: start;
+    padding-block: var(--space-md) var(--space-3xl);
+  }
+  .dokument__text { display: flex; flex-direction: column; gap: var(--space-sm); max-width: 66ch; }
+  .dokument__text h2 {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: var(--rule);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .dokument__text h2:first-child { margin-top: 0; border-top: var(--rule-strong); }
+  .dokument__text p { font-size: var(--text-md); line-height: 1.7; color: var(--color-ink-2); text-wrap: pretty; }
+  .dokument__text strong { color: var(--color-ink); font-weight: 600; }
+  .weiter { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
+
+  .dokument__rand {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-md));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .dokument__rand .tabelle td { text-align: right; }
+  .dokument__rand .tabelle__zusatz { display: block; }
+
+  @media (max-width: 900px) {
+    .dokument { grid-template-columns: minmax(0, 1fr); }
+    .dokument__rand { position: static; }
+  }
 </style>

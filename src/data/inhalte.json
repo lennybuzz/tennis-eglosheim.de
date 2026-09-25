@@ -40,7 +40,8 @@
         "text": "Am Spieltag schickt dir das Schließsystem KleverKey eine E-Mail. Der Button darin öffnet das kleine Tor, von 30 Minuten vor bis 30 Minuten nach deiner Buchung."
       }
     ],
-    "leihe": "Padelschläger buchst du direkt mit: 3 € pro Schläger und Buchung, bis zu vier pro Platz, eine Dose Bälle gratis. Tennisschläger können wir derzeit nicht verleihen.",
+    "leihePadel": "Padelschläger buchst du direkt mit: 3 € pro Schläger und Buchung, bis zu vier pro Platz, eine Dose Bälle gratis.",
+    "leiheTennis": "Tennisschläger können wir derzeit nicht verleihen.",
     "preiseHinweis": "Mitglieder der Tennis- & Padelabteilung spielen auf allen Plätzen kostenfrei. Für Gäste und Mitglieder anderer SKV-Abteilungen gelten diese Preise pro Stunde:",
     "preise": [
       {

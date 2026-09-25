@@ -74,26 +74,7 @@ p { margin: 0; }
 
 .px { padding-inline: var(--gutter); }
 
-.eyebrow {
-  font-size: var(--text-xs);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  font-weight: 600;
-}
-.eyebrow--grey { color: var(--color-ink-3); letter-spacing: 0.14em; }
-
-.h2 {
-  font-size: var(--text-3xl);
-  line-height: 1.05;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
-.h2--sm { font-size: var(--text-2xl); line-height: 1.08; }
-
 .lead { font-size: clamp(1.125rem, 1.6vw, 1.25rem); line-height: 1.6; color: var(--color-ink-2); text-wrap: pretty; }
-.body { font-size: var(--text-md); line-height: 1.65; color: var(--color-ink-2); text-wrap: pretty; }
 .muted { color: var(--color-ink-2); }
 
 .stack { display: flex; flex-direction: column; gap: var(--stack-gap, 18px); }
@@ -133,46 +114,101 @@ p { margin: 0; }
 
 .link-arrow { font-weight: 600; font-size: var(--text-base); white-space: nowrap; }
 
-.card {
-  background: var(--color-paper);
-  border: var(--rule);
-  border-radius: var(--radius);
-  padding: 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.card__kicker { font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-3); font-weight: 600; }
-.card__title { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; line-height: 1.2; }
-.card__text { font-size: var(--text-base); line-height: 1.55; color: var(--color-ink-2); }
-.card__link { margin-top: auto; }
-a.card { color: var(--color-ink); transition: background-color var(--dur-short) var(--ease-out); }
-a.card:hover { background: var(--color-paper-2); color: var(--color-ink); }
-.card--dark { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-on-dark); }
-.card--dark .card__kicker, .card--dark .card__text { color: var(--color-on-dark-2); }
-a.card--dark:hover { background: var(--color-ink-raised); color: var(--color-on-dark); }
-
-.band-sand { background: var(--color-paper-2); border-block: var(--rule); }
-
-/* Raster, die auf schmalen Bildschirmen umbrechen */
-.grid { display: grid; gap: 20px; }
-.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-@media (max-width: 1100px) {
-  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 900px) {
-  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 720px) {
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: minmax(0, 1fr); }
-}
-
 /* Zweispaltige Abschnitte (Text + Bild etc.) */
 .split { display: grid; gap: clamp(32px, 5vw, 56px); align-items: center; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 @media (max-width: 900px) {
   .split { grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+/* ---------- Fahrplan-Bausteine: Listen, Tabellen, Schritte, Bedingungen ---------- */
+/* Zeilen im Stil eines Fahrplans */
+.liste { margin: 0; display: flex; flex-direction: column; }
+.liste div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding-block: var(--space-2xs);
+  border-top: 1px solid var(--color-rule-soft);
+}
+.liste div:last-child { border-bottom: 1px solid var(--color-rule-soft); }
+.liste dt { font-weight: 600; color: var(--color-ink); white-space: nowrap; }
+.liste dd { margin: 0; text-align: right; color: var(--color-ink-3); }
+
+/* Schritte: echte Reihenfolge, deshalb nummeriert */
+.schritte { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-sm); }
+.schritte li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: var(--space-xs); }
+.schritte__nr {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: var(--rule-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+.schritte__titel { font-weight: 600; color: var(--color-ink); }
+
+/* Tabellen: Beiträge, Gastpreise, Stornierung */
+.tabelle { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.tabelle caption { text-align: left; font-weight: 600; color: var(--color-ink); padding-bottom: var(--space-2xs); }
+.tabelle tr { border-top: 1px solid var(--color-rule-soft); }
+.tabelle tbody tr:last-child { border-bottom: 1px solid var(--color-rule-soft); }
+.tabelle th, .tabelle td { padding: var(--space-2xs) 0; vertical-align: baseline; }
+.tabelle th { text-align: left; font-weight: 600; color: var(--color-ink); padding-right: var(--space-sm); }
+.tabelle td { text-align: right; }
+.tabelle__zusatz { font-weight: 400; font-size: var(--text-sm); color: var(--color-ink-3); }
+.tabelle--preise td { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; color: var(--color-ink); white-space: nowrap; }
+.tabelle--gast thead th { font-size: var(--text-sm); color: var(--color-ink-3); font-weight: 600; text-align: right; }
+.tabelle--gast thead th:first-child { text-align: left; }
+.tabelle--gast td { white-space: nowrap; color: var(--color-ink); padding-left: var(--space-sm); }
+.tabelle--gast thead .tabelle__zusatz { display: block; font-size: var(--text-xs); }
+.tabelle--gast tbody .tabelle__zusatz { display: block; }
+
+/* Bedingungen */
+.bedingungen { margin: 0; display: flex; flex-direction: column; }
+.bedingungen div { padding-block: var(--space-xs); border-top: 1px solid var(--color-rule-soft); }
+.bedingungen div:last-child { border-bottom: 1px solid var(--color-rule-soft); }
+.bedingungen dt { font-weight: 600; color: var(--color-ink); }
+.bedingungen dd { margin: 2px 0 0; }
+
+@media (max-width: 760px) {
+  .liste div { flex-direction: column; gap: 2px; }
+  .liste dd { text-align: left; }
+}
+
+/* ---------- Diptychon: Text und Beleg nebeneinander (Tennis, Padel) ----------
+ * Beleg = echte Tabelle, Liste oder Foto. Mit --umgekehrt wechselt der Beleg
+ * auf die linke Seite. Auf dem Handy steht immer erst der Text, dann der Beleg. */
+.diptychon {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-areas: 'text beleg';
+  gap: var(--space-lg) var(--space-2xl);
+  align-items: start;
+  padding-block: var(--space-2xl);
+  border-top: var(--rule);
+}
+.diptychon--umgekehrt { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-areas: 'beleg text'; }
+.diptychon--band { background: var(--color-paper-2); }
+.diptychon__text { grid-area: text; display: flex; flex-direction: column; gap: var(--space-sm); max-width: 60ch; }
+.diptychon__beleg { grid-area: beleg; display: flex; flex-direction: column; gap: var(--space-md); min-width: 0; }
+.diptychon__titel { font-size: var(--text-3xl); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; text-wrap: balance; }
+.diptychon__text p { font-size: var(--text-md); line-height: 1.6; color: var(--color-ink-2); text-wrap: pretty; }
+.diptychon__text .klein { font-size: var(--text-sm); color: var(--color-ink-3); }
+.diptychon__text .btn-row { margin-top: var(--space-2xs); }
+@media (min-width: 1200px) {
+  .diptychon__beleg--zweispaltig { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md) var(--space-xl); }
+}
+@media (max-width: 900px) {
+  .diptychon, .diptychon--umgekehrt {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'text' 'beleg';
+    padding-block: var(--space-xl);
+  }
 }
 
 .visually-hidden {

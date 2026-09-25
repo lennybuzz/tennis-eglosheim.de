@@ -102,7 +102,7 @@ const chronik = [...timeline].reverse();
           <div class="raster raster--2">
             <div class="spalte">
               <p class="spalte__titel">Schläger leihen</p>
-              <p>{buchung.leihe}</p>
+              <p>{buchung.leihePadel} {buchung.leiheTennis}</p>
             </div>
             <div class="spalte">
               <table class="tabelle">
@@ -454,60 +454,6 @@ const chronik = [...timeline].reverse();
   .info__cta { align-self: flex-start; }
   .info__links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-md); padding-top: var(--space-2xs); }
   .zahl { font-variant-numeric: tabular-nums; }
-
-  /* Zeilen im Stil eines Fahrplans */
-  .liste { margin: 0; display: flex; flex-direction: column; }
-  .liste div {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: var(--space-sm);
-    padding-block: var(--space-2xs);
-    border-top: 1px solid var(--color-rule-soft);
-  }
-  .liste div:last-child { border-bottom: 1px solid var(--color-rule-soft); }
-  .liste dt { font-weight: 600; color: var(--color-ink); white-space: nowrap; }
-  .liste dd { margin: 0; text-align: right; color: var(--color-ink-3); }
-
-  /* Schritte: echte Reihenfolge, deshalb nummeriert */
-  .schritte { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-sm); }
-  .schritte li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: var(--space-xs); }
-  .schritte__nr {
-    display: grid;
-    place-items: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border: var(--rule-strong);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--color-ink);
-    font-variant-numeric: tabular-nums;
-  }
-  .schritte__titel { font-weight: 600; color: var(--color-ink); }
-
-  /* Tabellen: Beiträge, Gastpreise, Stornierung */
-  .tabelle { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-  .tabelle caption { text-align: left; font-weight: 600; color: var(--color-ink); padding-bottom: var(--space-2xs); }
-  .tabelle tr { border-top: 1px solid var(--color-rule-soft); }
-  .tabelle tbody tr:last-child { border-bottom: 1px solid var(--color-rule-soft); }
-  .tabelle th, .tabelle td { padding: var(--space-2xs) 0; vertical-align: baseline; }
-  .tabelle th { text-align: left; font-weight: 600; color: var(--color-ink); padding-right: var(--space-sm); }
-  .tabelle td { text-align: right; }
-  .tabelle__zusatz { font-weight: 400; font-size: var(--text-sm); color: var(--color-ink-3); }
-  .tabelle--preise td { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; color: var(--color-ink); white-space: nowrap; }
-  .tabelle--gast thead th { font-size: var(--text-sm); color: var(--color-ink-3); font-weight: 600; text-align: right; }
-  .tabelle--gast thead th:first-child { text-align: left; }
-  .tabelle--gast td { white-space: nowrap; color: var(--color-ink); padding-left: var(--space-sm); }
-  .tabelle--gast thead .tabelle__zusatz { display: block; font-size: var(--text-xs); }
-  .tabelle--gast tbody .tabelle__zusatz { display: block; }
-
-  /* Bedingungen */
-  .bedingungen { margin: 0; display: flex; flex-direction: column; }
-  .bedingungen div { padding-block: var(--space-xs); border-top: 1px solid var(--color-rule-soft); }
-  .bedingungen div:last-child { border-bottom: 1px solid var(--color-rule-soft); }
-  .bedingungen dt { font-weight: 600; color: var(--color-ink); }
-  .bedingungen dd { margin: 2px 0 0; }
 
   /* Spaltengruppen innerhalb einer Antwort: schmal untereinander, breit nebeneinander */
   .raster, .spalte { display: flex; flex-direction: column; gap: var(--space-sm); min-width: 0; }

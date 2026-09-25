@@ -32,6 +32,20 @@ je Seitentyp:
 | FAQ | **Conversational FAQ** | `<details>`-Akkordeon, Themenindex links. |
 | Rechtliches, 404, Kontakt | **Long Document** | Nur Typografie. |
 
+## Bausteine
+
+- **Seitenkopf** `PageIntro`: Titel, Einleitung, optional Brotkrumen über
+  `pfad` (z. B. Verein › Termine). Keine kleinen Labels über dem Titel.
+- **Diptychon** (`.diptychon`, `.diptychon--umgekehrt`, `.diptychon--band` in
+  global.css): Text und Beleg nebeneinander, Seiten wechseln abschnittsweise.
+  Beleg ist eine echte Tabelle, Liste oder ein Foto. Handy: Text zuerst.
+- **Fahrplan-Bausteine** (global.css): `.tabelle` (+ `--preise`, `--gast`),
+  `.liste`, `.schritte`, `.bedingungen` – für Preise, Zeiten, Mannschaften,
+  Regeln. Keine Kartenraster.
+- **Fremde Inhalte**: `Einbettung` (siehe unten).
+- **Fotos**: `Bild` – ein Platzhalter pro Abschnitt ist ok, bis echte Fotos da
+  sind; keine Galerien aus Platzhaltern.
+
 ## Farben
 
 | Token | Wert | Verwendung |

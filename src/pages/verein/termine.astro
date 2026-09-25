@@ -2,15 +2,34 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import Einbettung from '../../components/Einbettung.astro';
-import { links } from '../../lib/inhalte';
+import inhalte, { links } from '../../lib/inhalte';
+
+const { termine } = inhalte;
 ---
 
-<BaseLayout title="Termine" description="Alle Vereinstermine der Tennisabteilung des SKV Eglosheim im ClubDesk-Kalender.">
-  <PageIntro eyebrow="Verein · Termine" titel="Termine im Verein">
-    Alle Vereinstermine pflegen wir im ClubDesk-Kalender. Du kannst ihn hier laden – er ist immer aktuell.
+<BaseLayout title="Termine" description="Alle Vereinstermine der Tennis- und Padelabteilung des SKV Eglosheim im ClubDesk-Kalender.">
+  <PageIntro titel="Termine im Verein" pfad={[{ label: 'Verein', href: '/verein/' }, { label: 'Termine' }]}>
+    Die wichtigsten Termine stehen hier. Alle Vereinstermine pflegen wir im ClubDesk-Kalender – du kannst ihn unten laden,
+    er ist immer aktuell.
   </PageIntro>
 
-  <section class="px stack" style="--stack-gap:16px; padding-bottom:56px">
+  <section class="termine px">
+    <table class="tabelle">
+      <caption>Demnächst</caption>
+      <tbody>
+        {
+          termine.map((t) => (
+            <tr>
+              <th scope="row">{t.titel}</th>
+              <td>{t.datum}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section class="kalender px">
     <Einbettung
       src={links.clubdeskTermine}
       titel="Termine im ClubDesk-Kalender"
@@ -20,13 +39,17 @@ import { links } from '../../lib/inhalte';
       hoehe="900px"
       platzhalterHoehe="320px"
     />
-    <div class="hinweis">
-      <span>Lieber direkt bei ClubDesk?</span>
-      <a href={links.clubdeskTermine} class="btn btn--primary">Termine bei ClubDesk öffnen</a>
-    </div>
+    <p class="hinweis">
+      Lieber direkt bei ClubDesk? <a href={links.clubdeskTermine} class="link-arrow">Termine bei ClubDesk öffnen ↗</a>
+    </p>
   </section>
 </BaseLayout>
 
 <style>
-  .hinweis { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; color: var(--muted); }
+  /* Hallmark · genre: editorial · macrostructure: Long Document · design-system: design.md · designed-as-app
+   * tone: Vereinsbrett · anchor hue: 28 · Formen eckig · enrichment: none
+   */
+  .termine { padding-block: var(--space-sm) var(--space-xl); max-width: calc(72ch + 2 * var(--gutter)); }
+  .kalender { padding-bottom: var(--space-3xl); display: flex; flex-direction: column; gap: var(--space-sm); }
+  .hinweis { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-sm); align-items: baseline; color: var(--color-ink-2); }
 </style>

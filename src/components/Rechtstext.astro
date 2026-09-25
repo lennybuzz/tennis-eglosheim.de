@@ -8,14 +8,21 @@
 
 <style>
   .rechtstext {
-    padding-bottom: 72px;
-    max-width: calc(900px + 2 * var(--gutter));
+    padding-bottom: var(--space-2xl);
+    max-width: calc(72ch + 2 * var(--gutter));
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: var(--space-md);
     overflow-wrap: break-word;
   }
-  .rechtstext :global(p) { font-size: 17px; line-height: 1.7; color: var(--muted); }
-  .rechtstext :global(p.stark), .rechtstext :global(strong) { color: var(--ink); font-weight: 600; }
-  .rechtstext :global(h2) { margin-top: 24px; font-size: 24px; font-weight: 600; }
+  .rechtstext :global(p) { font-size: var(--text-base); line-height: 1.7; color: var(--color-ink-2); }
+  .rechtstext :global(p.stark), .rechtstext :global(strong) { color: var(--color-ink); font-weight: 600; }
+  .rechtstext :global(h2) {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: var(--rule);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    line-height: 1.2;
+  }
 </style>

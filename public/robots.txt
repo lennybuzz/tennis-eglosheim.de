@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Versand-Skript des Kontaktformulars – keine Seite, nur für POST-Anfragen
+Disallow: /kontakt.php
 
 Sitemap: https://www.tennis-eglosheim.de/sitemap-index.xml

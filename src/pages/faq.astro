@@ -8,7 +8,7 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
 ---
 
 <BaseLayout title="Häufige Fragen" description="Antworten zu Mitgliedschaft, Beiträgen, Arbeitsstunden, Platzbuchung, Training und Padel beim SKV Eglosheim.">
-  <PageIntro eyebrow="Häufige Fragen" titel="Alles, was vor dem ersten Ballwechsel geklärt sein sollte" breite="960px">
+  <PageIntro titel="Alles, was vor dem ersten Ballwechsel geklärt sein sollte" breite="960px">
     Mitgliedschaft, Beiträge, Arbeitsstunden, Platzbuchung, Training und Padel. Such nach einem Stichwort oder spring über
     die Themenliste direkt in ein Thema.
     <div slot="extra" class="suche">
@@ -20,7 +20,7 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
 
   <section class="faq px">
     <aside class="index">
-      <div class="eyebrow eyebrow--grey" style="margin-bottom:10px">Themen</div>
+      <p class="index__titel">Themen</p>
       {
         gruppen.map((g) => (
           <a href={`#${g.id}`} class="index__link" data-index={g.id}>
@@ -58,10 +58,10 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
 
   <section class="cta">
     <div class="stack" style="--stack-gap:14px">
-      <div class="cta__eyebrow">Frage nicht dabei?</div>
-      <h2 class="cta__titel">Schreib uns, wir antworten persönlich</h2>
+      <h2 class="cta__titel">Deine Frage ist nicht dabei?</h2>
       <p class="cta__text">
-        Wir leiten deine Anfrage an die Person weiter, die sie beantworten kann – vom Jugendwart bis zum Kassierer.
+        Schreib uns, wir antworten persönlich und leiten deine Anfrage an die Person weiter, die sie beantworten kann – vom
+        Jugendwart bis zum Kassierer.
       </p>
     </div>
     <div class="stack" style="--stack-gap:12px; align-items:flex-start">
@@ -121,11 +121,11 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
     padding: 14px 18px;
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-sm);
-    background: #fff;
+    background: var(--color-paper);
     width: 380px;
     max-width: 100%;
   }
-  .suche input:focus { border-color: var(--red); outline: none; }
+  .suche input:focus { border-color: var(--color-accent); }
   .suche__treffer { font-size: 16px; color: var(--muted-2); }
 
   .faq { padding-block: 8px 72px; display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 56px; align-items: start; }
@@ -141,7 +141,8 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
   }
   .index__link { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; color: var(--ink); font-weight: 500; padding: 8px 0; line-height: 1.35; }
   .index__link:hover { color: var(--red); }
-  .index__anzahl { font-size: 14px; color: var(--muted-3); font-variant-numeric: tabular-nums; }
+  .index__titel { margin-bottom: var(--space-2xs); font-size: var(--text-sm); font-weight: 600; color: var(--color-ink-3); }
+  .index__anzahl { font-size: 14px; color: var(--color-ink-3); font-variant-numeric: tabular-nums; }
   .index__alle {
     margin-top: 18px;
     align-self: flex-start;
@@ -195,7 +196,7 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
   }
   .frage__zeichen::before { content: '+'; }
   .frage[open] .frage__zeichen::before { content: '–'; }
-  .frage p { padding: 0 70px 24px 0; font-size: 19px; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
+  .frage p { max-width: 70ch; padding: 0 70px 24px 0; font-size: 19px; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
 
   .leer { border: 1px dashed var(--line-strong); border-radius: var(--radius); padding: 40px; display: flex; flex-direction: column; gap: 10px; }
   .leer__titel { font-family: var(--font-display); font-size: 22px; font-weight: 600; }
@@ -209,8 +210,8 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
 
   .cta {
     margin: 0 var(--gutter) 72px;
-    background: var(--ink);
-    color: #fff;
+    background: var(--color-ink);
+    color: var(--color-on-dark);
     border-radius: var(--radius);
     padding: clamp(32px, 5vw, 52px) clamp(24px, 4vw, 48px);
     display: grid;
@@ -218,14 +219,13 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
     gap: 44px;
     align-items: center;
   }
-  .cta__eyebrow { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #E8A3A3; font-weight: 600; }
   .cta__titel { font-size: clamp(28px, 3vw, 36px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; }
-  .cta__text { font-size: 19px; line-height: 1.6; color: #D9CFC9; text-wrap: pretty; }
-  .cta__btn { background: var(--red); color: #fff; padding: 15px 26px; font-family: var(--font-display); }
-  .cta__btn:hover { background: #fff; color: var(--ink); }
-  .cta__btn--ghost { background: none; border-color: #6E655F; }
-  .cta__mail { color: var(--muted-3); margin-top: 6px; }
-  .cta__mail a { color: #fff; text-decoration: underline; }
+  .cta__text { font-size: 19px; line-height: 1.6; color: var(--color-on-dark-2); text-wrap: pretty; }
+  .cta__btn { background: var(--color-accent-2); color: var(--color-on-accent); padding: 15px 26px; }
+  .cta__btn:hover { background: var(--color-on-dark); color: var(--color-ink); }
+  .cta__btn--ghost { background: none; border-color: var(--color-dark-rule); }
+  .cta__mail { color: var(--color-on-dark-3); margin-top: 6px; }
+  .cta__mail a { color: var(--color-on-dark); text-decoration: underline; }
   @media (max-width: 900px) {
     .cta { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   }

@@ -4,93 +4,166 @@ import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
 import inhalte, { links } from '../lib/inhalte';
 
-const { spielbetrieb, training } = inhalte;
+const { anlage, buchung, spielbetrieb, training } = inhalte;
+const preise = buchung.preise.filter((p) => p.platz === 'Tennis');
+const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
 ---
 
-<BaseLayout title="Tennis" description="Tennis beim SKV Eglosheim: Mannschaften im WTB-Spielbetrieb, Training für Kinder, Jugendliche und Erwachsene, Platzbuchung online.">
-  <PageIntro eyebrow="Tennis" titel="Kraft, Präzision und ein Platz für jeden">
-    Tennis ist eine faszinierende und dynamische Sportart, die sowohl Kraft als auch Präzision erfordert. Gespielt wird es
-    auf verschiedenen Belägen wie Sand, Rasen oder Hartplatz – allein (Einzel) oder im Team (Doppel). Ziel ist es, den Ball
-    so über das Netz ins gegnerische Feld zu spielen, dass der Gegner ihn nicht mehr regelgerecht zurückschlagen kann.
+<BaseLayout
+  title="Tennis"
+  description={`Tennis beim SKV Eglosheim: ${anlage.tennisplaetze} Sandplätze, Mannschaften im WTB-Spielbetrieb, Training für Kinder, Jugendliche und Erwachsene, Platzbuchung online.`}
+>
+  <PageIntro titel="Kraft, Präzision und ein Platz für jeden">
+    Tennis fördert Fitness, Konzentration und strategisches Denken – ob als Hobby oder in der Mannschaft. Bei uns spielst
+    du auf {anlage.tennisplaetze} Sandplätzen, allein im Einzel oder im Team im Doppel.
   </PageIntro>
 
-  <section class="split px" style="padding-bottom:56px">
-    <p class="body">
-      Tennis fördert nicht nur die körperliche Fitness, sondern auch Konzentration, Reaktionsgeschwindigkeit und
-      strategisches Denken. Egal, ob als Hobbyspieler oder Profi – dieser Sport begeistert Menschen aller Altersklassen
-      weltweit. Mit etwas Übung und der richtigen Technik kann jeder die Faszination des Tennissports erleben!
-    </p>
-    <Bild platzhalter="Foto Tennisplatz" hoehe="360px" />
-  </section>
-
-  <section id="spielbetrieb" class="split band-sand px spiel">
-    <div class="stack">
-      <h2 class="h2 h2--sm">Spielbetrieb</h2>
-      <p class="body">
+  <!-- Spielbetrieb: Text | Mannschaftstabelle -->
+  <section id="spielbetrieb" class="diptychon px">
+    <div class="diptychon__text">
+      <h2 class="diptychon__titel">Spielbetrieb</h2>
+      <p>
         Die Tennisabteilung des SKV Eglosheim nimmt aktiv am Mannschaftsspielbetrieb des Württembergischen Tennis-Bunds
         (WTB) teil und stellt dabei mehrere Teams in unterschiedlichen Alters- und Leistungsklassen.
       </p>
-      <p class="spiel__klein">
-        Aktuelle Informationen zu Spielplänen, Ergebnissen und Tabellenständen finden Sie auf der offiziellen WTB-Webseite
-        unter dem Vereinsprofil der TA SKV Eglosheim.
-      </p>
-      <a href={links.wtb} class="btn btn--primary" style="align-self:flex-start">Ergebnisse beim WTB ansehen</a>
-    </div>
-    <div class="stack" style="--stack-gap:16px">
-      <div class="eyebrow eyebrow--grey">Gemeldete Mannschaften · {spielbetrieb.saison}</div>
-      <div class="teams">
-        {
-          spielbetrieb.teams.map((t) => (
-            <div class="teams__zeile">
-              <span class="teams__name">{t.name}</span>
-              <span class="teams__liga">{t.liga}</span>
-            </div>
-          ))
-        }
+      <p class="klein">Spielpläne, Ergebnisse und Tabellen findest du im Vereinsprofil beim WTB.</p>
+      <div class="btn-row">
+        <a href={links.wtb} class="btn btn--primary">Zu den WTB-Ergebnissen <span aria-hidden="true">↗</span></a>
       </div>
-      {spielbetrieb.winterHinweis && <p class="spiel__klein">{spielbetrieb.winterHinweis}</p>}
+    </div>
+    <div class="diptychon__beleg">
+      <table class="tabelle">
+        <caption>Gemeldete Mannschaften, {spielbetrieb.saison}</caption>
+        <tbody>
+          {
+            spielbetrieb.teams.map((t) => (
+              <tr>
+                <th scope="row">{t.name}</th>
+                <td>{t.liga}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      {spielbetrieb.winterHinweis && <p class="beleg__hinweis">{spielbetrieb.winterHinweis}</p>}
     </div>
   </section>
 
-  <section id="training" class="px grid grid-3" style="padding-block:64px">
-    <div class="card">
-      <span class="card__kicker">Training</span>
-      <span class="card__title">{training.zeitraum}</span>
-      <p class="card__text">{training.hinweis}</p>
-      <div class="zeiten">
-        {
-          training.zeiten.map((z) => (
-            <div class="zeiten__zeile">
-              <span class="zeiten__gruppe">{z.gruppe}</span>
-              <span>{z.zeit}</span>
-            </div>
-          ))
-        }
+  <!-- Training: Trainingszeiten | Text -->
+  <section id="training" class="diptychon diptychon--umgekehrt diptychon--band px">
+    <div class="diptychon__text">
+      <h2 class="diptychon__titel">Training</h2>
+      <p>{training.zeitraum}. {training.hinweis}</p>
+      <p>
+        Unser Trainer gibt Einzel- und Gruppenstunden und kann dafür Plätze bis zu einem Monat im Voraus reservieren. Für
+        den Einstieg in eine Mannschaft helfen Sport- und Jugendwart weiter.
+      </p>
+      <div class="btn-row">
+        <a href="/kontakt/" class="btn btn--primary">Probetraining anfragen</a>
       </div>
     </div>
-    <a href={links.platzbuchung} class="card">
-      <span class="card__kicker">Platz buchen</span>
-      <span class="card__title">Online reservieren</span>
-      <span class="card__text">Für Mitglieder kostenfrei über eBuSy.</span>
-    </a>
-    <a href="/mitglied-werden/" class="card card--dark">
-      <span class="card__kicker">Mitmachen</span>
-      <span class="card__title">Werde jetzt Mitglied</span>
-      <span class="card__text">Beiträge und Anmeldung auf einen Blick.</span>
-    </a>
+    <div class="diptychon__beleg">
+      <table class="tabelle">
+        <caption>Trainingsgruppen</caption>
+        <tbody>
+          {
+            trainingTennis.map((z) => (
+              <tr>
+                <th scope="row">{z.gruppe}</th>
+                <td>{z.zeit}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Plätze und Buchung: Text | Zeiten und Preise -->
+  <section id="buchen" class="diptychon px">
+    <div class="diptychon__text">
+      <h2 class="diptychon__titel">Plätze und Buchung</h2>
+      <p>
+        {anlage.tennisplaetze} Sandplätze ({anlage.tennisplaetze_belag}). Mitglieder der Tennis- &amp; Padelabteilung buchen
+        kostenfrei und zu allen Spielzeiten, bis zu 14 Tage im Voraus. Gäste und Mitglieder anderer SKV-Abteilungen buchen
+        bis zu 10 Tage im Voraus.
+      </p>
+      <p class="klein">{buchung.leiheTennis}</p>
+      <div class="btn-row">
+        <a href={links.platzbuchung} class="btn btn--primary">Platz buchen <span aria-hidden="true">↗</span></a>
+        <a href="/#so-gehts" class="btn btn--outline">So buchst du</a>
+      </div>
+    </div>
+    <div class="diptychon__beleg diptychon__beleg--zweispaltig">
+      <div class="beleg__block">
+        <table class="tabelle">
+          <caption>Spielzeiten</caption>
+          <tbody>
+            {
+              buchung.spielzeiten.map((s) => (
+                <tr>
+                  <th scope="row">{s.tage}</th>
+                  <td>{s.zeit}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="beleg__hinweis">{buchung.spielzeitenHinweis}</p>
+      </div>
+      <div class="beleg__block">
+        <table class="tabelle tabelle--gast">
+          <caption>Preise pro Stunde für Nicht-Mitglieder</caption>
+          <thead>
+            <tr>
+              <th scope="col">Zeit</th>
+              <th scope="col">Gäste</th>
+              <th scope="col">SKV-Mitglieder<span class="tabelle__zusatz"> andere Abteilungen</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              preise.map((p) => (
+                <tr>
+                  <th scope="row">{p.zeitraum}</th>
+                  <td>{p.gast}</td>
+                  <td>{p.skv}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="beleg__hinweis">Mitglieder der Tennis- &amp; Padelabteilung spielen kostenfrei.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mitmachen: Foto | Text -->
+  <section class="diptychon diptychon--umgekehrt px">
+    <div class="diptychon__text">
+      <h2 class="diptychon__titel">Einfach mitspielen</h2>
+      <p>
+        Egal ob du zum ersten Mal einen Schläger in der Hand hältst oder schon lange spielst: Mit etwas Übung und der richtigen
+        Technik kann jeder die Faszination des Tennissports erleben. Komm zum Probetraining und lern uns kennen.
+      </p>
+      <p class="links">
+        <a href="/mitglied-werden/" class="link-arrow">Mitglied werden →</a>
+        <a href="/faq/#training" class="link-arrow">Fragen zum Training →</a>
+      </p>
+    </div>
+    <div class="diptychon__beleg">
+      <Bild platzhalter="Foto Tennisplatz" hoehe="360px" sizes="(max-width: 900px) 100vw, 55vw" />
+    </div>
   </section>
 </BaseLayout>
 
 <style>
-  .spiel { padding-block: 56px; align-items: start; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
-  .spiel__klein { font-size: 17px; line-height: 1.6; color: var(--muted); }
-  .teams { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  .teams__zeile { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 20px 24px; border-bottom: 1px solid var(--line-soft); }
-  .teams__zeile:last-child { border-bottom: 0; }
-  .teams__name { font-size: 19px; font-weight: 600; }
-  .teams__liga { color: var(--muted); text-align: right; }
-  .zeiten { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
-  .zeiten__zeile { display: flex; justify-content: space-between; gap: 16px; font-size: 16px; border-top: 1px solid var(--line-soft); padding-top: 6px; color: var(--muted); }
-  .zeiten__zeile span:last-child { text-align: right; }
-  .zeiten__gruppe { font-weight: 600; color: var(--ink); }
+  /* Hallmark · genre: editorial · macrostructure: Split Studio · design-system: design.md · designed-as-app
+   * tone: Vereinsbrett · anchor hue: 28 · Formen eckig · enrichment: ein Foto (Platzhalter bis echtes Bild)
+   * pre-emit critique: P4 H4 E4 S5 R5 V4
+   */
+  .beleg__block { display: flex; flex-direction: column; gap: var(--space-2xs); min-width: 0; }
+  .beleg__hinweis { font-size: var(--text-sm); line-height: 1.5; color: var(--color-ink-3); }
+  .links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
+  .diptychon:last-of-type { padding-bottom: var(--space-3xl); }
 </style>

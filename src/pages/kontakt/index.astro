@@ -13,7 +13,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
 ---
 
 <BaseLayout title="Kontakt" description={`Kontakt zur Tennis- und Padelabteilung des SKV Eglosheim: ${kontakt.strasse}, ${kontakt.ort}. Kontaktformular, E-Mail und Anfahrt.`}>
-  <PageIntro eyebrow="Kontakt" titel="Schreib uns, wir freuen uns">
+  <PageIntro titel="Schreib uns, wir freuen uns">
     Ein Probetraining, eine Frage zur Mitgliedschaft oder zur Platzbuchung: Schreib uns über das Formular – wir leiten die
     Anfrage an die passende Person weiter.
   </PageIntro>
@@ -21,7 +21,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
   <section class="split px" style="padding-block:8px 64px; align-items:start">
     <div class="stack" style="--stack-gap:26px">
       <div class="stack" style="--stack-gap:10px">
-        <div class="eyebrow eyebrow--grey">Anlage</div>
+        <h2 class="abschnitt">Anlage</h2>
         <div class="anlage__name">Sport- und Kulturverein Eglosheim e.&nbsp;V.<br />Abteilung Tennis &amp; Padel</div>
         <p class="anlage__adresse">{kontakt.strasse}<br />{kontakt.ort}</p>
         <div class="anlage__links">
@@ -49,8 +49,8 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
     </div>
 
     <div class="stack" style="--stack-gap:16px">
-      <div class="eyebrow eyebrow--grey">Kontaktformular</div>
-      <form method="post" action="/kontakt.php" class="formular">
+      <h2 class="abschnitt">Kontaktformular</h2>
+      <form method="post" action="/kontakt.php" class="formular" data-formular>
         <label>
           Name
           <input type="text" name="name" required maxlength="200" autocomplete="name" placeholder="Vor- und Nachname" />
@@ -96,7 +96,30 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
   </section>
 </BaseLayout>
 
+<script>
+  // Beim Absenden: Button sperren und „Wird gesendet …“ zeigen, damit niemand doppelt klickt.
+  // Die Pflichtfeld-Prüfung des Browsers läuft vorher; ist ein Feld leer, feuert „submit“ gar nicht erst.
+  const formular = document.querySelector<HTMLFormElement>('[data-formular]');
+  formular?.addEventListener('submit', () => {
+    const knopf = formular.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (!knopf) return;
+    knopf.disabled = true;
+    knopf.setAttribute('aria-busy', 'true');
+    knopf.textContent = 'Wird gesendet …';
+  });
+  // Zurück-Taste des Browsers (bfcache): Button wieder freigeben
+  window.addEventListener('pageshow', () => {
+    const knopf = formular?.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (knopf?.disabled) {
+      knopf.disabled = false;
+      knopf.removeAttribute('aria-busy');
+      knopf.textContent = 'Nachricht senden';
+    }
+  });
+</script>
+
 <style>
+  .abschnitt { font-size: var(--text-sm); font-weight: 600; color: var(--color-ink-3); font-family: var(--font-body); }
   .anlage__name { font-family: var(--font-display); font-size: 24px; font-weight: 600; line-height: 1.3; }
   .anlage__adresse { font-size: 19px; line-height: 1.6; color: var(--muted); }
   .anlage__links { display: flex; flex-direction: column; gap: 4px; font-size: 19px; }
@@ -117,10 +140,11 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
     padding: 12px 14px;
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-sm);
-    background: #fff;
+    background: var(--color-paper);
   }
   .formular textarea { resize: vertical; }
-  .formular input:focus, .formular select:focus, .formular textarea:focus { border-color: var(--red); outline: none; }
+  /* Fokus: Rahmen in Rot plus der globale Fokusring – nie ohne sichtbaren Ring */
+  .formular input:focus, .formular select:focus, .formular textarea:focus { border-color: var(--color-accent); }
   .formular .formular__check { flex-direction: row; align-items: flex-start; gap: 10px; line-height: 1.5; color: var(--muted); font-weight: 400; }
   .formular__check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--red); flex: 0 0 auto; }
   .formular__senden { align-self: flex-start; border: 0; cursor: pointer; font-family: var(--font-display); padding: 15px 26px; }
