@@ -123,24 +123,6 @@
       "titel": "Vereinsabend im Clubhaus"
     }
   ],
-  "mannschaften": [
-    {
-      "name": "Herren",
-      "runde": "Sommerrunde 2026"
-    },
-    {
-      "name": "Herren 40",
-      "runde": "Sommerrunde 2026"
-    },
-    {
-      "name": "Damen",
-      "runde": "Sommerrunde 2026"
-    },
-    {
-      "name": "Jugend",
-      "runde": "Sommerrunde 2026"
-    }
-  ],
   "sommerSpecial": {
     "aktiv": true,
     "titel": "Sommer-Special",
@@ -323,22 +305,10 @@
     }
   ],
   "spielbetrieb": {
-    "saison": "Sommersaison 2026",
-    "teams": [
-      {
-        "name": "Herren 30",
-        "liga": "Verbandsliga, Gruppe 026"
-      },
-      {
-        "name": "Herren 1",
-        "liga": "Bezirksliga, Gruppe 003"
-      },
-      {
-        "name": "Herren 30 (4er) 2",
-        "liga": "Bezirksstaffel 2, Gruppe 048"
-      }
-    ],
-    "winterHinweis": "In der Wintersaison 2025/2026 war zudem die Herren 30 (4er) Mannschaft vertreten. Aktuelle Tabellen gibt es beim WTB."
+    "saison": "Sommersaison 2027",
+    "teams": [],
+    "winterHinweis": "",
+    "hinweisOhneTeams": "Die Mannschaften für die Sommersaison 2027 stehen noch nicht fest. Sobald die Meldungen durch sind, findest du sie hier."
   },
   "faq": [
     {
@@ -469,7 +439,7 @@
       "fragen": [
         {
           "frage": "Welche Mannschaften spielen für den Verein?",
-          "antwort": "In der Sommersaison 2026 sind Herren 30 in der Verbandsliga, Herren 1 in der Bezirksliga und Herren 30 (4er) 2 in der Bezirksstaffel 2 gemeldet. Aktuelle Tabellen gibt es beim WTB."
+          "antwort": "Die Mannschaften für die Sommersaison 2027 stehen noch nicht fest. In der Sommersaison 2026 waren Herren 30 in der Verbandsliga, Herren 1 in der Bezirksliga und Herren 30 (4er) 2 in der Bezirksstaffel 2 gemeldet. Aktuelle Meldungen und Tabellen gibt es beim WTB."
         },
         {
           "frage": "Wie groß ist der Verein?",

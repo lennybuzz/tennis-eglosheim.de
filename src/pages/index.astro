@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import inhalte, { kontakt, links, minBeitrag } from '../lib/inhalte';
+import inhalte, { kontakt, links, mannschaften, minBeitrag } from '../lib/inhalte';
 
 const { anlage, buchung, mitgliedschaftBedingungen, mitglieder, training, spielbetrieb, termine, sommerSpecial, timeline } =
   inhalte;
@@ -246,16 +246,20 @@ const chronik = [...timeline].reverse();
         </h2>
         <div class="eintrag__info">
           <p class="info__lead">{spielbetrieb.saison} im WTB</p>
-          <dl class="liste">
-            {
-              spielbetrieb.teams.map((t) => (
-                <div>
-                  <dt>{t.name}</dt>
-                  <dd>{t.liga}</dd>
-                </div>
-              ))
-            }
-          </dl>
+          {
+            mannschaften.length > 0 ? (
+              <dl class="liste">
+                {mannschaften.map((t) => (
+                  <div>
+                    <dt>{t.name}</dt>
+                    <dd>{t.liga}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <p>{spielbetrieb.hinweisOhneTeams}</p>
+            )
+          }
         </div>
       </li>
 

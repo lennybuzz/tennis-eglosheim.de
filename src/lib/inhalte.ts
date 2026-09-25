@@ -5,6 +5,13 @@ import inhalte from '../data/inhalte.json';
 export default inhalte;
 export const { kontakt, links } = inhalte;
 
+export interface Mannschaft {
+  name: string;
+  liga: string;
+}
+/** Gemeldete Mannschaften der aktuellen Saison – leer, solange für die Saison noch nichts gemeldet ist. */
+export const mannschaften: Mannschaft[] = inhalte.spielbetrieb.teams as Mannschaft[];
+
 /** Kleinster Jahresbeitrag über alle Tarife, z. B. 115 */
 export function minBeitrag(): number {
   const preise = inhalte.beitraege.gruppen

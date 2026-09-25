@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
-import inhalte, { links } from '../lib/inhalte';
+import inhalte, { links, mannschaften } from '../lib/inhalte';
 
 const { anlage, buchung, spielbetrieb, training } = inhalte;
 const preise = buchung.preise.filter((p) => p.platz === 'Tennis');
@@ -32,19 +32,26 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
       </div>
     </div>
     <div class="diptychon__beleg">
-      <table class="tabelle">
-        <caption>Gemeldete Mannschaften, {spielbetrieb.saison}</caption>
-        <tbody>
-          {
-            spielbetrieb.teams.map((t) => (
-              <tr>
-                <th scope="row">{t.name}</th>
-                <td>{t.liga}</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+      {
+        mannschaften.length > 0 ? (
+          <table class="tabelle">
+            <caption>Gemeldete Mannschaften, {spielbetrieb.saison}</caption>
+            <tbody>
+              {mannschaften.map((t) => (
+                <tr>
+                  <th scope="row">{t.name}</th>
+                  <td>{t.liga}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div class="beleg__leer">
+            <p class="beleg__leer-titel">{spielbetrieb.saison}</p>
+            <p>{spielbetrieb.hinweisOhneTeams}</p>
+          </div>
+        )
+      }
       {spielbetrieb.winterHinweis && <p class="beleg__hinweis">{spielbetrieb.winterHinweis}</p>}
     </div>
   </section>
@@ -164,6 +171,8 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
    */
   .beleg__block { display: flex; flex-direction: column; gap: var(--space-2xs); min-width: 0; }
   .beleg__hinweis { font-size: var(--text-sm); line-height: 1.5; color: var(--color-ink-3); }
+  .beleg__leer { padding-block: var(--space-sm); border-block: var(--rule); color: var(--color-ink-2); line-height: 1.55; }
+  .beleg__leer-titel { font-weight: 600; color: var(--color-ink); }
   .links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
   .diptychon:last-of-type { padding-bottom: var(--space-3xl); }
 </style>
