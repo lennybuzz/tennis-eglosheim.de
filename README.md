@@ -49,6 +49,14 @@ Astro verkleinert die Bilder beim Build automatisch und wandelt sie in WebP um.
 Die `.htaccess` (Quelle: `public/.htaccess`) leitet auf https://www. um, sorgt für die 404-Seite und
 leitet alte WordPress-Adressen (`/news/`, `/post/…`, `/tennis/mannschaften/` usw.) auf die neuen Seiten weiter.
 
+## Testversion (GitHub Pages)
+
+Jeder Push auf `main` baut automatisch eine Testversion unter
+<https://lennybuzz.github.io/tennis-eglosheim.de/> (Workflow `.github/workflows/deploy.yml`).
+Sie liegt in einem Unterordner, deshalb interne Links immer mit `url()` aus `src/lib/url.ts` schreiben:
+`href={url('/kontakt/')}` statt `href="/kontakt/"`. In FAQ-Texten (`[Text](/pfad/)`) passiert das automatisch.
+Die Testversion ist für Suchmaschinen gesperrt (noindex); das Kontaktformular funktioniert dort nicht (kein PHP).
+
 ## Kontaktformular (PHP)
 
 Das Formular auf `/kontakt/` schickt an `/kontakt.php` (Quelle: `public/kontakt.php`). Der Hoster muss PHP ≥ 8.1 unterstützen.

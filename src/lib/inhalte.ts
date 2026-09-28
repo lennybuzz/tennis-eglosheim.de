@@ -1,6 +1,7 @@
 // Zugriff auf die zentrale Inhaltsdatei src/data/inhalte.json.
 // Die Datei wird beim Build eingelesen – nach Änderungen neu bauen.
 import inhalte from '../data/inhalte.json';
+import { url } from './url';
 
 export default inhalte;
 export const { kontakt, links } = inhalte;
@@ -48,6 +49,6 @@ export function mitLinks(text: string): string {
   return escapeHtml(text).replace(
     /\[([^\]]+)\]\(([^)\s]+)\)|[\w.+-]+@[\w-]+\.[\w.-]*\w/g,
     (treffer, linkText?: string, ziel?: string) =>
-      linkText ? `<a href="${ziel}">${linkText}</a>` : `<a href="mailto:${treffer}">${treffer}</a>`,
+      linkText ? `<a href="${ziel?.startsWith('/') ? url(ziel) : ziel}">${linkText}</a>` : `<a href="mailto:${treffer}">${treffer}</a>`,
   );
 }

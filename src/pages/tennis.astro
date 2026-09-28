@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
 import inhalte, { archiv, links, mannschaften } from '../lib/inhalte';
+import { url } from '../lib/url';
 
 const { anlage, buchung, spielbetrieb, training } = inhalte;
 const preise = buchung.preise.filter((p) => p.platz === 'Tennis');
@@ -88,7 +89,7 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
         den Einstieg in eine Mannschaft helfen Sport- und Jugendwart weiter.
       </p>
       <div class="btn-row">
-        <a href="/kontakt/" class="btn btn--primary">Probetraining anfragen</a>
+        <a href={url('/kontakt/')} class="btn btn--primary">Probetraining anfragen</a>
       </div>
     </div>
     <div class="diptychon__beleg">
@@ -120,7 +121,7 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
       <p class="klein">{buchung.leiheTennis}</p>
       <div class="btn-row">
         <a href={links.platzbuchung} class="btn btn--primary">Platz buchen <span aria-hidden="true">↗</span></a>
-        <a href="/#so-gehts" class="btn btn--outline">So buchst du</a>
+        <a href={url('/#so-gehts')} class="btn btn--outline">So buchst du</a>
       </div>
     </div>
     <div class="diptychon__beleg diptychon__beleg--zweispaltig">
@@ -176,8 +177,8 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
         Technik kann jeder die Faszination des Tennissports erleben. Komm zum Probetraining und lern uns kennen.
       </p>
       <p class="links">
-        <a href="/mitglied-werden/" class="link-arrow">Mitglied werden →</a>
-        <a href="/faq/#training" class="link-arrow">Fragen zum Training →</a>
+        <a href={url('/mitglied-werden/')} class="link-arrow">Mitglied werden →</a>
+        <a href={url('/faq/#training')} class="link-arrow">Fragen zum Training →</a>
       </p>
     </div>
     <div class="diptychon__beleg">

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import Bild from '../../components/Bild.astro';
 import inhalte from '../../lib/inhalte';
+import { url } from '../../lib/url';
 
 const { anlage, mitglieder, kontakt, buchung } = inhalte;
 ---
@@ -51,10 +52,10 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
         Ansprechpartnern; alle Vereinstermine findest du im Kalender.
       </p>
       <p class="weiter">
-        <a href="/mitglied-werden/" class="link-arrow">Mitglied werden →</a>
-        <a href="/verein/ansprechpartner/" class="link-arrow">Ansprechpartner →</a>
-        <a href="/verein/termine/" class="link-arrow">Termine →</a>
-        <a href="/padel/" class="link-arrow">Padel →</a>
+        <a href={url('/mitglied-werden/')} class="link-arrow">Mitglied werden →</a>
+        <a href={url('/verein/ansprechpartner/')} class="link-arrow">Ansprechpartner →</a>
+        <a href={url('/verein/termine/')} class="link-arrow">Termine →</a>
+        <a href={url('/padel/')} class="link-arrow">Padel →</a>
       </p>
     </article>
 

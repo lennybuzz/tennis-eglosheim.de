@@ -1,0 +1,41 @@
+# Testversion auf GitHub Pages: https://lennybuzz.github.io/tennis-eglosheim.de/
+# Baut bei jedem Push auf main (oder manuell unter Actions) und veröffentlicht.
+# Voraussetzung: Settings → Pages → Source = "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SITE: https://lennybuzz.github.io
+      BASE_PATH: /tennis-eglosheim.de
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Build und Upload
+        uses: withastro/action@v6
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

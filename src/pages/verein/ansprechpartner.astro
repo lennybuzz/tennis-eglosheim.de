@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import inhalte from '../../lib/inhalte';
+import { url } from '../../lib/url';
 
 const { ansprechpartner, kontakt } = inhalte;
 ---
@@ -10,7 +11,7 @@ const { ansprechpartner, kontakt } = inhalte;
   title="Ansprechpartner"
   description="Abteilungsleitung, Sportwart, Jugendwart, Kassierer und mehr: wer bei der Tennis- und Padelabteilung des SKV Eglosheim wofür zuständig ist."
 >
-  <PageIntro titel="Melde dich einfach bei uns" pfad={[{ label: 'Verein', href: '/verein/' }, { label: 'Ansprechpartner' }]}>
+  <PageIntro titel="Melde dich einfach bei uns" pfad={[{ label: 'Verein', href: url('/verein/') }, { label: 'Ansprechpartner' }]}>
     Egal ob du direkt beim Probetraining reinschnuppern willst oder erst mal nur ein paar Fragen hast – schreib der
     passenden Person eine kurze Nachricht. Wenn du unsicher bist, geht alles an{' '}
     <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>, wir leiten weiter.

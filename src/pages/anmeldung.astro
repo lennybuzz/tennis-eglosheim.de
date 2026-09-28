@@ -2,19 +2,20 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import { links } from '../lib/inhalte';
+import { url } from '../lib/url';
 ---
 
 <BaseLayout title="Online-Anmeldung" description="Online-Anmeldung für die Mitgliedschaft in der Tennis- und Padelabteilung des SKV Eglosheim.">
-  <PageIntro titel="Online anmelden" pfad={[{ label: 'Mitglied werden', href: '/mitglied-werden/' }, { label: 'Online-Anmeldung' }]}>
+  <PageIntro titel="Online anmelden" pfad={[{ label: 'Mitglied werden', href: url('/mitglied-werden/') }, { label: 'Online-Anmeldung' }]}>
     Fülle das Formular aus – wir melden uns anschließend mit allen weiteren Infos zu Schlüssel, Einführung und
-    Platzbuchung. Die aktuellen Beiträge findest du unter <a href="/mitglied-werden/#beitraege">Mitglied werden</a>.
+    Platzbuchung. Die aktuellen Beiträge findest du unter <a href={url('/mitglied-werden/#beitraege')}>Mitglied werden</a>.
   </PageIntro>
 
   <section class="px stack" style="--stack-gap:16px; padding-bottom:56px">
     <p class="datenschutz">
       Das Formular wird von ClubDesk bereitgestellt. Beim Laden dieser Seite wird deine IP-Adresse an ClubDesk übertragen,
       und ClubDesk speichert technisch notwendige Cookies (Sprache und Sitzung), damit das Formular funktioniert. Mehr dazu
-      in der <a href="/datenschutz/">Datenschutzerklärung</a>.
+      in der <a href={url('/datenschutz/')}>Datenschutzerklärung</a>.
     </p>
     <div class="rahmen">
       <iframe src={links.clubdeskAnmeldung} title="Anmeldeformular (ClubDesk)" allow="fullscreen"></iframe>

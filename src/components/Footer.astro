@@ -7,22 +7,23 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.svg';
 import { kontakt, links } from '../lib/inhalte';
+import { url } from '../lib/url';
 
 const seiten = [
-  { href: '/verein/', label: 'Verein' },
-  { href: '/tennis/', label: 'Tennis' },
-  { href: '/padel/', label: 'Padel' },
-  { href: '/verein/termine/', label: 'Termine' },
-  { href: '/verein/ansprechpartner/', label: 'Ansprechpartner' },
-  { href: '/faq/', label: 'Häufige Fragen' },
-  { href: '/mitglied-werden/', label: 'Mitglied werden' },
+  { href: url('/verein/'), label: 'Verein' },
+  { href: url('/tennis/'), label: 'Tennis' },
+  { href: url('/padel/'), label: 'Padel' },
+  { href: url('/verein/termine/'), label: 'Termine' },
+  { href: url('/verein/ansprechpartner/'), label: 'Ansprechpartner' },
+  { href: url('/faq/'), label: 'Häufige Fragen' },
+  { href: url('/mitglied-werden/'), label: 'Mitglied werden' },
   { href: links.platzbuchung, label: 'Platz buchen ↗' },
 ];
 const rechtliches = [
-  { href: '/kontakt/', label: 'Kontakt' },
-  { href: '/impressum/', label: 'Impressum' },
-  { href: '/datenschutz/', label: 'Datenschutz' },
-  { href: '/videoueberwachung/', label: 'Videoüberwachung' },
+  { href: url('/kontakt/'), label: 'Kontakt' },
+  { href: url('/impressum/'), label: 'Impressum' },
+  { href: url('/datenschutz/'), label: 'Datenschutz' },
+  { href: url('/videoueberwachung/'), label: 'Videoüberwachung' },
 ];
 const jahr = new Date().getFullYear();
 ---

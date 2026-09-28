@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 /**
  * Fremde Inhalte (Karte, Kalender) erst nach Klick laden.
  *
@@ -32,7 +33,7 @@ const { src, titel, anbieter, hinweis, knopf, hoehe, platzhalterHoehe = hoehe, a
     <p class="einbettung__titel">{titel}</p>
     <p class="einbettung__text">
       Der Inhalt kommt von {anbieter} und wird erst geladen, wenn du auf „{knopf}“ klickst. {hinweis}{' '}
-      Mehr dazu in der <a href="/datenschutz/">Datenschutzerklärung</a>.
+      Mehr dazu in der <a href={url('/datenschutz/')}>Datenschutzerklärung</a>.
     </p>
     <button type="button" class="btn btn--primary" data-laden>{knopf}</button>
   </div>

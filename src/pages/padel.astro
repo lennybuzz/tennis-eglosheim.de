@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
 import inhalte, { links, mitLinks } from '../lib/inhalte';
+import { url } from '../lib/url';
 
 const { anlage, buchung, timeline } = inhalte;
 const preise = buchung.preise.filter((p) => p.platz === 'Padel');
@@ -73,7 +74,7 @@ const padelChronik = timeline.filter((e) => /padel/i.test(e.titel));
       </p>
       <div class="btn-row">
         <a href={links.platzbuchung} class="btn btn--primary">Platz buchen <span aria-hidden="true">↗</span></a>
-        <a href="/#so-gehts" class="btn btn--outline">So buchst du</a>
+        <a href={url('/#so-gehts')} class="btn btn--outline">So buchst du</a>
       </div>
     </div>
     <div class="diptychon__beleg diptychon__beleg--zweispaltig">
@@ -128,13 +129,13 @@ const padelChronik = timeline.filter((e) => /padel/i.test(e.titel));
         hier, alle weiteren in unseren häufigen Fragen.
       </p>
       <p class="links">
-        <a href="/faq/#padel" class="link-arrow">Alle Fragen zu Padel →</a>
+        <a href={url('/faq/#padel')} class="link-arrow">Alle Fragen zu Padel →</a>
       </p>
       <h3 class="unter">Padel-Training</h3>
       <p>Padel-Training ist neu im Angebot. Schreib uns, wenn du mitmachen möchtest – wir sagen dir, wann die nächste Gruppe startet.</p>
       <div class="btn-row">
-        <a href="/kontakt/" class="btn btn--primary">Training anfragen</a>
-        <a href="/mitglied-werden/" class="btn btn--outline">Mitglied werden</a>
+        <a href={url('/kontakt/')} class="btn btn--primary">Training anfragen</a>
+        <a href={url('/mitglied-werden/')} class="btn btn--outline">Mitglied werden</a>
       </div>
     </div>
     <div class="diptychon__beleg">

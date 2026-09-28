@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import { kontakt } from '../../lib/inhalte';
+import { url } from '../../lib/url';
 ---
 
 <BaseLayout title="Nachricht nicht gesendet" noindex>
@@ -10,6 +11,6 @@ import { kontakt } from '../../lib/inhalte';
     erneut – oder schreib uns direkt an <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>.
   </PageIntro>
   <section class="px btn-row" style="padding-bottom:var(--space-3xl)">
-    <a href="/kontakt/" class="btn btn--primary">Zurück zum Formular</a>
+    <a href={url('/kontakt/')} class="btn btn--primary">Zurück zum Formular</a>
   </section>
 </BaseLayout>

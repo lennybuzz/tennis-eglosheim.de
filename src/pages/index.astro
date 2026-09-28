@@ -3,6 +3,7 @@ import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import inhalte, { archiv, kontakt, links, mannschaften, minBeitrag } from '../lib/inhalte';
+import { url } from '../lib/url';
 
 const { anlage, buchung, mitgliedschaftBedingungen, mitglieder, training, spielbetrieb, termine, sommerSpecial, timeline } =
   inhalte;
@@ -39,7 +40,7 @@ const heroBild: ImageMetadata | undefined = undefined;
       </p>
       <div class="btn-row">
         <a href={links.platzbuchung} class="btn btn--accent">Platz buchen <span aria-hidden="true">↗</span></a>
-        <a href="/mitglied-werden/" class="btn btn--outline-light">Mitglied werden</a>
+        <a href={url('/mitglied-werden/')} class="btn btn--outline-light">Mitglied werden</a>
       </div>
     </div>
     <dl class="hero__fakten">
@@ -175,7 +176,7 @@ const heroBild: ImageMetadata | undefined = undefined;
                 </tbody>
               </table>
               <p class="info__klein">
-                <a href="/mitglied-werden/#beitraege">Tarife ohne Arbeitsdienst und für Kinder ab {minBeitrag()} €</a>
+                <a href={url('/mitglied-werden/#beitraege')}>Tarife ohne Arbeitsdienst und für Kinder ab {minBeitrag()} €</a>
               </p>
             </div>
 
@@ -228,8 +229,8 @@ const heroBild: ImageMetadata | undefined = undefined;
             }
           </dl>
           <p class="info__links">
-            <a href="/anmeldung/" class="btn btn--primary">Online anmelden</a>
-            <a href="/faq/#mitgliedschaft" class="link-arrow">Alle Fragen zur Mitgliedschaft →</a>
+            <a href={url('/anmeldung/')} class="btn btn--primary">Online anmelden</a>
+            <a href={url('/faq/#mitgliedschaft')} class="link-arrow">Alle Fragen zur Mitgliedschaft →</a>
           </p>
         </div>
       </li>
@@ -243,7 +244,7 @@ const heroBild: ImageMetadata | undefined = undefined;
     <ol class="index index--raster">
       <li class="eintrag" id="training">
         <h2 class="eintrag__titel">
-          <a href="/tennis/#training">Training <span class="pfeil" aria-hidden="true">→</span></a>
+          <a href={url('/tennis/#training')}>Training <span class="pfeil" aria-hidden="true">→</span></a>
         </h2>
         <div class="eintrag__info">
           <p class="info__lead">{training.zeitraum}</p>
@@ -282,7 +283,7 @@ const heroBild: ImageMetadata | undefined = undefined;
           }
           {archiv.length > 0 && (
             <p class="info__klein">
-              <a href="/tennis/#archiv">{archiv[0].saison} im Archiv</a>
+              <a href={url('/tennis/#archiv')}>{archiv[0].saison} im Archiv</a>
             </p>
           )}
         </div>
@@ -290,7 +291,7 @@ const heroBild: ImageMetadata | undefined = undefined;
 
       <li class="eintrag">
         <h2 class="eintrag__titel">
-          <a href="/verein/termine/">Termine <span class="pfeil" aria-hidden="true">→</span></a>
+          <a href={url('/verein/termine/')}>Termine <span class="pfeil" aria-hidden="true">→</span></a>
         </h2>
         <div class="eintrag__info">
           <dl class="liste">
@@ -308,7 +309,7 @@ const heroBild: ImageMetadata | undefined = undefined;
 
       <li class="eintrag">
         <h2 class="eintrag__titel">
-          <a href="/padel/">Padel <span class="pfeil" aria-hidden="true">→</span></a>
+          <a href={url('/padel/')}>Padel <span class="pfeil" aria-hidden="true">→</span></a>
         </h2>
         <div class="eintrag__info">
           <p class="info__lead">Seit Juli 2025, die ersten Padelplätze in Ludwigsburg</p>
@@ -321,7 +322,7 @@ const heroBild: ImageMetadata | undefined = undefined;
 
       <li class="eintrag">
         <h2 class="eintrag__titel">
-          <a href="/verein/">Der Verein <span class="pfeil" aria-hidden="true">→</span></a>
+          <a href={url('/verein/')}>Der Verein <span class="pfeil" aria-hidden="true">→</span></a>
         </h2>
         <div class="eintrag__info">
           <p class="info__lead"><span class="zahl">{mitglieder.anzahl}</span> Mitglieder, Stand {mitglieder.stand}</p>
@@ -329,13 +330,13 @@ const heroBild: ImageMetadata | undefined = undefined;
             Aus allen Gesellschaftsschichten und Altersstufen – aktiv in der Mannschaft oder gemütlich auf der
             Sonnenterrasse. Persönliche Atmosphäre statt Anonymität, hier findet jeder schnell Anschluss.
           </p>
-          <p class="info__klein"><a href="/verein/ansprechpartner/">Ansprechpartner</a> · <a href="/faq/">Häufige Fragen</a></p>
+          <p class="info__klein"><a href={url('/verein/ansprechpartner/')}>Ansprechpartner</a> · <a href={url('/faq/')}>Häufige Fragen</a></p>
         </div>
       </li>
 
       <li class="eintrag">
         <h2 class="eintrag__titel">
-          <a href="/kontakt/">Kontakt <span class="pfeil" aria-hidden="true">→</span></a>
+          <a href={url('/kontakt/')}>Kontakt <span class="pfeil" aria-hidden="true">→</span></a>
         </h2>
         <div class="eintrag__info">
           <p class="info__lead">{kontakt.strasse}, {kontakt.ort}</p>

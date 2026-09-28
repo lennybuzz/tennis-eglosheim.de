@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import inhalte, { links } from '../lib/inhalte';
+import { url } from '../lib/url';
 
 const { sommerSpecial, beitraege, mitgliedschaftBedingungen } = inhalte;
 
@@ -10,12 +11,12 @@ const schritte = [
   {
     titel: 'Probetraining',
     text: 'Melde dich über das Kontaktformular mit dem Anliegen „Probetraining“. Wir finden einen Termin, an dem du bei einer passenden Gruppe mitspielen kannst. Falls du noch keine Ausrüstung hast, stellen wir dir einen Schläger.',
-    link: { href: '/kontakt/', label: 'Probetraining anfragen' },
+    link: { href: url('/kontakt/'), label: 'Probetraining anfragen' },
   },
   {
     titel: 'Online anmelden',
     text: 'Füll das Anmeldeformular aus. Wir melden uns anschließend mit allen weiteren Infos zu Schlüssel, Einführung und Platzbuchung.',
-    link: { href: '/anmeldung/', label: 'Zur Anmeldung' },
+    link: { href: url('/anmeldung/'), label: 'Zur Anmeldung' },
   },
   {
     titel: 'Schlüssel und Einführung',
@@ -66,7 +67,7 @@ const fragen = [
     Du wolltest schon immer mal Padel oder Tennis ausprobieren und dabei von einem Trainer betreut werden? Oder du spielst
     bereits und möchtest unsere Abteilung kennenlernen? Dann melde dich für ein Probetraining an.
     <div slot="extra" class="btn-row">
-      <a href="/anmeldung/" class="btn btn--primary">Online anmelden</a>
+      <a href={url('/anmeldung/')} class="btn btn--primary">Online anmelden</a>
       <a href="#beitraege" class="btn btn--outline">Beiträge ansehen</a>
     </div>
   </PageIntro>
@@ -80,7 +81,7 @@ const fragen = [
           </p>
           <p>{sommerSpecial.text}</p>
         </div>
-        <a href="/anmeldung/" class="btn btn--white">Jetzt sichern</a>
+        <a href={url('/anmeldung/')} class="btn btn--white">Jetzt sichern</a>
       </section>
     )
   }
@@ -133,7 +134,7 @@ const fragen = [
       }
     </div>
     <p class="beitraege__aktion">
-      <a href="/anmeldung/" class="btn btn--primary">Online anmelden</a>
+      <a href={url('/anmeldung/')} class="btn btn--primary">Online anmelden</a>
       <span>Alle Infos zum Hauptverein: <a href={links.hauptverein}>skv-eglosheim.de</a></span>
     </p>
   </section>
@@ -158,8 +159,8 @@ const fragen = [
     <div class="diptychon__text">
       <h2 class="diptychon__titel">Häufige Fragen</h2>
       <p>
-        Weitere Fragen? Schreib uns über das <a href="/kontakt/">Kontaktformular</a> oder schau in unsere{' '}
-        <a href="/faq/">ausführlichen FAQ</a>.
+        Weitere Fragen? Schreib uns über das <a href={url('/kontakt/')}>Kontaktformular</a> oder schau in unsere{' '}
+        <a href={url('/faq/')}>ausführlichen FAQ</a>.
       </p>
       <div class="dokumente">
         <p class="dokumente__titel">Downloads und Dokumente</p>

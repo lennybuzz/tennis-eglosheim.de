@@ -8,27 +8,29 @@
 import { Image } from 'astro:assets';
 import logoMark from '../assets/logo-mark.svg';
 import inhalte, { links } from '../lib/inhalte';
+import { url } from '../lib/url';
 
 const { sommerSpecial } = inhalte;
 const path = Astro.url.pathname;
-const aktiv = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+// href ist hier schon über url() gebildet, enthält also den Basispfad
+const aktiv = (href: string) => path.startsWith(href);
 
 const vereinLinks = [
-  { href: '/verein/', label: 'Der Verein', exakt: true },
-  { href: '/verein/ansprechpartner/', label: 'Ansprechpartner' },
-  { href: '/verein/termine/', label: 'Termine' },
-  { href: '/faq/', label: 'Häufige Fragen' },
+  { href: url('/verein/'), label: 'Der Verein', exakt: true },
+  { href: url('/verein/ansprechpartner/'), label: 'Ansprechpartner' },
+  { href: url('/verein/termine/'), label: 'Termine' },
+  { href: url('/faq/'), label: 'Häufige Fragen' },
 ];
 const hauptLinks = [
-  { href: '/tennis/', label: 'Tennis' },
-  { href: '/padel/', label: 'Padel' },
-  { href: '/kontakt/', label: 'Kontakt' },
+  { href: url('/tennis/'), label: 'Tennis' },
+  { href: url('/padel/'), label: 'Padel' },
+  { href: url('/kontakt/'), label: 'Kontakt' },
 ];
-const vereinAktiv = aktiv('/verein/') || aktiv('/faq/');
+const vereinAktiv = aktiv(url('/verein/')) || aktiv(url('/faq/'));
 
 // Schlüssel fürs Schließen: ändert sich der Text, erscheint das Banner wieder
 const bannerId = `banner:${sommerSpecial.titel}|${sommerSpecial.kurz}`;
-const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
+const zeigeBanner = sommerSpecial.aktiv && path !== url('/mitglied-werden/');
 ---
 
 <header class:list={['site-header', { 'has-banner': zeigeBanner }]}>
@@ -38,7 +40,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
         <p class="banner__text">
           <strong>{sommerSpecial.titel}:</strong> {sommerSpecial.kurz}
         </p>
-        <a href="/mitglied-werden/" class="banner__link">Bedingungen →</a>
+        <a href={url('/mitglied-werden/')} class="banner__link">Bedingungen →</a>
         <button class="banner__x" type="button" aria-label="Hinweis ausblenden">
           <span aria-hidden="true">×</span>
         </button>
@@ -60,7 +62,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
   }
 
   <div class="bar">
-    <a href="/" class="brand">
+    <a href={url('/')} class="brand">
       <Image src={logoMark} alt="" class="brand__logo" loading="eager" />
       <span class="brand__text">SKV Eglosheim e.V.<br />Abteilung Tennis &amp; Padel</span>
     </a>
@@ -72,7 +74,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
 
     <nav id="hauptnavigation" class="nav" aria-label="Hauptnavigation">
       <div class="nav-drop">
-        <a href="/verein/" class:list={['nav__link', { 'is-active': vereinAktiv }]}>Verein</a>
+        <a href={url('/verein/')} class:list={['nav__link', { 'is-active': vereinAktiv }]}>Verein</a>
         <div class="nav-drop__sub">
           <div class="nav-drop__panel">
             {
@@ -101,7 +103,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== '/mitglied-werden/';
         ))
       }
       <a href={links.platzbuchung} class="nav__link nav__link--extern">Platz buchen <span aria-hidden="true">↗</span></a>
-      <a href="/mitglied-werden/" class="btn btn--primary nav__btn">Mitglied werden</a>
+      <a href={url('/mitglied-werden/')} class="btn btn--primary nav__btn">Mitglied werden</a>
     </nav>
   </div>
 </header>
