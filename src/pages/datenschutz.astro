@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Rechtstext from '../components/Rechtstext.astro';
 import { kontakt } from '../lib/inhalte';
+import { url } from '../lib/url';
 ---
 
 <BaseLayout title="Datenschutz" description="Datenschutzerklärung der Abteilung Tennis & Padel des SKV Eglosheim e. V.">
@@ -17,7 +18,7 @@ import { kontakt } from '../lib/inhalte';
     <h2>Verantwortlicher</h2>
     <p>Benjamin Kohn,<br />TENNIS ABTEILUNG – SKV EGLOSHEIM<br />Tammer Straße 30<br />71634 Eglosheim, Deutschland<br /><a href="mailto:hello@tennis-eglosheim.de">hello@tennis-eglosheim.de</a></p>
     <p>
-      <a href="/impressum/">Impressum</a><br />Fragen zum Datenschutz:{' '}
+      <a href={url('/impressum/')}>Impressum</a><br />Fragen zum Datenschutz:{' '}
       <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
     </p>
 
@@ -123,7 +124,7 @@ import { kontakt } from '../lib/inhalte';
     <h2>Videoüberwachung der Anlage</h2>
     <p>
       Unsere Anlage und die Plätze werden videoüberwacht. Zweck, Rechtsgrundlage und Speicherdauer der Aufnahmen beschreiben
-      wir auf einer eigenen Seite: <a href="/videoueberwachung/">Hinweise zur Videoüberwachung</a>.
+      wir auf einer eigenen Seite: <a href={url('/videoueberwachung/')}>Hinweise zur Videoüberwachung</a>.
     </p>
 
     <h2>Deine Rechte</h2>

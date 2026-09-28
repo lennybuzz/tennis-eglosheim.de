@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import Einbettung from '../../components/Einbettung.astro';
 import { kontakt } from '../../lib/inhalte';
+import { url } from '../../lib/url';
 
 const { lat, lon } = kontakt.karte;
 const bbox = [lon - 0.01, lat - 0.005, lon + 0.01, lat + 0.005].map((n) => n.toFixed(5)).join('%2C');
@@ -25,7 +26,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
     <!-- Hauptaktion: Formular -->
     <section class="formular-bereich" aria-labelledby="formular-titel">
       <h2 id="formular-titel" class="abschnitt">Kontaktformular</h2>
-      <form method="post" action="/kontakt.php" class="formular" data-formular>
+      <form method="post" action={url('/kontakt.php')} class="formular" data-formular>
         <label class="feld">
           <span class="feld__name">Name</span>
           <input type="text" name="name" required maxlength="200" autocomplete="name" placeholder="Vor- und Nachname" />
@@ -57,7 +58,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
         <label class="formular__check">
           <input type="checkbox" name="datenschutz" value="ja" required />
           <span>
-            Ich habe die <a href="/datenschutz/">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur
+            Ich habe die <a href={url('/datenschutz/')}>Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur
             Beantwortung meiner Anfrage einverstanden.
           </span>
         </label>
@@ -65,7 +66,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
       </form>
       <p class="formular__alt">
         Lieber direkt per E-Mail? <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a> oder die passende Person unter{' '}
-        <a href="/verein/ansprechpartner/">Ansprechpartner</a>.
+        <a href={url('/verein/ansprechpartner/')}>Ansprechpartner</a>.
       </p>
     </section>
 
@@ -80,7 +81,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
       </p>
       <div class="btn-row">
         <a href={grosseKarte} class="btn btn--outline">Größere Karte öffnen</a>
-        <a href="/verein/ansprechpartner/" class="btn btn--outline">Ansprechpartner</a>
+        <a href={url('/verein/ansprechpartner/')} class="btn btn--outline">Ansprechpartner</a>
       </div>
       <div class="anlage__karte">
         <Einbettung

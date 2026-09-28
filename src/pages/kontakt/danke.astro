@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
+import { url } from '../../lib/url';
 ---
 
 <BaseLayout title="Nachricht gesendet" noindex>
@@ -8,7 +9,7 @@ import PageIntro from '../../components/PageIntro.astro';
     Wir leiten sie an die passende Person weiter und melden uns so schnell wie möglich bei dir.
   </PageIntro>
   <section class="px btn-row" style="padding-bottom:var(--space-3xl)">
-    <a href="/" class="btn btn--primary">Zur Startseite</a>
-    <a href="/faq/" class="btn btn--outline">Häufige Fragen</a>
+    <a href={url('/')} class="btn btn--primary">Zur Startseite</a>
+    <a href={url('/faq/')} class="btn btn--outline">Häufige Fragen</a>
   </section>
 </BaseLayout>

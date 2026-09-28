@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
+import { url } from '../lib/url';
 ---
 
 <BaseLayout title="Seite nicht gefunden" noindex>
@@ -8,9 +9,9 @@ import PageIntro from '../components/PageIntro.astro';
     Unsere Website ist neu – vielleicht ist die Seite umgezogen. Von hier aus geht es weiter:
   </PageIntro>
   <section class="px btn-row" style="padding-bottom:var(--space-3xl)">
-    <a href="/" class="btn btn--primary">Zur Startseite</a>
-    <a href="/verein/termine/" class="btn btn--outline">Termine</a>
-    <a href="/mitglied-werden/" class="btn btn--outline">Mitglied werden</a>
-    <a href="/kontakt/" class="btn btn--outline">Kontakt</a>
+    <a href={url('/')} class="btn btn--primary">Zur Startseite</a>
+    <a href={url('/verein/termine/')} class="btn btn--outline">Termine</a>
+    <a href={url('/mitglied-werden/')} class="btn btn--outline">Mitglied werden</a>
+    <a href={url('/kontakt/')} class="btn btn--outline">Kontakt</a>
   </section>
 </BaseLayout>

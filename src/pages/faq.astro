@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import inhalte, { mitLinks } from '../lib/inhalte';
+import { url } from '../lib/url';
 
 const gruppen = inhalte.faq;
 const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
@@ -51,7 +52,7 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
       }
       <div class="leer" data-leer hidden>
         <div class="leer__titel">Dazu haben wir nichts gefunden</div>
-        <p>Probier ein anderes Stichwort oder frag uns direkt über das <a href="/kontakt/">Kontaktformular</a>.</p>
+        <p>Probier ein anderes Stichwort oder frag uns direkt über das <a href={url('/kontakt/')}>Kontaktformular</a>.</p>
       </div>
     </div>
   </section>
@@ -65,8 +66,8 @@ const gesamt = gruppen.reduce((n, g) => n + g.fragen.length, 0);
       </p>
     </div>
     <div class="cta__aktionen">
-      <a href="/kontakt/" class="btn cta__btn">Zum Kontaktformular</a>
-      <a href="/verein/ansprechpartner/" class="btn cta__btn cta__btn--ghost">Ansprechpartner ansehen</a>
+      <a href={url('/kontakt/')} class="btn cta__btn">Zum Kontaktformular</a>
+      <a href={url('/verein/ansprechpartner/')} class="btn cta__btn cta__btn--ghost">Ansprechpartner ansehen</a>
       <p class="cta__mail">
         oder direkt an&nbsp;<a href={`mailto:${inhalte.kontakt.email}`}>{inhalte.kontakt.email}</a>
       </p>

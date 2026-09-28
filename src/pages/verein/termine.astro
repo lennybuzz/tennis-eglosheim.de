@@ -3,12 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import Einbettung from '../../components/Einbettung.astro';
 import inhalte, { links } from '../../lib/inhalte';
+import { url } from '../../lib/url';
 
 const { termine } = inhalte;
 ---
 
 <BaseLayout title="Termine" description="Alle Vereinstermine der Tennis- und Padelabteilung des SKV Eglosheim im ClubDesk-Kalender.">
-  <PageIntro titel="Termine im Verein" pfad={[{ label: 'Verein', href: '/verein/' }, { label: 'Termine' }]}>
+  <PageIntro titel="Termine im Verein" pfad={[{ label: 'Verein', href: url('/verein/') }, { label: 'Termine' }]}>
     Die wichtigsten Termine stehen hier. Alle Vereinstermine pflegen wir im ClubDesk-Kalender – du kannst ihn unten laden,
     er ist immer aktuell.
   </PageIntro>
