@@ -142,7 +142,7 @@
     }
   ],
   "sommerSpecial": {
-    "aktiv": true,
+    "aktiv": false,
     "titel": "Sommer-Special",
     "kurz": "170 € statt 220 € und 6 statt 9 Arbeitsstunden",
     "text": "Sichere dir unsere vergünstigte Mitgliedschaft für den Rest des Jahres. Du zahlst für diese Saison nur 170 € statt 220 € und leistest lediglich 6 statt 9 Arbeitsstunden. Ab dem zweiten Jahr geht die Mitgliedschaft automatisch in den regulären Tarif über."
@@ -367,7 +367,7 @@
         },
         {
           "frage": "Kann ich auch mitten in der Saison einsteigen?",
-          "antwort": "Ja. Für den Rest des Jahres gilt unser Sommer-Special: 170 € statt 220 € und 6 statt 9 Arbeitsstunden. Ab dem zweiten Jahr geht die Mitgliedschaft automatisch in den regulären Tarif über."
+          "antwort": "Ja, das ist ohne Probleme möglich. Melde dich einfach über das Anmeldeformular bei „Mitglied werden“ bei uns an."
         },
         {
           "frage": "Warum besteht der Beitrag aus zwei Teilen?",
