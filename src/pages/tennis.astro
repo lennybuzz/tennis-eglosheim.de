@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
+import tennisAnlage from '../assets/bilder/tennis-anlage.jpg';
 import inhalte, { archiv, links, mannschaften } from '../lib/inhalte';
 import { url } from '../lib/url';
 
@@ -182,7 +183,7 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
       </p>
     </div>
     <div class="diptychon__beleg">
-      <Bild platzhalter="Foto Tennisplatz" hoehe="360px" sizes="(max-width: 900px) 100vw, 55vw" />
+      <Bild bild={tennisAnlage} alt="Tennisplätze der Anlage in Eglosheim" platzhalter="Foto Tennisplatz" hoehe="360px" sizes="(max-width: 900px) 100vw, 55vw" />
     </div>
   </section>
 </BaseLayout>

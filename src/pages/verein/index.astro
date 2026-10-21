@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import Bild from '../../components/Bild.astro';
+import vereinAnlage from '../../assets/bilder/verein-anlage.jpg';
 import inhalte from '../../lib/inhalte';
 import { url } from '../../lib/url';
 
@@ -60,7 +61,7 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
     </article>
 
     <aside class="dokument__rand" aria-label="Der Verein in Zahlen">
-      <Bild platzhalter="Foto der Anlage" hoehe="280px" sizes="(max-width: 900px) 100vw, 30vw" />
+      <Bild bild={vereinAnlage} alt="Clubhaus und Tennisplätze der Anlage" platzhalter="Foto der Anlage" hoehe="280px" sizes="(max-width: 900px) 100vw, 30vw" />
       <table class="tabelle">
         <caption>Auf einen Blick</caption>
         <tbody>

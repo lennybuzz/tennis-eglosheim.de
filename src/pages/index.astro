@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
+import heroFoto from '../assets/bilder/hero-anlage.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import inhalte, { archiv, kontakt, links, mannschaften, minBeitrag } from '../lib/inhalte';
 import { url } from '../lib/url';
@@ -16,7 +17,7 @@ const chronik = [...timeline].reverse();
  *   import heroFoto from '../assets/bilder/anlage.jpg';
  * und hier eintragen: const heroBild: ImageMetadata | undefined = heroFoto;
  */
-const heroBild: ImageMetadata | undefined = undefined;
+const heroBild: ImageMetadata | undefined = heroFoto;
 ---
 
 <BaseLayout>

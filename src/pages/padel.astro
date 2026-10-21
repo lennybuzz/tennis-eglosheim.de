@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
+import padelDrohne from '../assets/bilder/padel-drohne.jpg';
 import inhalte, { links, mitLinks } from '../lib/inhalte';
 import { url } from '../lib/url';
 
@@ -42,7 +43,7 @@ const padelChronik = timeline.filter((e) => /padel/i.test(e.titel));
       </p>
     </div>
     <div class="diptychon__beleg">
-      <Bild platzhalter="Drohnenfoto der Padelplätze" hoehe="360px" sizes="(max-width: 900px) 100vw, 55vw" eager />
+      <Bild bild={padelDrohne} alt="Luftaufnahme der Padelplätze" platzhalter="Drohnenfoto der Padelplätze" hoehe="360px" sizes="(max-width: 900px) 100vw, 55vw" eager />
       <table class="tabelle">
         <caption>Vom Bagger zum dritten Platz</caption>
         <tbody>
