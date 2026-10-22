@@ -31,9 +31,9 @@ const schritte = [
 
 // PDF-Dateien nach public/dokumente/ legen und hier den Pfad eintragen, z. B. '/dokumente/aufnahmeantrag.pdf'
 const dokumente: { titel: string; datei: string | null }[] = [
+  { titel: 'Beitragsübersicht (PDF)', datei: url('/dokumente/Beitragsuebersicht_2025.pdf') },
   { titel: 'Aufnahmeantrag (PDF)', datei: null },
-  { titel: 'Abteilungssatzung (PDF)', datei: null },
-  { titel: 'Spiel- / Platzordnung (PDF)', datei: null },
+  { titel: 'Satzung und Ordnungen', datei: url('/verein/satzung/') },
 ];
 
 const fragen = [

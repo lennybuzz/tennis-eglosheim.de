@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import Rechtstext from '../../components/Rechtstext.astro';
+import { url } from '../../lib/url';
+---
+
+<BaseLayout
+  title="Satzung und Ordnungen"
+  description="Satzung der Tennisabteilung, Spiel- und Platzordnung und Beitragsübersicht des SKV Eglosheim zum Nachlesen als PDF."
+>
+  <PageIntro titel="Satzung und Ordnungen">
+    Die Regeln der Tennisabteilung und die Beiträge zum Nachlesen. Alle Dokumente öffnen sich als PDF in einem neuen Tab.
+  </PageIntro>
+  <Rechtstext>
+    <h2>Satzung der Tennisabteilung</h2>
+    <p>Die Satzung regelt Aufbau, Mitgliedschaft und Organe der Tennisabteilung innerhalb des SKV Eglosheim e.V.</p>
+    <p>
+      <a class="btn btn--primary" href={url('/dokumente/Abteilungssatzung_2025.pdf')} target="_blank" rel="noopener">
+        Satzung als PDF öffnen
+      </a>
+    </p>
+
+    <h2>Spiel- und Platzordnung</h2>
+    <p>
+      Die Spiel- und Platzordnung gilt für alle Mitglieder der Abteilung. Sie regelt Spielberechtigung, Platzbelegung,
+      Gäste und Spielbetrieb.
+    </p>
+    <p>
+      <a class="btn btn--primary" href={url('/dokumente/Spiel-und-Platzordnung.pdf')} target="_blank" rel="noopener">
+        Spiel- und Platzordnung als PDF öffnen
+      </a>
+    </p>
+
+    <h2>Beitragsübersicht</h2>
+    <p>Die aktuellen Mitgliedsbeiträge der Tennisabteilung und des Hauptvereins, dazu die Beitragsordnung.</p>
+    <p>
+      <a class="btn btn--primary" href={url('/dokumente/Beitragsuebersicht_2025.pdf')} target="_blank" rel="noopener">
+        Beitragsübersicht als PDF öffnen
+      </a>
+    </p>
+  </Rechtstext>
+</BaseLayout>

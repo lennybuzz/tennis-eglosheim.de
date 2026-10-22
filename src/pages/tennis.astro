@@ -120,6 +120,9 @@ const trainingTennis = training.zeiten.filter((z) => !/padel/i.test(z.gruppe));
         bis zu 10 Tage im Voraus.
       </p>
       <p class="klein">{buchung.leiheTennis}</p>
+      <p class="klein">
+        Für die Platzbelegung gelten die <a href={url('/dokumente/Spiel-und-Platzordnung.pdf')} target="_blank" rel="noopener">Spiel- und Platzordnung (PDF)</a>.
+      </p>
       <div class="btn-row">
         <a href={links.platzbuchung} class="btn btn--primary">Platz buchen <span aria-hidden="true">↗</span></a>
         <a href={url('/#so-gehts')} class="btn btn--outline">So buchst du</a>
