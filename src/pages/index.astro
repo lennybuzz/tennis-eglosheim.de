@@ -6,7 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import inhalte, { archiv, kontakt, links, mannschaften, minBeitrag } from '../lib/inhalte';
 import { url } from '../lib/url';
 
-const { anlage, buchung, mitgliedschaftBedingungen, mitglieder, training, spielbetrieb, termine, sommerSpecial, timeline } =
+const { anlage, buchung, mitgliedschaftBedingungen, mitglieder, training, spielbetrieb, sommerSpecial, timeline } =
   inhalte;
 const tarifGruppe = inhalte.beitraege.gruppen[0];
 const chronik = [...timeline].reverse();
@@ -296,18 +296,9 @@ const heroBild: ImageMetadata | undefined = heroFoto;
           <a href={url('/verein/termine/')}>Termine <span class="pfeil" aria-hidden="true">→</span></a>
         </h2>
         <div class="eintrag__info">
-          <dl class="liste">
-            {
-              termine.slice(0, 3).map((t) => (
-                <div>
-                  <dt>{t.titel}</dt>
-                  <dd>{t.datum}</dd>
-                </div>
-              ))
-            }
-          </dl>
-          <p class="info__klein">
-            Alle Vereinstermine findest du im <a href={links.clubdeskTermine}>ClubDesk-Kalender ↗</a>
+          <p>
+            Hier findest du alle Termine im Verein, egal ob Sommerfest, Spieltage oder andere Veranstaltungen. Sie stehen
+            im ClubDesk-Kalender, den du über die Überschrift erreichst.
           </p>
         </div>
       </li>
