@@ -3,6 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import Bild from '../../components/Bild.astro';
 import vereinAnlage from '../../assets/bilder/verein-anlage.jpg';
+import vereinLuftbild from '../../assets/bilder/verein-luftbild.jpg';
+import vereinGastro from '../../assets/bilder/verein-gastro.jpg';
+import vereinClubhausPlaetze from '../../assets/bilder/verein-clubhaus-plaetze.jpg';
 import inhalte from '../../lib/inhalte';
 import { url } from '../../lib/url';
 
@@ -98,6 +101,20 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
       </table>
     </aside>
   </div>
+
+  <section class="fotos px" aria-label="Fotos der Anlage">
+    <figure class="fotos__gross">
+      <Bild bild={vereinLuftbild} alt="Luftaufnahme der Tennisplätze mit Clubhaus" platzhalter="Luftaufnahme der Anlage" hoehe="min(56vw, 520px)" sizes="(max-width: 900px) 100vw, 1400px" />
+    </figure>
+    <div class="fotos__reihe">
+      <figure>
+        <Bild bild={vereinGastro} alt="Gastronomiebereich im Clubhaus" platzhalter="Gastronomiebereich" hoehe="300px" sizes="(max-width: 900px) 100vw, 50vw" />
+      </figure>
+      <figure>
+        <Bild bild={vereinClubhausPlaetze} alt="Clubhaus mit Blick auf Platz 2 und 3" platzhalter="Clubhaus mit Plätzen" hoehe="300px" sizes="(max-width: 900px) 100vw, 50vw" />
+      </figure>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -136,8 +153,22 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
   .dokument__rand .tabelle td { text-align: right; }
   .dokument__rand .tabelle__zusatz { display: block; }
 
+  .fotos {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding-block: 0 var(--space-3xl);
+  }
+  .fotos figure { margin: 0; min-width: 0; }
+  .fotos__reihe {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+
   @media (max-width: 900px) {
     .dokument { grid-template-columns: minmax(0, 1fr); }
     .dokument__rand { position: static; }
+    .fotos__reihe { grid-template-columns: minmax(0, 1fr); }
   }
 </style>
