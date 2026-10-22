@@ -154,6 +154,11 @@
         "titel": "Option 1: Mitgliedsbeitrag inkl. 9 Std. Arbeitsdienst",
         "tarife": [
           {
+            "name": "Kinder und Jugendliche",
+            "preis": "115 €",
+            "zusatz": "bis 18 Jahre, keine Arbeitsstunden"
+          },
+          {
             "name": "Schüler / Studenten",
             "preis": "220 €",
             "zusatz": "bis 25 Jahre"
