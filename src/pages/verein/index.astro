@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import Bild from '../../components/Bild.astro';
 import vereinAnlage from '../../assets/bilder/verein-anlage.jpg';
+import vereinPadel from '../../assets/bilder/verein-padel.jpg';
 import vereinLuftbild from '../../assets/bilder/verein-luftbild.jpg';
 import vereinGastro from '../../assets/bilder/verein-gastro.jpg';
 import vereinClubhausPlaetze from '../../assets/bilder/verein-clubhaus-plaetze.jpg';
@@ -64,7 +65,8 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
     </article>
 
     <aside class="dokument__rand" aria-label="Der Verein in Zahlen">
-      <Bild bild={vereinAnlage} alt="Clubhaus und Tennisplätze der Anlage" platzhalter="Foto der Anlage" hoehe="280px" sizes="(max-width: 900px) 100vw, 30vw" />
+      <Bild bild={vereinPadel} alt="Luftaufnahme der Padelplätze mit Flutlicht" platzhalter="Foto der Padelplätze" hoehe="auto" sizes="(max-width: 900px) 100vw, 30vw" />
+      <Bild bild={vereinAnlage} alt="Clubhaus und Tennisplätze der Anlage" platzhalter="Foto der Anlage" hoehe="auto" sizes="(max-width: 900px) 100vw, 30vw" />
       <table class="tabelle">
         <caption>Auf einen Blick</caption>
         <tbody>
@@ -146,8 +148,6 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
   .dokument__rand {
     grid-column: 2;
     grid-row: 1;
-    position: sticky;
-    top: calc(var(--header-h) + var(--space-md));
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
@@ -171,7 +171,6 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
   @media (max-width: 900px) {
     .dokument { grid-template-columns: minmax(0, 1fr); }
     .dokument__text, .dokument__rand { grid-column: 1; grid-row: auto; }
-    .dokument__rand { position: static; }
     .fotos__reihe { grid-template-columns: minmax(0, 1fr); }
   }
 </style>
