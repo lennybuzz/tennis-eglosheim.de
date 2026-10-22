@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import { links } from '../../lib/inhalte';
+import { url } from '../../lib/url';
+
+const preise = [
+  { gruppe: '1er-Training', preis: '60 €' },
+  { gruppe: '2er-Training', preis: '33 €' },
+  { gruppe: '3er-Training', preis: '23 €' },
+  { gruppe: '4er-Training', preis: '17,50 €' },
+];
+---
+
+<BaseLayout
+  title="Padel-Training"
+  description="Padel-Training in Ludwigsburg-Eglosheim: 1er bis 4er-Training auf unserer Padelanlage, für Anfänger und Fortgeschrittene. Anmeldung per E-Mail."
+>
+  <PageIntro titel="Padel-Training" pfad={[{ label: 'Padel', href: url('/padel/') }, { label: 'Padel-Training' }]}>
+    Padel ist die Trendsportart, die Tennis und Squash auf einzigartige Weise kombiniert: dynamisch, schnell und mit jeder
+    Menge Spaß. Ab sofort bieten wir professionelles Padel-Training direkt auf unserer Anlage in Ludwigsburg an.
+    <div slot="extra" class="btn-row">
+      <a href="mailto:padel@dd-tennisgroup.de" class="btn btn--primary">Jetzt anmelden</a>
+      <a href={url('/padel/')} class="btn btn--outline">Zur Padel-Seite</a>
+    </div>
+  </PageIntro>
+
+  <section class="diptychon px">
+    <div class="diptychon__text">
+      <h2 class="diptychon__titel">Für Anfänger und Fortgeschrittene</h2>
+      <p>
+        Ob Anfänger oder Fortgeschrittener: Das Training ist auf euer Level abgestimmt. Ihr entscheidet, ob ihr allein, zu
+        zweit, zu dritt oder zu viert trainieren wollt.
+      </p>
+      <p>
+        Angeboten wird das Training von einem externen Trainerteam. Es findet ausschließlich auf unserer Anlage statt.
+      </p>
+      <p>Sichert euch jetzt euren Platz und erlebt, warum Padel die wohl aufregendste Racketsportart Europas ist!</p>
+      <h3 class="unter">Ort</h3>
+      <p>SKV Eglosheim e.V., Abteilung Tennis, Junkerleswiesen 4, 71634 Ludwigsburg</p>
+      <div class="btn-row">
+        <a href="mailto:padel@dd-tennisgroup.de" class="btn btn--primary">Jetzt anmelden</a>
+      </div>
+      <p class="klein">Anmeldung per E-Mail an padel@dd-tennisgroup.de.</p>
+    </div>
+    <div class="diptychon__beleg">
+      <table class="tabelle">
+        <caption>Trainingspreise pro Person und Stunde</caption>
+        <thead>
+          <tr>
+            <th scope="col">Training</th>
+            <th scope="col">Preis</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            preise.map((p) => (
+              <tr>
+                <th scope="row">{p.gruppe}</th>
+                <td>{p.preis}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="beleg__hinweis">Pro Person und Stunde, zzgl. Platzkosten.</p>
+      <div class="btn-row">
+        <a href={links.platzbuchung} class="btn btn--outline">Platz buchen <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .beleg__hinweis { font-size: var(--text-sm); line-height: 1.5; color: var(--color-ink-3); }
+  .unter { margin-top: var(--space-md); font-size: var(--text-xl); font-weight: 600; }
+  .diptychon:last-of-type { padding-bottom: var(--space-3xl); }
+</style>
