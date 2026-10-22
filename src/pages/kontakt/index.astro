@@ -9,6 +9,7 @@ const { lat, lon } = kontakt.karte;
 const bbox = [lon - 0.01, lat - 0.005, lon + 0.01, lat + 0.005].map((n) => n.toFixed(5)).join('%2C');
 const kartenUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lon}`;
 const grosseKarte = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=17/${lat}/${lon}`;
+const googleRoute = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
 
 const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Jugend & Training', 'Sonstiges'];
 ---
@@ -80,6 +81,7 @@ const anliegen = ['Probetraining', 'Mitgliedschaft', 'Padel & Platzbuchung', 'Ju
         <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
       </p>
       <div class="btn-row">
+        <a href={googleRoute} class="btn btn--primary" target="_blank" rel="noopener">Route mit Google Maps</a>
         <a href={grosseKarte} class="btn btn--outline">Größere Karte öffnen</a>
         <a href={url('/verein/ansprechpartner/')} class="btn btn--outline">Ansprechpartner</a>
       </div>
