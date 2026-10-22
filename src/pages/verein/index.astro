@@ -104,14 +104,14 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
 
   <section class="fotos px" aria-label="Fotos der Anlage">
     <figure class="fotos__gross">
-      <Bild bild={vereinLuftbild} alt="Luftaufnahme der Tennisplätze mit Clubhaus" platzhalter="Luftaufnahme der Anlage" hoehe="min(56vw, 520px)" sizes="(max-width: 900px) 100vw, 1400px" />
+      <Bild bild={vereinLuftbild} alt="Luftaufnahme der Tennisplätze mit Clubhaus" platzhalter="Luftaufnahme der Anlage" hoehe="auto" sizes="(max-width: 900px) 100vw, 1400px" />
     </figure>
     <div class="fotos__reihe">
       <figure>
-        <Bild bild={vereinGastro} alt="Gastronomiebereich im Clubhaus" platzhalter="Gastronomiebereich" hoehe="300px" sizes="(max-width: 900px) 100vw, 50vw" />
+        <Bild bild={vereinGastro} alt="Gastronomiebereich im Clubhaus" platzhalter="Gastronomiebereich" hoehe="auto" sizes="(max-width: 900px) 100vw, 50vw" />
       </figure>
       <figure>
-        <Bild bild={vereinClubhausPlaetze} alt="Clubhaus mit Blick auf Platz 2 und 3" platzhalter="Clubhaus mit Plätzen" hoehe="300px" sizes="(max-width: 900px) 100vw, 50vw" />
+        <Bild bild={vereinClubhausPlaetze} alt="Clubhaus mit Blick auf Platz 2 und 3" platzhalter="Clubhaus mit Plätzen" hoehe="auto" sizes="(max-width: 900px) 100vw, 50vw" />
       </figure>
     </div>
   </section>
@@ -124,12 +124,12 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
    */
   .dokument {
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     gap: var(--space-xl) var(--space-2xl);
     align-items: start;
     padding-block: var(--space-md) var(--space-3xl);
   }
-  .dokument__text { display: flex; flex-direction: column; gap: var(--space-sm); max-width: 66ch; }
+  .dokument__text { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; gap: var(--space-sm); max-width: 80ch; }
   .dokument__text h2 {
     margin-top: var(--space-lg);
     padding-top: var(--space-md);
@@ -144,6 +144,8 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
   .weiter { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
 
   .dokument__rand {
+    grid-column: 1;
+    grid-row: 1;
     position: sticky;
     top: calc(var(--header-h) + var(--space-md));
     display: flex;
@@ -168,6 +170,7 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
 
   @media (max-width: 900px) {
     .dokument { grid-template-columns: minmax(0, 1fr); }
+    .dokument__text, .dokument__rand { grid-column: 1; grid-row: auto; }
     .dokument__rand { position: static; }
     .fotos__reihe { grid-template-columns: minmax(0, 1fr); }
   }
