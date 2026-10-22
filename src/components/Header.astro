@@ -22,12 +22,16 @@ const vereinLinks = [
   { href: url('/verein/satzung/'), label: 'Satzung und Ordnungen' },
   { href: url('/faq/'), label: 'Häufige Fragen' },
 ];
+const padelLinks = [
+  { href: url('/padel/'), label: 'Padel', exakt: true },
+  { href: url('/padel/padel-training/'), label: 'Padel-Training' },
+];
 const hauptLinks = [
   { href: url('/tennis/'), label: 'Tennis' },
-  { href: url('/padel/'), label: 'Padel' },
   { href: url('/kontakt/'), label: 'Kontakt' },
 ];
 const vereinAktiv = aktiv(url('/verein/')) || aktiv(url('/faq/'));
+const padelAktiv = aktiv(url('/padel/'));
 
 // Schlüssel fürs Schließen: ändert sich der Text, erscheint das Banner wieder
 const bannerId = `banner:${sommerSpecial.titel}|${sommerSpecial.kurz}`;
@@ -93,7 +97,36 @@ const zeigeBanner = sommerSpecial.aktiv && path !== url('/mitglied-werden/');
         </div>
       </div>
       {
-        hauptLinks.map((l) => (
+        hauptLinks.slice(0, 1).map((l) => (
+          <a
+            href={l.href}
+            class:list={['nav__link', { 'is-active': aktiv(l.href) }]}
+            aria-current={path === l.href ? 'page' : undefined}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+      <div class="nav-drop">
+        <a href={url('/padel/')} class:list={['nav__link', { 'is-active': padelAktiv }]}>Padel</a>
+        <div class="nav-drop__sub">
+          <div class="nav-drop__panel">
+            {
+              padelLinks.map((l) => (
+                <a
+                  href={l.href}
+                  class:list={{ 'is-active': l.exakt ? path === l.href : aktiv(l.href) }}
+                  aria-current={path === l.href ? 'page' : undefined}
+                >
+                  {l.label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+      {
+        hauptLinks.slice(1).map((l) => (
           <a
             href={l.href}
             class:list={['nav__link', { 'is-active': aktiv(l.href) }]}
