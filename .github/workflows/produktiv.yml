@@ -1,0 +1,66 @@
+# Produktivseite www.tennis-eglosheim.de bei AllInkl.
+# Läuft nur auf Knopfdruck: Actions → "Produktiv veröffentlichen" → Run workflow (Branch main).
+# Baut die Seite und lädt den Inhalt von dist/ per SFTP in das Home-Verzeichnis
+# des Upload-Users (= /www-neu/). Auf dem Server wird nichts gelöscht, damit
+# z. B. kontakt-config.php erhalten bleibt.
+#
+# Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
+#   SFTP_HOST         Servername bei AllInkl, z. B. w0123456.kasserver.com
+#   SFTP_USER         FTP-/SFTP-Benutzer mit Home = /www-neu/
+#   SFTP_PASSWORD     Passwort dieses Benutzers
+#   SFTP_KNOWN_HOSTS  Host-Key des Servers, Ausgabe von: ssh-keyscan -t ed25519 <SFTP_HOST>
+name: Produktiv veröffentlichen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: produktiv
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Node einrichten
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: lftp installieren
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Host-Key hinterlegen
+        env:
+          SFTP_KNOWN_HOSTS: ${{ secrets.SFTP_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SFTP_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload per SFTP
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+        run: |
+          lftp -c "
+            set cmd:fail-exit yes
+            set net:max-retries 2
+            set sftp:connect-program 'ssh -a -x -o StrictHostKeyChecking=yes'
+            open --env-password -u \"$SFTP_USER\" sftp://$SFTP_HOST
+            mirror --reverse --verbose --parallel=4 dist/ .
+          "
