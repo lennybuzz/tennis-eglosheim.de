@@ -17,12 +17,12 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
   title="Der Verein"
   description="Tennis & Padel für alle Altersstufen: unsere Anlage in Ludwigsburg-Eglosheim mit Sandplätzen, Padelplätzen, Ballwand, Fitnessbereich und Clubhaus."
 >
-  <PageIntro titel="Wir sind ein Verein für alle Altersstufen">
-    Unsere Mitglieder kommen aus allen Gesellschaftsschichten und Altersstufen. Dank unserer Größe und der persönlichen
-    Atmosphäre findest du als neues Mitglied sehr schnell Anschluss und Spielpartner.
-  </PageIntro>
-
   <div class="dokument px">
+    <PageIntro titel="Wir sind ein Verein für alle Altersstufen">
+      Unsere Mitglieder kommen aus allen Gesellschaftsschichten und Altersstufen. Dank unserer Größe und der persönlichen
+      Atmosphäre findest du als neues Mitglied sehr schnell Anschluss und Spielpartner.
+    </PageIntro>
+
     <article class="dokument__text">
       <h2>Unser Tennisverein</h2>
       <p>
@@ -129,9 +129,10 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     gap: var(--space-xl) var(--space-2xl);
     align-items: start;
-    padding-block: var(--space-md) var(--space-3xl);
+    padding-block: 0 var(--space-3xl);
   }
-  .dokument__text { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; gap: var(--space-sm); }
+  .dokument > :global(.intro) { grid-column: 1; grid-row: 1; padding-inline: 0; padding-bottom: 0; max-width: none; }
+  .dokument__text { grid-column: 1; grid-row: 2; display: flex; flex-direction: column; gap: var(--space-sm); }
   .dokument__text h2 {
     margin-top: var(--space-lg);
     padding-top: var(--space-md);
@@ -147,11 +148,13 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
 
   .dokument__rand {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 1 / span 2;
+    padding-top: var(--space-2xl);
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
   }
+  .dokument__rand :global(.bild) { width: 80%; margin-inline-start: auto; }
   .dokument__rand .tabelle td { text-align: right; }
   .dokument__rand .tabelle__zusatz { display: block; }
 
@@ -171,6 +174,8 @@ const { anlage, mitglieder, kontakt, buchung } = inhalte;
   @media (max-width: 900px) {
     .dokument { grid-template-columns: minmax(0, 1fr); }
     .dokument__text, .dokument__rand { grid-column: 1; grid-row: auto; }
+    .dokument__rand { padding-top: 0; }
+    .dokument__rand :global(.bild) { width: 100%; }
     .fotos__reihe { grid-template-columns: minmax(0, 1fr); }
   }
 </style>
