@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Bild from '../components/Bild.astro';
 import padelDrohne from '../assets/bilder/padel-drohne.jpg';
-import inhalte, { links, mitLinks } from '../lib/inhalte';
+import GastPreis from '../components/GastPreis.astro';
+import inhalte, { links, mitLinks, winterPadel, winterPadelImBuild } from '../lib/inhalte';
 import { url } from '../lib/url';
 
 const { anlage, buchung, timeline } = inhalte;
@@ -79,7 +80,17 @@ const padelChronik = timeline.filter((e) => /padel/i.test(e.titel));
       </div>
     </div>
     <div class="diptychon__beleg diptychon__beleg--zweispaltig">
-      <div class="beleg__block">
+      <div class="beleg__block" id="winterpreise">
+        {
+          winterPadelImBuild && (
+            <div class="winter-box nur-winter">
+              <p>
+                <strong>{winterPadel.titel}.</strong> {winterPadel.text}
+              </p>
+              <p class="winter-box__klein">Für Mitglieder anderer SKV-Abteilungen bleiben die Preise unverändert.</p>
+            </div>
+          )
+        }
         <table class="tabelle tabelle--gast">
           <caption>Preise pro Stunde</caption>
           <thead>
@@ -94,7 +105,9 @@ const padelChronik = timeline.filter((e) => /padel/i.test(e.titel));
               preise.map((p) => (
                 <tr>
                   <th scope="row">{p.zeitraum}</th>
-                  <td>{p.gast}</td>
+                  <td>
+                    <GastPreis preis={p} />
+                  </td>
                   <td>{p.skv}</td>
                 </tr>
               ))

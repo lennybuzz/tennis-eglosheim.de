@@ -1,0 +1,26 @@
+---
+/**
+ * Gästepreis in den Preistabellen. Gilt gerade ein Winterpreis (siehe winterPreisePadel
+ * in inhalte.json), zeigt der Browser „16 € statt 24 €“, sonst den normalen Preis.
+ */
+import { winterGastPreis } from '../lib/inhalte';
+
+interface Props {
+  preis: { platz: string; zeitraum: string; gast: string };
+}
+const { preis } = Astro.props;
+const winter = winterGastPreis(preis);
+---
+
+{
+  winter ? (
+    <>
+      <span class="ohne-winter">{preis.gast}</span>
+      <span class="nur-winter winterpreis">
+        {winter} <span class="winterpreis__statt">statt <s>{preis.gast}</s></span>
+      </span>
+    </>
+  ) : (
+    preis.gast
+  )
+}

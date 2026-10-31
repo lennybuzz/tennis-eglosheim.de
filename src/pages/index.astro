@@ -3,8 +3,9 @@ import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import heroFoto from '../assets/bilder/hero-anlage.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import inhalte, { archiv, kontakt, links, mannschaften, minBeitrag } from '../lib/inhalte';
+import inhalte, { archiv, kontakt, links, mannschaften, minBeitrag, winterPadel, winterPadelImBuild } from '../lib/inhalte';
 import { url } from '../lib/url';
+import GastPreis from '../components/GastPreis.astro';
 
 const { anlage, buchung, mitgliedschaftBedingungen, mitglieder, training, spielbetrieb, sommerSpecial, timeline } =
   inhalte;
@@ -199,7 +200,9 @@ const heroBild: ImageMetadata | undefined = heroFoto;
                       <th scope="row">
                         {p.platz} <span class="tabelle__zusatz">{p.zeitraum}</span>
                       </th>
-                      <td>{p.gast}</td>
+                      <td>
+                        <GastPreis preis={p} />
+                      </td>
                       <td>{p.skv}</td>
                     </tr>
                   ))
@@ -312,6 +315,14 @@ const heroBild: ImageMetadata | undefined = heroFoto;
             {anlage.padelplaetze} Outdoor-Plätze mit Flutlicht, offen für Mitglieder und Gäste. Schläger leihst du direkt bei der
             Buchung.
           </p>
+          {
+            winterPadelImBuild && (
+              <p class="info__hinweis nur-winter">
+                <strong>{winterPadel.titel}:</strong> {winterPadel.kurz}{' '}
+                <a href={url('/padel/#winterpreise')}>Mehr erfahren</a>
+              </p>
+            )
+          }
         </div>
       </li>
 
