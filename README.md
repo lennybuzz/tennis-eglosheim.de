@@ -39,23 +39,35 @@ Astro verkleinert die Bilder beim Build automatisch und wandelt sie in WebP um.
 **PDFs** (Aufnahmeantrag usw.): nach `public/dokumente/` legen und in
 `src/pages/mitglied-werden.astro` bei `dokumente` den Pfad eintragen.
 
-## Veröffentlichen (FTP)
+## Veröffentlichen (Produktivseite)
 
-1. `npm run build`
-2. Den **Inhalt** von `dist/` per FTP (z. B. FileZilla) in den Web-Ordner des Hosters hochladen
-   (`html`, `httpdocs`, `public_html` …). Auch die versteckte Datei `.htaccess` mitnehmen.
-3. Im Browser mit Strg+F5 prüfen.
+Die Produktivseite liegt bei AllInkl im Ordner `/www-neu/`. Veröffentlicht wird auf Knopfdruck:
+**Actions → „Produktiv veröffentlichen“ → Run workflow** (Branch `main`).
+Der Workflow `.github/workflows/produktiv.yml` baut die Seite und lädt den Inhalt von `dist/` per FTPS
+(FTP mit TLS, Port 21) hoch. SFTP geht in unserem Tarif nicht (Port 22 ist geschlossen).
+Auf dem Server wird dabei nichts gelöscht (z. B. bleibt `kontakt-config.php` erhalten).
+Seiten, die aus dem Projekt entfernt wurden, bei Bedarf von Hand auf dem Server löschen.
+
+Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
+
+| Secret         | Inhalt                                                 |
+| :------------- | :----------------------------------------------------- |
+| `FTP_HOST`     | Servername bei AllInkl, z. B. `w0123456.kasserver.com` |
+| `FTP_USER`     | FTP-Benutzer, dessen Home-Verzeichnis `/www-neu/` ist  |
+| `FTP_PASSWORD` | Passwort dieses Benutzers                              |
+
+Von Hand geht es weiterhin: `npm run build`, dann den **Inhalt** von `dist/` (inkl. der versteckten
+Datei `.htaccess`) nach `/www-neu/` hochladen und im Browser mit Strg+F5 prüfen.
 
 Die `.htaccess` (Quelle: `public/.htaccess`) leitet auf https://www. um, sorgt für die 404-Seite und
 leitet alte WordPress-Adressen (`/news/`, `/post/…`, `/tennis/mannschaften/` usw.) auf die neuen Seiten weiter.
 
-## Testversion (GitHub Pages)
+## Interne Links
 
-Jeder Push auf `main` baut automatisch eine Testversion unter
-<https://lennybuzz.github.io/tennis-eglosheim.de/> (Workflow `.github/workflows/deploy.yml`).
-Sie liegt in einem Unterordner, deshalb interne Links immer mit `url()` aus `src/lib/url.ts` schreiben:
-`href={url('/kontakt/')}` statt `href="/kontakt/"`. In FAQ-Texten (`[Text](/pfad/)`) passiert das automatisch.
-Die Testversion ist für Suchmaschinen gesperrt (noindex); das Kontaktformular funktioniert dort nicht (kein PHP).
+Interne Links immer mit `url()` aus `src/lib/url.ts` schreiben: `href={url('/kontakt/')}` statt `href="/kontakt/"`.
+So funktioniert die Seite auch, wenn sie in einem Unterordner gebaut wird (Umgebungsvariable `BASE_PATH`).
+In FAQ-Texten (`[Text](/pfad/)`) passiert das automatisch. Läuft die Seite in einem Unterordner,
+wird sie für Suchmaschinen gesperrt (noindex).
 
 ## Kontaktformular (PHP)
 

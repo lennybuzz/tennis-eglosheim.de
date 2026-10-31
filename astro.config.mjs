@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
-// SITE und BASE_PATH setzt nur der GitHub-Pages-Workflow (Testversion).
+// SITE und BASE_PATH nur für Testbuilds in einem Unterordner setzen.
 // Ohne sie wird wie bisher für www.tennis-eglosheim.de gebaut.
 export default defineConfig({
   site: process.env.SITE ?? 'https://www.tennis-eglosheim.de',

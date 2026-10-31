@@ -1,0 +1,59 @@
+# Produktivseite www.tennis-eglosheim.de bei AllInkl.
+# Läuft nur auf Knopfdruck: Actions → "Produktiv veröffentlichen" → Run workflow (Branch main).
+# Baut die Seite und lädt den Inhalt von dist/ per FTPS (FTP mit TLS, Port 21) in das
+# Home-Verzeichnis des Upload-Users (= /www-neu/). Auf dem Server wird nichts gelöscht,
+# damit z. B. kontakt-config.php erhalten bleibt.
+#
+# Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
+#   FTP_HOST      Servername bei AllInkl, z. B. w0123456.kasserver.com
+#   FTP_USER      FTP-Benutzer mit Home = /www-neu/
+#   FTP_PASSWORD  Passwort dieses Benutzers
+name: Produktiv veröffentlichen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: produktiv
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Node einrichten
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: lftp installieren
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Upload per FTPS
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -c "
+            set cmd:fail-exit yes
+            set net:max-retries 2
+            set ftp:ssl-force true
+            set ftp:ssl-protect-data true
+            set ssl:verify-certificate true
+            open --env-password -u \"$FTP_USER\" ftp://$FTP_HOST
+            mirror --reverse --verbose --parallel=4 dist/ .
+          "
