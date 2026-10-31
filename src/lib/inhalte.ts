@@ -52,3 +52,18 @@ export function mitLinks(text: string): string {
       linkText ? `<a href="${ziel?.startsWith('/') ? url(ziel) : ziel}">${linkText}</a>` : `<a href="mailto:${treffer}">${treffer}</a>`,
   );
 }
+
+/**
+ * Winter-Preise Padel: Ob sie gerade gelten, entscheidet ein kleines Skript im Browser
+ * (BaseLayout) anhand von `von` und `bis` – die Seite muss dafür nicht neu gebaut werden.
+ * Ist der Zeitraum beim Build schon vorbei oder `aktiv` false, wird gar nichts davon ausgegeben.
+ */
+export const winterPadel = inhalte.winterPreisePadel;
+const heute = new Date().toISOString().slice(0, 10);
+export const winterPadelImBuild: boolean = winterPadel.aktiv && heute <= winterPadel.bis;
+
+/** Winterpreis für Gäste zu einer Zeile aus buchung.preise, sonst undefined */
+export function winterGastPreis(p: { platz: string; zeitraum: string }): string | undefined {
+  if (!winterPadelImBuild || p.platz !== 'Padel') return undefined;
+  return (winterPadel.gastPreise as Record<string, string>)[p.zeitraum];
+}

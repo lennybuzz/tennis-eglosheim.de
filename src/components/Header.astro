@@ -3,11 +3,13 @@
  * Kopfzeile nach design.md (N12 Banner + Leiste):
  * - Banner nur bei zeitlich begrenzter Ankündigung (Sommer-Special aus inhalte.json).
  *   Es scrollt mit weg, die Leiste bleibt oben stehen. Lässt sich schließen.
+ * - Winter-Preise Padel: eigenes Laufband-Banner, nur sichtbar, solange BaseLayout die
+ *   Klasse winter-padel auf <html> setzt. Anhalten per Knopf oder Maus, schließbar.
  * - Leiste: Verein ▾ · Tennis · Padel · Kontakt · Platz buchen ↗ · [Mitglied werden]
  */
 import { Image } from 'astro:assets';
 import logoMark from '../assets/logo-mark.svg';
-import inhalte, { links } from '../lib/inhalte';
+import inhalte, { links, winterPadel, winterPadelImBuild } from '../lib/inhalte';
 import { url } from '../lib/url';
 
 const { sommerSpecial } = inhalte;
@@ -36,9 +38,34 @@ const padelAktiv = aktiv(url('/padel/'));
 // Schlüssel fürs Schließen: ändert sich der Text, erscheint das Banner wieder
 const bannerId = `banner:${sommerSpecial.titel}|${sommerSpecial.kurz}`;
 const zeigeBanner = sommerSpecial.aktiv && path !== url('/mitglied-werden/');
+// Winter-Banner nur, wenn kein anderes Banner steht; auf der Padel-Seite selbst steht der Hinweis schon
+const winterBannerId = `banner:${winterPadel.titel}|${winterPadel.kurz}`;
+const zeigeWinterBanner = winterPadelImBuild && !zeigeBanner && path !== url('/padel/');
 ---
 
-<header class:list={['site-header', { 'has-banner': zeigeBanner }]}>
+<header class:list={['site-header', { 'has-banner': zeigeBanner, 'has-winter-banner': zeigeWinterBanner }]}>
+  {
+    zeigeWinterBanner && (
+      <div class="banner banner--lauf nur-winter" data-banner-id={winterBannerId}>
+        <a href={url('/padel/#winterpreise')} class="lauf">
+          <span class="lauf__band">
+            <span class="lauf__text">
+              <strong>{winterPadel.titel}:</strong> {winterPadel.kurz} <span class="lauf__mehr">Mehr erfahren →</span>
+            </span>
+            <span class="lauf__text" aria-hidden="true">
+              <strong>{winterPadel.titel}:</strong> {winterPadel.kurz} <span class="lauf__mehr">Mehr erfahren →</span>
+            </span>
+          </span>
+        </a>
+        <button class="banner__x banner__pause" type="button" aria-label="Laufschrift anhalten" aria-pressed="false">
+          <span aria-hidden="true">❚❚</span>
+        </button>
+        <button class="banner__x" type="button" aria-label="Hinweis ausblenden">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    )
+  }
   {
     zeigeBanner && (
       <div class="banner" data-banner-id={bannerId}>
@@ -53,13 +80,13 @@ const zeigeBanner = sommerSpecial.aktiv && path !== url('/mitglied-werden/');
     )
   }
   {
-    zeigeBanner && (
+    (zeigeBanner || zeigeWinterBanner) && (
       <script is:inline>
         try {
           var b = document.querySelector('[data-banner-id]');
           if (b && localStorage.getItem('banner-weg') === b.dataset.bannerId) {
             b.hidden = true;
-            b.parentElement.classList.remove('has-banner');
+            b.parentElement.classList.remove('has-banner', 'has-winter-banner');
           }
         } catch (e) {}
       </script>
@@ -152,14 +179,26 @@ const zeigeBanner = sommerSpecial.aktiv && path !== url('/mitglied-werden/');
   });
 
   const banner = document.querySelector<HTMLElement>('[data-banner-id]');
-  banner?.querySelector('.banner__x')?.addEventListener('click', () => {
+  banner?.querySelector('.banner__x:not(.banner__pause)')?.addEventListener('click', () => {
     banner.hidden = true;
-    header?.classList.remove('has-banner');
+    header?.classList.remove('has-banner', 'has-winter-banner');
     try {
       localStorage.setItem('banner-weg', banner.dataset.bannerId ?? '');
     } catch {
       /* ohne Speicher: Banner kommt beim nächsten Seitenaufruf wieder */
     }
+  });
+</script>
+
+<script>
+  // Laufschrift anhalten und weiterlaufen lassen
+  const pause = document.querySelector<HTMLButtonElement>('.banner__pause');
+  pause?.addEventListener('click', () => {
+    const an = pause.getAttribute('aria-pressed') !== 'true';
+    pause.setAttribute('aria-pressed', String(an));
+    pause.setAttribute('aria-label', an ? 'Laufschrift weiterlaufen lassen' : 'Laufschrift anhalten');
+    pause.querySelector('span')!.textContent = an ? '▶' : '❚❚';
+    pause.closest('.banner')?.classList.toggle('ist-pausiert', an);
   });
 </script>
 
@@ -178,6 +217,7 @@ const zeigeBanner = sommerSpecial.aktiv && path !== url('/mitglied-werden/');
     border-bottom: var(--rule); /* hell, damit das Logo auf seinem vorgesehenen Grund steht */
   }
   .site-header.has-banner { --banner-h: 44px; }
+  :global(html.winter-padel) .site-header.has-winter-banner { --banner-h: 44px; }
 
   /* ---------- Banner ---------- */
   .banner {
@@ -198,6 +238,44 @@ const zeigeBanner = sommerSpecial.aktiv && path !== url('/mitglied-werden/');
     text-overflow: ellipsis;
   }
   .banner__text strong { font-weight: 700; }
+  .banner--lauf { display: none; padding-left: 0; }
+  :global(html.winter-padel) .banner--lauf { display: flex; }
+
+  /* ---------- Laufschrift (Winter-Preise) ---------- */
+  .lauf {
+    flex: 1 1 auto;
+    min-width: 0;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: var(--color-on-accent);
+  }
+  .lauf:hover { color: var(--color-on-accent); }
+  .lauf:focus-visible { outline: 2px solid var(--color-on-accent); outline-offset: -4px; }
+  .lauf__band {
+    display: flex;
+    width: max-content;
+    animation: lauf 40s linear infinite;
+  }
+  .lauf__text { white-space: nowrap; padding-right: 6rem; }
+  .lauf__text strong { font-weight: 700; }
+  .lauf__mehr { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .banner--lauf:hover .lauf__band,
+  .lauf:focus-visible .lauf__band,
+  .banner--lauf.ist-pausiert .lauf__band { animation-play-state: paused; }
+  @keyframes lauf {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .banner__x.banner__pause { font-size: 12px; letter-spacing: -1px; }
+  /* Wer Bewegung reduziert hat, bekommt den Text stehend, notfalls mit … abgeschnitten */
+  @media (prefers-reduced-motion: reduce) {
+    .lauf { padding-left: var(--gutter); }
+    .lauf__band { width: auto; min-width: 0; }
+    .lauf__text { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-right: 0; }
+    .lauf__text[aria-hidden='true'], .banner__pause { display: none; }
+  }
   .banner__link { color: var(--color-on-accent); font-weight: 600; white-space: nowrap; }
   .banner__link:hover { color: var(--color-on-accent-2); text-decoration: underline; text-underline-offset: 3px; }
   .banner__x {

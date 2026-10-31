@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { testversion, url } from '../lib/url';
+import { winterPadel, winterPadelImBuild } from '../lib/inhalte';
 
 interface Props {
   title?: string;
@@ -38,6 +39,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="generator" content={Astro.generator} />
+    {
+      /* Winter-Preise Padel: Datum im Browser prüfen, damit Banner und Preise am Ende von selbst verschwinden.
+         Vorschau vor dem Start: ?vorschau-winter an die Adresse hängen. */
+      winterPadelImBuild && (
+        <script is:inline define:vars={{ von: winterPadel.von, bis: winterPadel.bis }}>
+          var d = new Date();
+          var h = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+          if ((h >= von && h <= bis) || location.search.indexOf('vorschau-winter') > -1) {
+            document.documentElement.classList.add('winter-padel');
+          }
+        </script>
+      )
+    }
   </head>
   <body>
     <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>

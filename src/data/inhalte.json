@@ -133,6 +133,20 @@
     "kurz": "170 € statt 220 € und 6 statt 9 Arbeitsstunden",
     "text": "Sichere dir unsere vergünstigte Mitgliedschaft für den Rest des Jahres. Du zahlst für diese Saison nur 170 € statt 220 € und leistest lediglich 6 statt 9 Arbeitsstunden. Ab dem zweiten Jahr geht die Mitgliedschaft automatisch in den regulären Tarif über."
   },
+  "winterPreisePadel": {
+    "_hinweis": "Erscheint nur zwischen von und bis (Datum im Browser des Besuchers), danach automatisch die normalen Preise. aktiv: false schaltet alles ab.",
+    "aktiv": true,
+    "von": "2026-11-01",
+    "bis": "2027-02-28",
+    "titel": "Winter-Preise für Padel",
+    "kurz": "Vom 1. November bis 28. Februar spielen Gäste günstiger: Mo–Fr bis 16 Uhr 16 € statt 24 €, Mo–Fr ab 16 Uhr sowie Sa und So 24 € statt 30 € pro Stunde.",
+    "text": "Vom 1. November bis 28. Februar spielen Gäste günstiger: Mo–Fr bis 16 Uhr 16 € statt 24 €, Mo–Fr ab 16 Uhr sowie Sa und So 24 € statt 30 € pro Stunde. Buchung wie gewohnt über eBuSy.",
+    "gastPreise": {
+      "Mo–Fr, 07–16 Uhr": "16 €",
+      "Mo–Fr, 16–22 Uhr": "24 €",
+      "Sa und So": "24 €"
+    }
+  },
   "beitraege": {
     "hinweis": "Wir sind eine eigenständige Abteilung des SKV Eglosheim e.V. Der Beitrag setzt sich aus dem Anteil der Tennisabteilung und dem Anteil des Hauptvereins zusammen. Mitglieder von 18 bis 74 Jahren leisten jährlich 9 Arbeitsstunden, ab 75 Jahren 3 Stunden. Die Stunden können durch Arbeitseinsatz, Clubhausdienst oder eine Ersatzleistung von 25 € pro Stunde erbracht werden.",
     "gruppen": [
