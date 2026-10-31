@@ -43,18 +43,18 @@ Astro verkleinert die Bilder beim Build automatisch und wandelt sie in WebP um.
 
 Die Produktivseite liegt bei AllInkl im Ordner `/www-neu/`. Veröffentlicht wird auf Knopfdruck:
 **Actions → „Produktiv veröffentlichen“ → Run workflow** (Branch `main`).
-Der Workflow `.github/workflows/produktiv.yml` baut die Seite und lädt den Inhalt von `dist/` per SFTP hoch.
+Der Workflow `.github/workflows/produktiv.yml` baut die Seite und lädt den Inhalt von `dist/` per FTPS
+(FTP mit TLS, Port 21) hoch. SFTP geht in unserem Tarif nicht (Port 22 ist geschlossen).
 Auf dem Server wird dabei nichts gelöscht (z. B. bleibt `kontakt-config.php` erhalten).
 Seiten, die aus dem Projekt entfernt wurden, bei Bedarf von Hand auf dem Server löschen.
 
 Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
 
-| Secret             | Inhalt                                                        |
-| :----------------- | :------------------------------------------------------------ |
-| `SFTP_HOST`        | Servername bei AllInkl, z. B. `w0123456.kasserver.com`        |
-| `SFTP_USER`        | FTP-Benutzer, dessen Home-Verzeichnis `/www-neu/` ist         |
-| `SFTP_PASSWORD`    | Passwort dieses Benutzers                                     |
-| `SFTP_KNOWN_HOSTS` | Host-Key des Servers, Ausgabe von `ssh-keyscan -t ed25519 <SFTP_HOST>` |
+| Secret         | Inhalt                                                 |
+| :------------- | :----------------------------------------------------- |
+| `FTP_HOST`     | Servername bei AllInkl, z. B. `w0123456.kasserver.com` |
+| `FTP_USER`     | FTP-Benutzer, dessen Home-Verzeichnis `/www-neu/` ist  |
+| `FTP_PASSWORD` | Passwort dieses Benutzers                              |
 
 Von Hand geht es weiterhin: `npm run build`, dann den **Inhalt** von `dist/` (inkl. der versteckten
 Datei `.htaccess`) nach `/www-neu/` hochladen und im Browser mit Strg+F5 prüfen.
