@@ -1,0 +1,66 @@
+---
+/*
+ * Strukturierte Daten (Schema.org) für Google: wer wir sind, wo die Anlage liegt,
+ * wann gespielt werden kann. Wird nur auf der Startseite eingebunden.
+ * Alle Angaben kommen aus src/data/inhalte.json.
+ */
+import inhalte, { kontakt, links } from '../lib/inhalte';
+
+interface Props {
+  bild: string;
+}
+const { bild } = Astro.props;
+
+const site = Astro.site ?? new URL('https://www.tennis-eglosheim.de');
+const startseite = new URL(import.meta.env.BASE_URL, site).href;
+
+// "Montag bis Samstag" → Schema.org-Wochentage; unbekannte Angaben werden ausgelassen
+const wochentage = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const tagNamen = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+function tage(text: string): string[] {
+  const bereich = text.match(/^(\S+) bis (\S+)$/);
+  if (bereich) {
+    const von = tagNamen.indexOf(bereich[1]);
+    const bis = tagNamen.indexOf(bereich[2]);
+    return von >= 0 && bis >= von ? wochentage.slice(von, bis + 1) : [];
+  }
+  const einzeln = tagNamen.indexOf(text.trim());
+  return einzeln >= 0 ? [wochentage[einzeln]] : [];
+}
+const oeffnungszeiten = inhalte.buchung.spielzeiten.flatMap((s) => {
+  const zeit = s.zeit.match(/(\d{2}:\d{2})\D+(\d{2}:\d{2})/);
+  const dayOfWeek = tage(s.tage);
+  return zeit && dayOfWeek.length
+    ? [{ '@type': 'OpeningHoursSpecification', dayOfWeek, opens: zeit[1], closes: zeit[2] }]
+    : [];
+});
+
+const [plz, ...ortTeile] = kontakt.ort.split(' ');
+
+const daten = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsClub',
+  '@id': `${startseite}#verein`,
+  name: 'Tennis & Padel Eglosheim – TA SKV Eglosheim',
+  alternateName: kontakt.verein,
+  url: startseite,
+  image: bild,
+  email: kontakt.email,
+  ...(kontakt.telefon ? { telephone: kontakt.telefon } : {}),
+  sport: ['Tennis', 'Padel'],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: kontakt.strasse,
+    postalCode: plz,
+    addressLocality: ortTeile.join(' '),
+    addressCountry: 'DE',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: kontakt.karte.lat, longitude: kontakt.karte.lon },
+  hasMap: links.googleMaps,
+  openingHoursSpecification: oeffnungszeiten,
+  sameAs: [links.googleMaps, links.instagram],
+  parentOrganization: { '@type': 'SportsOrganization', name: 'Sport- und Kulturverein Eglosheim e. V.', url: links.hauptverein },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(daten)} />
