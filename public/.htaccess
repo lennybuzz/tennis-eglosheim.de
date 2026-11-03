@@ -15,7 +15,6 @@ Options -Indexes
   # Weiterleitungen von der alten WordPress-Seite
   RewriteRule ^verein/tennisanlage/?$                   /verein/ [R=301,L]
   RewriteRule ^tennis/mannschaften(/.*)?$               /tennis/#spielbetrieb [R=301,L,NE]
-  RewriteRule ^padel/padel-training/?$                  /padel/#training [R=301,L,NE]
   RewriteRule ^news/?$                                  / [R=301,L]
   RewriteRule ^post/(eroeffnung-der-plaetze|baubeginn-unserer-padelplaetze)/?$  /padel/ [R=301,L]
   RewriteRule ^post/.*$                                 / [R=301,L]
