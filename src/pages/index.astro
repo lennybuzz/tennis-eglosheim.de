@@ -391,7 +391,7 @@ const heroBild: ImageMetadata | undefined = heroFoto;
     min-height: min(78svh, 760px);
     background: var(--color-ink);
     color: var(--color-on-dark);
-    padding-block: var(--space-3xl) var(--space-2xl);
+    padding-block: var(--space-3xl) var(--gutter); /* unten gleicher Abstand wie seitlich */
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
     gap: var(--space-lg) var(--space-xl);
@@ -412,13 +412,13 @@ const heroBild: ImageMetadata | undefined = heroFoto;
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(180deg, oklch(23.2% 0.015 33 / 0) 0%, oklch(23.2% 0.015 33 / 0) 50%, oklch(23.2% 0.015 33 / 0.25) 100%);
+    background: linear-gradient(180deg, oklch(23.2% 0.015 33 / 0) 0%, oklch(23.2% 0.015 33 / 0) 50%, oklch(23.2% 0.015 33 / 0.1) 100%);
   }
   /* Text-Boxen: abgedunkelter, weichgezeichneter Hintergrund */
   .hero__box {
-    background: oklch(23.2% 0.015 33 / 0.5);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    background: oklch(23.2% 0.015 33 / 0.3);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     border-radius: var(--radius-sm);
     padding: var(--space-md) var(--space-lg);
   }
@@ -622,7 +622,7 @@ const heroBild: ImageMetadata | undefined = heroFoto;
     .hero__text, .hero__fakten { justify-self: stretch; width: auto; }
   }
   @media (max-width: 760px) {
-    .hero { min-height: 0; padding-block: var(--space-2xl) var(--space-xl); }
+    .hero { min-height: 0; padding-block: var(--space-2xl) var(--gutter); }
     .hero__verein { font-size: var(--text-md); }
     .hero__box { padding: var(--space-sm) var(--space-md); }
     .eintrag { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-md); }
