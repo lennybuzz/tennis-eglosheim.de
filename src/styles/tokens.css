@@ -86,6 +86,7 @@
   /* ---------- Ebenen ---------- */
   --z-header: 60;
   --z-dropdown: 70;
+  --z-chat: 80;      /* Chat-Assistent unten rechts (Startseite) */
   --z-skip: 100;
 
   /* ---------- Layout ---------- */

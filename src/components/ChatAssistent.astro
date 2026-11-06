@@ -1,0 +1,527 @@
+---
+/**
+ * Chat-Assistent unten rechts (nur Startseite).
+ * - Die Schnellwahl-Knöpfe beantwortet die Seite selbst aus inhalte.json, ohne Verbindung nach außen.
+ * - Erst wenn jemand eine eigene Frage abschickt, geht sie an den n8n-Workflow (inhalte.chat.webhook),
+ *   der sie mit Claude (Anthropic) beantwortet. Vorher wird keine Verbindung zu n8n aufgebaut.
+ * - Im Browser wird nichts gespeichert; die Sitzungs-ID lebt nur, solange die Seite offen ist.
+ * Abschalten: chat.aktiv in inhalte.json auf false setzen.
+ */
+import inhalte, { kontakt, links, winterPadel, winterPadelImBuild } from '../lib/inhalte';
+import { url } from '../lib/url';
+import GastPreis from './GastPreis.astro';
+
+const { buchung, beitraege, mitgliedschaftBedingungen } = inhalte;
+const chat = inhalte.chat;
+const tarife = beitraege.gruppen[0];
+const arbeitsstunden = mitgliedschaftBedingungen.punkte.find((p) => p.titel === 'Arbeitsstunden');
+
+const themen = [
+  { id: 'buchen', label: 'Platz buchen & Preise' },
+  { id: 'padel-training', label: 'Padel-Training' },
+  { id: 'mitglied', label: 'Mitgliedschaft' },
+  { id: 'anfahrt', label: 'Anfahrt & Spielzeiten' },
+  { id: 'kontakt', label: 'Kontakt' },
+];
+---
+
+{
+  chat.aktiv && (
+    <div class="chat" data-chat data-webhook={chat.webhook}>
+      <button type="button" class="chat__start" data-chat-start aria-expanded="false" aria-controls="chat-fenster">
+        <svg class="chat__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4.3 3.4A.5.5 0 0 1 4 20V5a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+          <path d="M8 9.5h8M8 12.5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+        <span class="chat__start-text">Fragen?</span>
+      </button>
+
+      <section id="chat-fenster" class="chat__fenster" role="dialog" aria-modal="false" aria-labelledby="chat-titel" hidden>
+        <header class="chat__kopf">
+          <div>
+            <h2 id="chat-titel" class="chat__titel">Fragen zu Tennis &amp; Padel</h2>
+            <p class="chat__untertitel">Chat-Assistent der TA SKV Eglosheim</p>
+          </div>
+          <button type="button" class="chat__zu" data-chat-zu aria-label="Chat schließen">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+          </button>
+        </header>
+
+        <div class="chat__verlauf" data-chat-verlauf role="log" aria-live="polite" aria-relevant="additions">
+          <div class="chat__msg chat__msg--bot">
+            <p>Hallo! Wähl ein Thema oder stell mir einfach deine Frage.</p>
+          </div>
+        </div>
+
+        <div class="chat__themen" role="group" aria-label="Themen">
+          {themen.map((t) => (
+            <button type="button" class="chat__thema" data-chat-thema={t.id}>{t.label}</button>
+          ))}
+        </div>
+
+        <form class="chat__form" data-chat-form>
+          <label for="chat-eingabe" class="sr-only">Deine Frage</label>
+          <textarea id="chat-eingabe" class="chat__eingabe" rows="1" maxlength="500" placeholder="Deine Frage …" data-chat-eingabe required></textarea>
+          <button type="submit" class="chat__senden" data-chat-senden aria-label="Frage senden">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z" fill="currentColor" /></svg>
+          </button>
+        </form>
+        <p class="chat__hinweis">
+          Eigene Fragen beantwortet eine KI (Claude von Anthropic) über unseren Server. Sie kann sich irren. Bitte gib
+          keine persönlichen Daten ein. Mehr dazu in der <a href={url('/datenschutz/') + '#chat'}>Datenschutzerklärung</a>.
+        </p>
+      </section>
+
+      {/* Antworten auf die Themen-Knöpfe, direkt aus inhalte.json */}
+      <template data-chat-antwort="buchen">
+        <p>Gebucht wird online über {buchung.system}: <a href={links.platzbuchung} target="_blank" rel="noopener">{buchung.adresseAnzeige}</a></p>
+        <ol>
+          {buchung.schritte.map((s) => <li><strong>{s.titel}:</strong> {s.text}</li>)}
+        </ol>
+        <p>Mitglieder spielen kostenfrei. Gäste zahlen pro Stunde:</p>
+        <ul>
+          {buchung.preise.map((p) => (
+            <li>{p.platz} {p.zeitraum}: <GastPreis preis={p} /></li>
+          ))}
+        </ul>
+        {winterPadelImBuild && <p class="nur-winter">{winterPadel.kurz}</p>}
+        <p>Mitglieder anderer SKV-Abteilungen zahlen weniger, alle Preise stehen auf der <a href={url('/padel/')}>Padel-Seite</a> und der <a href={url('/tennis/')}>Tennis-Seite</a>.</p>
+      </template>
+
+      <template data-chat-antwort="padel-training">
+        <p>Padel-Training gibt es direkt auf unserer Anlage, für Anfänger und Fortgeschrittene, allein oder zu zweit bis zu viert. Angeboten wird es von einem externen Trainerteam.</p>
+        <p>Anmeldung per E-Mail an <a href="mailto:padel@dd-tennisgroup.de">padel@dd-tennisgroup.de</a>. Preise und Infos: <a href={url('/padel/padel-training/')}>Padel-Training</a></p>
+      </template>
+
+      <template data-chat-antwort="mitglied">
+        <p>Als Mitglied spielst du auf allen Plätzen kostenfrei. Jahresbeiträge ({tarife.titel.replace(/^Option 1: /, '')}):</p>
+        <ul>
+          {tarife.tarife.map((t) => <li>{t.name} ({t.zusatz}): {t.preis}</li>)}
+        </ul>
+        {arbeitsstunden && <p>{arbeitsstunden.text}</p>}
+        <p>Alle Tarife: <a href={url('/mitglied-werden/')}>Mitglied werden</a> · Direkt zur <a href={url('/anmeldung/')}>Online-Anmeldung</a></p>
+      </template>
+
+      <template data-chat-antwort="anfahrt">
+        <p><strong>Adresse:</strong> {kontakt.strasse}, {kontakt.ort}</p>
+        <p><strong>Spielzeiten:</strong></p>
+        <ul>
+          {buchung.spielzeiten.map((s) => <li>{s.tage}: {s.zeit}</li>)}
+        </ul>
+        <p>{buchung.spielzeitenHinweis}</p>
+        <p><a href={links.googleMaps} target="_blank" rel="noopener">Route mit Google Maps</a> · <a href={url('/kontakt/')}>Kontakt &amp; Karte</a></p>
+      </template>
+
+      <template data-chat-antwort="kontakt">
+        <p>Schreib uns am einfachsten über das <a href={url('/kontakt/')}>Kontaktformular</a> oder per E-Mail an <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>. Wir melden uns so schnell wie möglich.</p>
+      </template>
+    </div>
+  )
+}
+
+<script>
+  const wurzel = document.querySelector<HTMLElement>('[data-chat]');
+  if (wurzel) {
+    const webhook = wurzel.dataset.webhook ?? '';
+    const start = wurzel.querySelector<HTMLButtonElement>('[data-chat-start]')!;
+    const fenster = wurzel.querySelector<HTMLElement>('.chat__fenster')!;
+    const zu = wurzel.querySelector<HTMLButtonElement>('[data-chat-zu]')!;
+    const verlauf = wurzel.querySelector<HTMLElement>('[data-chat-verlauf]')!;
+    const form = wurzel.querySelector<HTMLFormElement>('[data-chat-form]')!;
+    const eingabe = wurzel.querySelector<HTMLTextAreaElement>('[data-chat-eingabe]')!;
+    const senden = wurzel.querySelector<HTMLButtonElement>('[data-chat-senden]')!;
+    const kontaktUrl = new URL('kontakt/', new URL(import.meta.env.BASE_URL, location.origin)).href;
+
+    // Nur im Arbeitsspeicher: neue Sitzung bei jedem Seitenaufruf
+    const sitzung =
+      typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2) + Date.now().toString(36);
+    let wartet = false;
+
+    const oeffnen = () => {
+      fenster.hidden = false;
+      start.setAttribute('aria-expanded', 'true');
+      wurzel.classList.add('chat--offen');
+      eingabe.focus();
+    };
+    const schliessen = () => {
+      fenster.hidden = true;
+      start.setAttribute('aria-expanded', 'false');
+      wurzel.classList.remove('chat--offen');
+      start.focus();
+    };
+    start.addEventListener('click', () => (fenster.hidden ? oeffnen() : schliessen()));
+    zu.addEventListener('click', schliessen);
+    fenster.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') schliessen();
+    });
+
+    const nachUnten = () => {
+      verlauf.scrollTop = verlauf.scrollHeight;
+    };
+    // Lange Antworten von ihrem Anfang an zeigen, nicht vom Ende
+    const zeigeAnfang = (el: HTMLElement) => {
+      verlauf.scrollTop = Math.max(0, el.offsetTop - 8);
+    };
+
+    const nachricht = (art: 'bot' | 'ich', inhalt: Node | string) => {
+      const el = document.createElement('div');
+      el.className = `chat__msg chat__msg--${art}`;
+      if (typeof inhalt === 'string') {
+        const p = document.createElement('p');
+        p.textContent = inhalt;
+        el.append(p);
+      } else {
+        el.append(inhalt);
+      }
+      verlauf.append(el);
+      nachUnten();
+      return el;
+    };
+
+    // Antwort der KI sicher darstellen: erst alles als Text, dann nur **fett**, Listen und Links
+    const formatieren = (text: string): DocumentFragment => {
+      const frag = document.createDocumentFragment();
+      const zeilen = text.replace(/\r/g, '').split('\n');
+      let liste: HTMLUListElement | null = null;
+      let absatz: HTMLParagraphElement | null = null;
+
+      const inline = (ziel: HTMLElement, s: string) => {
+        const muster = /(\*\*[^*]+\*\*)|(https?:\/\/[^\s<>()]+[^\s<>().,;:!?])|([\w.+-]+@[\w-]+\.[\w.-]*\w)/g;
+        let pos = 0;
+        for (const m of s.matchAll(muster)) {
+          if (m.index! > pos) ziel.append(s.slice(pos, m.index));
+          if (m[1]) {
+            const b = document.createElement('strong');
+            b.textContent = m[1].slice(2, -2);
+            ziel.append(b);
+          } else {
+            const a = document.createElement('a');
+            const istMail = Boolean(m[3]);
+            a.href = istMail ? `mailto:${m[3]}` : m[2];
+            a.textContent = istMail ? m[3] : m[2];
+            if (!istMail && !m[2].startsWith(location.origin)) {
+              a.target = '_blank';
+              a.rel = 'noopener';
+            }
+            ziel.append(a);
+          }
+          pos = m.index! + m[0].length;
+        }
+        if (pos < s.length) ziel.append(s.slice(pos));
+      };
+
+      for (const roh of zeilen) {
+        const zeile = roh.trim();
+        if (!zeile) {
+          liste = null;
+          absatz = null;
+          continue;
+        }
+        const punkt = zeile.match(/^[-•*]\s+(.*)$/);
+        if (punkt) {
+          absatz = null;
+          if (!liste) {
+            liste = document.createElement('ul');
+            frag.append(liste);
+          }
+          const li = document.createElement('li');
+          inline(li, punkt[1]);
+          liste.append(li);
+        } else {
+          liste = null;
+          if (absatz) absatz.append(document.createElement('br'));
+          else {
+            absatz = document.createElement('p');
+            frag.append(absatz);
+          }
+          inline(absatz, zeile);
+        }
+      }
+      return frag;
+    };
+
+    wurzel.querySelectorAll<HTMLButtonElement>('[data-chat-thema]').forEach((knopf) => {
+      knopf.addEventListener('click', () => {
+        const id = knopf.dataset.chatThema!;
+        const vorlage = wurzel.querySelector<HTMLTemplateElement>(`template[data-chat-antwort="${id}"]`);
+        if (!vorlage) return;
+        nachricht('ich', knopf.textContent ?? '');
+        zeigeAnfang(nachricht('bot', vorlage.content.cloneNode(true)));
+      });
+    });
+
+    const fehlerText = () => {
+      const frag = document.createDocumentFragment();
+      const p = document.createElement('p');
+      p.append('Ich bin gerade nicht erreichbar. Die Knöpfe oben funktionieren weiter, oder schreib uns über das ');
+      const a = document.createElement('a');
+      a.href = kontaktUrl;
+      a.textContent = 'Kontaktformular';
+      p.append(a, '.');
+      frag.append(p);
+      return frag;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const frage = eingabe.value.trim().slice(0, 500);
+      if (!frage || wartet || !webhook) return;
+      wartet = true;
+      senden.disabled = true;
+      eingabe.value = '';
+      eingabe.style.height = '';
+      nachricht('ich', frage);
+      const tippt = nachricht('bot', '…');
+      tippt.classList.add('chat__msg--tippt');
+      tippt.setAttribute('aria-label', 'Antwort wird geschrieben');
+
+      const abbruch = new AbortController();
+      const zeit = setTimeout(() => abbruch.abort(), 45000);
+      try {
+        const antwort = await fetch(webhook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'sendMessage', sessionId: sitzung, chatInput: frage }),
+          signal: abbruch.signal,
+          credentials: 'omit',
+          referrerPolicy: 'no-referrer',
+        });
+        if (!antwort.ok) throw new Error(String(antwort.status));
+        const daten = await antwort.json();
+        const text = typeof daten?.output === 'string' ? daten.output.trim() : '';
+        tippt.replaceChildren(text ? formatieren(text) : fehlerText());
+      } catch {
+        tippt.replaceChildren(fehlerText());
+      } finally {
+        clearTimeout(zeit);
+        tippt.classList.remove('chat__msg--tippt');
+        tippt.removeAttribute('aria-label');
+        zeigeAnfang(tippt);
+        wartet = false;
+        senden.disabled = false;
+        eingabe.focus();
+      }
+    });
+
+    // Enter schickt ab, Umschalt+Enter macht eine neue Zeile; Feld wächst mit
+    eingabe.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+    eingabe.addEventListener('input', () => {
+      eingabe.style.height = '';
+      eingabe.style.height = `${Math.min(eingabe.scrollHeight, 120)}px`;
+    });
+  }
+</script>
+
+<style is:global>
+  /* global, weil die Nachrichten per Skript entstehen und keine Astro-Scope-Attribute tragen; alle Klassen beginnen mit chat */
+  .chat {
+    position: fixed;
+    right: var(--gutter);
+    bottom: var(--gutter);
+    z-index: var(--z-chat);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-xs);
+    font-family: var(--font-body);
+    pointer-events: none; /* leere Fläche daneben blockiert keine Klicks */
+  }
+  .chat > * { pointer-events: auto; }
+
+  .chat__start {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: 12px 18px 12px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font: 600 var(--text-base) / 1 var(--font-body);
+    box-shadow: var(--shadow-pop);
+    cursor: pointer;
+    transition: background-color var(--dur-short) var(--ease-out), transform 100ms var(--ease-out);
+  }
+  .chat__start:hover { background: var(--color-ink); }
+  .chat__start:active { transform: translateY(1px); }
+  .chat__start:focus-visible { outline: 3px solid var(--color-accent-soft); outline-offset: 3px; }
+  .chat__icon { width: 24px; height: 24px; }
+  .chat--offen .chat__start { display: none; }
+
+  .chat__fenster {
+    width: min(400px, calc(100vw - 2 * var(--gutter)));
+    max-height: min(640px, calc(100dvh - 2 * var(--gutter)));
+    display: flex;
+    flex-direction: column;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    border: 1px solid var(--color-rule-strong);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-pop);
+    overflow: hidden;
+  }
+  .chat__fenster[hidden] { display: none; }
+
+  .chat__kopf {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-sm) var(--space-xs) var(--space-md);
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+  }
+  .chat__titel {
+    margin: 0;
+    font: 700 var(--text-base) / 1.2 var(--font-display);
+    color: var(--color-on-dark);
+  }
+  .chat__untertitel { margin: 2px 0 0; font-size: var(--text-xs); color: var(--color-on-dark-2); }
+  .chat__zu {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-on-dark);
+    cursor: pointer;
+  }
+  .chat__zu svg { width: 20px; height: 20px; }
+  .chat__zu:hover { background: var(--color-ink-raised); }
+  .chat__zu:focus-visible { outline: 2px solid var(--color-accent-soft); outline-offset: 1px; }
+
+  .chat__verlauf {
+    flex: 1 1 auto;
+    min-height: 120px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    position: relative; /* Bezug für offsetTop der Nachrichten */
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .chat__msg {
+    max-width: 88%;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+  .chat__msg p { margin: 0; }
+  .chat__msg :is(p, ul, ol) + :is(p, ul, ol) { margin-top: var(--space-2xs); }
+  .chat__msg :is(ul, ol) { margin: 0; padding-left: 1.2em; }
+  .chat__msg li + li { margin-top: 2px; }
+  .chat__msg--bot {
+    align-self: flex-start;
+    background: var(--color-paper-2);
+    border: 1px solid var(--color-rule);
+  }
+  .chat__msg--ich {
+    align-self: flex-end;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  .chat__msg--tippt { color: var(--color-ink-3); letter-spacing: 0.2em; }
+
+  .chat__themen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: var(--space-2xs) var(--space-md) var(--space-xs);
+    border-top: 1px solid var(--color-rule-soft);
+  }
+  .chat__thema {
+    padding: 7px 12px;
+    border: 1px solid var(--color-accent);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-accent);
+    font: 600 var(--text-xs) / 1.2 var(--font-body);
+    cursor: pointer;
+    transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .chat__thema:hover { background: var(--color-accent); color: var(--color-on-accent); }
+  }
+  .chat__thema:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+  .chat__form {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-2xs);
+    padding: var(--space-xs) var(--space-md) 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .chat__eingabe {
+    flex: 1 1 auto;
+    min-height: 44px;
+    max-height: 120px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-rule-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font: var(--text-base) / 1.4 var(--font-body); /* 17 px: kein Auto-Zoom auf dem iPhone */
+    resize: none;
+  }
+  .chat__eingabe:focus { outline: 2px solid var(--color-accent); outline-offset: 0; border-color: transparent; }
+  .chat__senden {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    cursor: pointer;
+  }
+  .chat__senden svg { width: 20px; height: 20px; }
+  .chat__senden:hover { background: var(--color-ink); }
+  .chat__senden:disabled { opacity: 0.55; cursor: progress; }
+  .chat__senden:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+  .chat__hinweis {
+    margin: 0;
+    padding: var(--space-2xs) var(--space-md) var(--space-sm);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    color: var(--color-ink-3);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 520px) {
+    .chat { right: 16px; bottom: 16px; left: 16px; }
+    .chat__fenster { width: 100%; max-height: calc(100dvh - 32px); }
+    .chat__start-text { display: none; }
+    .chat__start { padding: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chat__start, .chat__thema { transition: none; }
+  }
+</style>
