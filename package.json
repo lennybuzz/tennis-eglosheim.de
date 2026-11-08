@@ -15,6 +15,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/familjen-grotesk": "^5.3.0",
     "@fontsource-variable/source-sans-3": "^5.3.0",
+    "altcha": "^3.5.0",
     "astro": "^7.3.5"
   },
   "allowScripts": {
