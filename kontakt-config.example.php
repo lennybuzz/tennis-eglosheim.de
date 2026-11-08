@@ -18,6 +18,10 @@ return [
     'from'         => 'hello@tennis-eglosheim.de',             // Postfach, aus dem gesendet wird
     'to'           => ['hello@tennis-eglosheim.de'],           // Empfänger, mehrere möglich
 
+    // --- Spamschutz ALTCHA (optional) ---
+    // Eigener geheimer Schlüssel für die Rechenaufgaben. Ohne Eintrag wird er aus clientSecret bzw. pass abgeleitet.
+    // 'altchaSchluessel' => 'LANGER-ZUFALLSWERT',
+
     // --- Alternative: klassisches SMTP (andere Mail-Anbieter) ---
     // 'methode'  => 'smtp',
     // 'host'     => 'smtp.example.de',
