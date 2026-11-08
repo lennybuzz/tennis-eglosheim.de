@@ -4,6 +4,10 @@ import PageIntro from '../components/PageIntro.astro';
 import Rechtstext from '../components/Rechtstext.astro';
 import { kontakt } from '../lib/inhalte';
 import { url } from '../lib/url';
+
+// Chat-Assistent: n8n-Server (eigener Server bei Hetzner, Standard-Aufbewahrung von n8n: 14 Tage)
+const CHAT_SERVER = 'eigener Server bei der Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Standort Deutschland';
+const CHAT_FEHLER_FRIST = 'nach spätestens 14 Tagen automatisch';
 ---
 
 <BaseLayout title="Datenschutz" description="Datenschutzerklärung der Abteilung Tennis & Padel des SKV Eglosheim e. V.">
@@ -120,6 +124,39 @@ import { url } from '../lib/url';
       <a href="https://www.clubdesk.de/de/datenschutz">Datenschutzerklärung von ClubDesk</a>.
     </p>
 
+    <h2 id="chat">Chat-Assistent auf der Startseite</h2>
+    <p>
+      Auf der Startseite kannst du unten rechts einen Chat öffnen. Die Themen-Knöpfe im Chat beantwortet die Website
+      selbst; dabei werden keine Daten übertragen. Erst wenn du eine eigene Frage eintippst und abschickst, wird sie an
+      unseren Automatisierungsserver (Software n8n, {CHAT_SERVER}) übertragen. Dabei verarbeiten wir den Text deiner
+      Frage, eine zufällige Sitzungs-ID, die nur gilt, solange die Seite geöffnet ist, sowie technisch bedingt deine
+      IP-Adresse.
+    </p>
+    <p>
+      Der Server lässt die Frage von der KI Claude der Anthropic Ireland, Limited, 6th Floor, South Bank House, Barrow
+      Street, Dublin 4, Irland, beantworten. Dafür werden der Fragetext und der bisherige Gesprächsverlauf dieser Sitzung an
+      Anthropic übermittelt, nicht aber deine IP-Adresse. Anthropic verarbeitet die Daten als Auftragsverarbeiter nach
+      Art. 28 DSGVO, auch auf Servern in den USA. Grundlage dieser Übermittlung sind die Standardvertragsklauseln der
+      EU-Kommission (Art. 46 Abs. 2 lit. c DSGVO). Nach Angaben von Anthropic werden die Daten nicht zum Training der KI
+      verwendet und nach spätestens 30 Tagen gelöscht. Weitere Informationen:{' '}
+      <a href="https://www.anthropic.com/legal/privacy">Datenschutzhinweise von Anthropic</a>.
+    </p>
+    <p>
+      Den Gesprächsverlauf hält der Server nur im Arbeitsspeicher, um Rückfragen zu verstehen; er wird nicht dauerhaft
+      gespeichert und nicht mit anderen Daten zusammengeführt. Zum Schutz vor Missbrauch zählen wir, wie viele Fragen pro
+      Stunde und Tag gestellt werden. Dafür speichern wir statt deiner IP-Adresse nur einen Prüfwert, der aus IP-Adresse und
+      Datum berechnet wird und keinen Rückschluss auf die IP-Adresse zulässt; er wird am Folgetag gelöscht. Erfolgreich
+      beantwortete Fragen werden auf dem Server nicht protokolliert, nur bei technischen Fehlern wird der Ablauf
+      einschließlich der Frage zur Fehlersuche gespeichert und {CHAT_FEHLER_FRIST} gelöscht.
+    </p>
+    <p>
+      Bitte gib im Chat keine persönlichen Daten wie Namen, Adressen oder Telefonnummern ein. Die Nutzung ist freiwillig;
+      für Anliegen an den Verein nutze bitte das <a href={url('/kontakt/')}>Kontaktformular</a>. Rechtsgrundlage ist
+      Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse liegt darin, Fragen zu Anlage, Buchung und Mitgliedschaft
+      schnell zu beantworten. Im Browser wird für den Chat nichts gespeichert. Die Antworten erzeugt eine KI und können
+      Fehler enthalten; verbindlich sind die Angaben auf dieser Website.
+    </p>
+
     <h2>Links zu anderen Angeboten</h2>
     <p>
       Unsere Website verlinkt auf andere Angebote, zum Beispiel die Platzbuchung bei eBuSy, unseren Instagram-Kanal, die
@@ -154,6 +191,6 @@ import { url } from '../lib/url';
       Wir passen diese Datenschutzerklärung an, wenn sich die Website oder die eingesetzten Dienste ändern. Es gilt die
       jeweils hier veröffentlichte Fassung.
     </p>
-    <p class="stark">Stand: September 2026</p>
+    <p class="stark">Stand: November 2026</p>
   </Rechtstext>
 </BaseLayout>

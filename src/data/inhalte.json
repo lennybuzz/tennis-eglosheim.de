@@ -520,5 +520,10 @@
     "clubdeskAnmeldung": "https://tennis-eglosheim.clubdesk.com/anmeldung",
     "hauptverein": "https://skv-eglosheim.de/",
     "googleMaps": "https://maps.app.goo.gl/urTaxMG4hvjTtFaU6"
+  },
+  "chat": {
+    "_hinweis": "Chat-Assistent unten rechts auf der Startseite. aktiv: false blendet ihn ganz aus. webhook ist die Production-URL des n8n-Workflows „TA SKV Eglosheim Website-Chat“. Die Knöpfe beantwortet die Website selbst aus diesen Inhalten; nur freie Fragen gehen an n8n.",
+    "aktiv": true,
+    "webhook": "https://flow.base.flie.tel/webhook/skv-website-chat"
   }
 }
